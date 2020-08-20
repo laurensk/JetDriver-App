@@ -10,12 +10,8 @@ import Theme from './Theme';
 const ModalStack = createStackNavigator();
 function JetDriverModalStack() {
   return (
-    <ModalStack.Navigator mode="modal">
-      <ModalStack.Screen
-        name="Main"
-        component={Home}
-        options={{headerTitle: 'JetDriver'}}
-      />
+    <ModalStack.Navigator>
+      <ModalStack.Screen name="Main" component={Home} />
       <ModalStack.Screen
         name="Login"
         component={Login}
@@ -32,11 +28,18 @@ function JetDriverNavigationStack() {
       <NavigationStack.Screen
         name="ModalStack"
         component={JetDriverModalStack}
+        options={{
+          headerTitle: 'JetDriver',
+          headerStyle: {borderBottomWidth: 0.4},
+        }}
       />
       <NavigationStack.Screen
         name="CreateEntry"
         component={CreateEntry}
-        options={{headerTitle: 'Fahrt eintragen'}}
+        options={{
+          headerTitle: 'Fahrt eintragen',
+          headerStyle: {borderBottomWidth: 0.4},
+        }}
       />
     </NavigationStack.Navigator>
   );

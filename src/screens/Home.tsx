@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
 
 interface PropsType {
@@ -18,7 +18,7 @@ class Home extends React.Component<PropsType, StateType> {
     const {} = this.props;
 
     return (
-      <View>
+      <View style={{flex: 1, backgroundColor: 'white'}}>
         <Text>Home</Text>
       </View>
     );
