@@ -45,8 +45,8 @@ function JetDriverNavigationStack() {
         component={JetDriverModalStack}
         options={{
           headerTitle: 'JetDriver',
-          headerStyle: headerStyle,
-          headerTitleStyle: headerTitleStyle,
+          headerStyle: headerStyle(),
+          headerTitleStyle: headerTitleStyle(),
         }}
       />
       <NavigationStack.Screen
@@ -54,8 +54,8 @@ function JetDriverNavigationStack() {
         component={CreateEntry}
         options={{
           headerTitle: 'Fahrt eintragen',
-          headerStyle: headerStyle,
-          headerTitleStyle: headerTitleStyle,
+          headerStyle: headerStyle(),
+          headerTitleStyle: headerTitleStyle(),
         }}
       />
     </NavigationStack.Navigator>
