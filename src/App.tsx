@@ -5,7 +5,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import Login from './screens/Login';
 import Home from './screens/Home';
 import CreateEntry from './screens/CreateEntry';
-import Theme from './theme';
+import Theme from './Theme';
 
 const ModalStack = createStackNavigator();
 function JetDriverModalStack() {
