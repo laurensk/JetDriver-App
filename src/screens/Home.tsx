@@ -1,8 +1,10 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
+import AppContext from '../AppContext';
 
 interface PropsType {
+  theme: {[k: string]: string};
   navigation: NavigationScreenProp<any, any>;
 }
 
@@ -15,14 +17,14 @@ class Home extends React.Component<PropsType, StateType> {
   }
 
   render() {
-    const {} = this.props;
+    const {theme, navigation} = this.props;
 
     return (
-      <View style={{flex: 1, backgroundColor: 'white'}}>
+      <View style={{flex: 1, backgroundColor: theme.backgroundColor}}>
         <Text>Home</Text>
       </View>
     );
   }
 }
 
-export default Home;
+export default AppContext(Home);

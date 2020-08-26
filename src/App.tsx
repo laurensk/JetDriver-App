@@ -1,11 +1,10 @@
 import React from 'react';
-import {Appearance} from 'react-native';
+import {useColorScheme} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import Login from './screens/Login';
 import Home from './screens/Home';
 import CreateEntry from './screens/CreateEntry';
-import Theme from './Theme';
 import {
   darkNavigationHeaderStyle,
   lightNavigationHeaderStyle,
@@ -29,12 +28,12 @@ function JetDriverModalStack() {
 const NavigationStack = createStackNavigator();
 function JetDriverNavigationStack() {
   const headerStyle =
-    Appearance.getColorScheme() === 'dark'
+    useColorScheme() === 'dark'
       ? darkNavigationHeaderStyle
       : lightNavigationHeaderStyle;
 
   const headerTitleStyle =
-    Appearance.getColorScheme() === 'dark'
+    useColorScheme() === 'dark'
       ? darkNavigationTitleStyle
       : lightNavigationHeaderStyle;
 
@@ -62,8 +61,10 @@ function JetDriverNavigationStack() {
   );
 }
 
-export default () => (
-  <NavigationContainer theme={Theme}>
-    <JetDriverNavigationStack></JetDriverNavigationStack>
-  </NavigationContainer>
-);
+export default () => {
+  return (
+    <NavigationContainer>
+      <JetDriverNavigationStack></JetDriverNavigationStack>
+    </NavigationContainer>
+  );
+};
