@@ -15,8 +15,8 @@ export const darkNavigationHeaderTheme = () => {
     ? undefined
     : {
         backgroundColor: '#121212',
-        borderBottomColor: '#000000', // #202020 #1A1B1B
-        borderBottomWidth: undefined,
+        borderBottomColor: '#1A1B1B', // #202020 #1A1B1B
+        borderBottomWidth: 0.4,
       };
 };
 
