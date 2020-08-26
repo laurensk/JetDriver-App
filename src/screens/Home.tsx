@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, ColorSchemeName} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
-import AppContext from '../AppContext';
+import AppContext from '../utils/AppContext';
 
 interface PropsType {
   theme: {[k: string]: string};

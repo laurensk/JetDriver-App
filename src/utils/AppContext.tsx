@@ -1,5 +1,5 @@
 import React from 'react';
-import {DefaultThemeContext, DarkThemeContext} from './Theme';
+import {DefaultThemeContext, DarkThemeContext} from './AppTheme';
 import {useColorScheme} from 'react-native';
 
 export default (Component: any) => {
