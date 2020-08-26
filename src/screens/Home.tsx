@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, ColorSchemeName} from 'react-native';
+import {View, Text, StyleSheet, ColorSchemeName, Button} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
 import AppContext from '../utils/AppContext';
 
@@ -9,12 +9,23 @@ interface PropsType {
   navigation: NavigationScreenProp<any, any>;
 }
 
-interface StateType {}
+interface StateType {
+  listOfNumbers: Number[];
+}
 
 class Home extends React.Component<PropsType, StateType> {
   constructor(props: PropsType) {
     super(props);
-    this.state = {};
+    this.state = {
+      listOfNumbers: [],
+    };
+  }
+
+  componentDidMount() {
+    // do data fetching
+    this.setState({
+      listOfNumbers: [1, 2, 3, 4],
+    });
   }
 
   render() {
@@ -25,9 +36,17 @@ class Home extends React.Component<PropsType, StateType> {
         <Text style={{color: colorScheme == 'dark' ? 'white' : 'black'}}>
           {colorScheme}
         </Text>
+        <Text>{this.state.listOfNumbers.toString()}</Text>
+        <Button title="add some values" onPress={this.onButtonPress}></Button>
       </View>
     );
   }
+
+  onButtonPress = () => {
+    this.setState((state) => ({
+      listOfNumbers: this.state.listOfNumbers.concat([5, 6, 7, 8]),
+    }));
+  };
 }
 
 export default AppContext(Home);
