@@ -1,6 +1,6 @@
 import {Platform} from 'react-native';
 
-export const lightNavigationHeaderStyle = () => {
+export const lightNavigationHeaderTheme = () => {
   return Platform.OS != 'ios'
     ? undefined
     : {
@@ -10,7 +10,7 @@ export const lightNavigationHeaderStyle = () => {
       };
 };
 
-export const darkNavigationHeaderStyle = () => {
+export const darkNavigationHeaderTheme = () => {
   return Platform.OS != 'ios'
     ? undefined
     : {
@@ -20,7 +20,7 @@ export const darkNavigationHeaderStyle = () => {
       };
 };
 
-export const lightNavigationTitleStyle = () => {
+export const lightNavigationTitleTheme = () => {
   return Platform.OS != 'ios'
     ? undefined
     : {
@@ -28,7 +28,7 @@ export const lightNavigationTitleStyle = () => {
       };
 };
 
-export const darkNavigationTitleStyle = () => {
+export const darkNavigationTitleTheme = () => {
   return Platform.OS != 'ios'
     ? undefined
     : {
