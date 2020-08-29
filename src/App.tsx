@@ -5,12 +5,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import Login from './screens/Login';
 import Home from './screens/Home';
 import CreateEntry from './screens/CreateEntry';
-import {
-  darkNavigationHeaderTheme,
-  lightNavigationHeaderTheme,
-  darkNavigationTitleTheme,
-  lightNavigationTitleTheme,
-} from './toolbox/NavigationTheme';
+import {NavigationTheme} from './toolbox/NavigationTheme';
 
 const ModalStack = createStackNavigator();
 function JetDriverModalStack() {
@@ -30,13 +25,13 @@ const NavigationStack = createStackNavigator();
 function JetDriverNavigationStack() {
   const headerTheme =
     useColorScheme() === 'dark'
-      ? darkNavigationHeaderTheme
-      : lightNavigationHeaderTheme;
+      ? NavigationTheme.darkNavigationHeaderTheme()
+      : NavigationTheme.lightNavigationHeaderTheme();
 
   const headerTitleTheme =
     useColorScheme() === 'dark'
-      ? darkNavigationTitleTheme
-      : lightNavigationHeaderTheme;
+      ? NavigationTheme.darkNavigationTitleTheme()
+      : NavigationTheme.lightNavigationHeaderTheme();
 
   return (
     <NavigationStack.Navigator>
@@ -45,8 +40,8 @@ function JetDriverNavigationStack() {
         component={JetDriverModalStack}
         options={{
           headerTitle: 'JetDriver',
-          headerStyle: headerTheme(),
-          headerTitleStyle: headerTitleTheme(),
+          headerStyle: headerTheme,
+          headerTitleStyle: headerTitleTheme,
         }}
       />
       <NavigationStack.Screen
@@ -54,8 +49,8 @@ function JetDriverNavigationStack() {
         component={CreateEntry}
         options={{
           headerTitle: 'Fahrt eintragen',
-          headerStyle: headerTheme(),
-          headerTitleStyle: headerTitleTheme(),
+          headerStyle: headerTheme,
+          headerTitleStyle: headerTitleTheme,
         }}
       />
     </NavigationStack.Navigator>
