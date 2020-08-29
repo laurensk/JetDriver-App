@@ -1,7 +1,8 @@
 import React from 'react';
-import {View, Text, StyleSheet, ColorSchemeName, Button} from 'react-native';
+import {View, ColorSchemeName, Image, Text, Button} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
 import AppContext from '../utils/AppContext';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 interface PropsType {
   theme: {[k: string]: string};
@@ -9,44 +10,94 @@ interface PropsType {
   navigation: NavigationScreenProp<any, any>;
 }
 
-interface StateType {
-  listOfNumbers: Number[];
-}
+interface StateType {}
 
 class Home extends React.Component<PropsType, StateType> {
   constructor(props: PropsType) {
     super(props);
-    this.state = {
-      listOfNumbers: [],
-    };
-  }
-
-  componentDidMount() {
-    // do data fetching
-    this.setState({
-      listOfNumbers: [1, 2, 3, 4],
-    });
   }
 
   render() {
     const {theme, colorScheme, navigation} = this.props;
 
     return (
-      <View style={{flex: 1, backgroundColor: theme.backgroundColor}}>
-        <Text style={{color: colorScheme == 'dark' ? 'white' : 'black'}}>
-          {colorScheme}
-        </Text>
-        <Text>{this.state.listOfNumbers.toString()}</Text>
-        <Button title="add some values" onPress={this.onButtonPress}></Button>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: theme.backgroundColor,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <Image
+          source={require('../assets/jetdriver_logo.png')}
+          resizeMode={'contain'}
+          style={{width: 250, height: 100}}></Image>
+        <View>
+          <Text>Gute Fahrt, Laurens</Text>
+        </View>
+        <TouchableOpacity>
+          <View
+            style={{
+              backgroundColor: 'lightblue',
+              height: 50,
+              flexDirection: 'row',
+            }}>
+            <Text>🚘 </Text>
+            <Text>Fahrt eintragen</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <View
+            style={{
+              backgroundColor: 'lightblue',
+              height: 50,
+              flexDirection: 'row',
+            }}>
+            <Text>🚘 </Text>
+            <Text>Fahrtenprotokoll anzeigen</Text>
+          </View>
+        </TouchableOpacity>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity>
+            <View
+              style={{
+                backgroundColor: 'lightblue',
+                height: 50,
+                flexDirection: 'row',
+              }}>
+              <Text>🚘 </Text>
+              <Text>Autos verwalten</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <View
+              style={{
+                backgroundColor: 'lightblue',
+                height: 50,
+                flexDirection: 'row',
+              }}>
+              <Text>🚘 </Text>
+              <Text>Begleiter verwalten</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity>
+            <Text>Über JetDriver</Text>
+          </TouchableOpacity>
+          <Text>•</Text>
+          <TouchableOpacity>
+            <Text>Kontakt</Text>
+          </TouchableOpacity>
+        </View>
+        <View>
+          <TouchableOpacity>
+            <Text>Abmelden</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
-
-  onButtonPress = () => {
-    this.setState((state) => ({
-      listOfNumbers: this.state.listOfNumbers.concat([5, 6, 7, 8]),
-    }));
-  };
 }
 
 export default AppContext(Home);
