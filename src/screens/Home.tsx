@@ -5,6 +5,7 @@ import AppContext from '../utils/AppContext';
 import {Button, Icon} from 'react-native-elements';
 import {AccountUtils} from '../utils/AccountUtils';
 import {Account} from '../models/Account';
+import {QuickDriveUtils} from '../utils/QuickDriveUtils';
 
 interface PropsType {
   theme: {[k: string]: string};
@@ -14,6 +15,7 @@ interface PropsType {
 
 interface StateType {
   account: Account;
+  quickDriveStatus: boolean;
 }
 
 class Home extends React.Component<PropsType, StateType> {
@@ -21,6 +23,7 @@ class Home extends React.Component<PropsType, StateType> {
     super(props);
     this.state = {
       account: new Account('', '', '', ''),
+      quickDriveStatus: false,
     };
   }
 
@@ -87,6 +90,7 @@ class Home extends React.Component<PropsType, StateType> {
             title="Eintragen"
           />
           <Button
+            onPress={() => QuickDriveUtils.startQuickDrive()}
             style={{paddingHorizontal: 3}}
             buttonStyle={{width: 190, height: 50}}
             icon={
@@ -160,6 +164,27 @@ class Home extends React.Component<PropsType, StateType> {
         />
       </View>
     );
+  }
+
+  async checkQuickDriveStatus() {
+    this.setState({
+      quickDriveStatus: await QuickDriveUtils.checkForQuickDrive(),
+    });
+  }
+
+  async toggleQuickDrive() {
+    if (QuickDriveUtils.checkForQuickDrive()) {
+      this.checkQuickDriveStatus();
+      QuickDriveUtils.stopQuickDrive(
+        (startDate, endDate, startMileage, endMileage) => {
+          // navigate to create entry with props
+        },
+      );
+    } else {
+      QuickDriveUtils.startQuickDrive(() => {
+        this.checkQuickDriveStatus();
+      });
+    }
   }
 }
 
