@@ -32,14 +32,37 @@ class Home extends React.Component<PropsType, StateType> {
         <Image
           source={require('../assets/jetdriver_logo.png')}
           resizeMode={'contain'}
-          style={{width: 250, height: 100}}></Image>
+          style={{width: 250, height: 150}}></Image>
+        <View style={{paddingTop: 100}}></View>
         <View>
-          <Text>Gute Fahrt, Laurens</Text>
+          <Text
+            style={{
+              fontSize: 20,
+              color: '#2089DC',
+              fontFamily: 'Arial Rounded MT Bold',
+            }}>
+            Gute Fahrt, Laurens Kropf
+          </Text>
         </View>
+        <View style={{paddingTop: 25}}></View>
         <View style={{flexDirection: 'row'}}>
           <Button
             style={{paddingHorizontal: 3}}
-            buttonStyle={{width: 180, height: 50}}
+            buttonStyle={{width: 190, height: 50}}
+            icon={
+              <Icon
+                style={{paddingRight: 10}}
+                name="database-plus"
+                type="material-community"
+                size={25}
+                color="white"
+              />
+            }
+            title="Eintragen"
+          />
+          <Button
+            style={{paddingHorizontal: 3}}
+            buttonStyle={{width: 190, height: 50}}
             icon={
               <Icon
                 style={{paddingRight: 10}}
@@ -50,20 +73,6 @@ class Home extends React.Component<PropsType, StateType> {
               />
             }
             title="Fahrt starten"
-          />
-          <Button
-            style={{paddingHorizontal: 3}}
-            buttonStyle={{width: 200, height: 50}}
-            icon={
-              <Icon
-                style={{paddingRight: 10}}
-                name="database-plus"
-                type="material-community"
-                size={25}
-                color="white"
-              />
-            }
-            title="Fahrt eintragen"
           />
         </View>
         <Button
@@ -85,7 +94,7 @@ class Home extends React.Component<PropsType, StateType> {
           <Button
             type="outline"
             style={{paddingHorizontal: 3}}
-            buttonStyle={{width: 180, height: 50}}
+            buttonStyle={{width: 190, height: 50}}
             icon={
               <Icon
                 style={{paddingRight: 10}}
@@ -100,7 +109,7 @@ class Home extends React.Component<PropsType, StateType> {
           <Button
             type="outline"
             style={{paddingHorizontal: 3}}
-            buttonStyle={{width: 200, height: 50}}
+            buttonStyle={{width: 190, height: 50}}
             icon={
               <Icon
                 style={{paddingRight: 10}}
@@ -113,20 +122,16 @@ class Home extends React.Component<PropsType, StateType> {
             title="Begleiter"
           />
         </View>
+        <View style={{paddingTop: 100}}></View>
         <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity>
-            <Text>Über JetDriver</Text>
-          </TouchableOpacity>
-          <Text>•</Text>
-          <TouchableOpacity>
-            <Text>Kontakt</Text>
-          </TouchableOpacity>
+          <Button title="Über JetDriver" type="clear" />
+          <Button title="Kontakt" type="clear" />
         </View>
-        <View>
-          <TouchableOpacity>
-            <Text>Abmelden</Text>
-          </TouchableOpacity>
-        </View>
+        <Button
+          title="Abmelden"
+          type="clear"
+          titleStyle={{fontWeight: '600'}}
+        />
       </View>
     );
   }
