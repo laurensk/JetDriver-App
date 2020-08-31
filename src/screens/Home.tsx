@@ -2,8 +2,8 @@ import React from 'react';
 import {View, ColorSchemeName, Image, Text} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
 import AppContext from '../utils/AppContext';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Button, Icon} from 'react-native-elements';
+import {AccountUtils} from '../utils/AccountUtils';
 
 interface PropsType {
   theme: {[k: string]: string};
@@ -16,6 +16,13 @@ interface StateType {}
 class Home extends React.Component<PropsType, StateType> {
   constructor(props: PropsType) {
     super(props);
+  }
+
+  async componentDidMount() {
+    const {navigation} = this.props;
+    if (!(await AccountUtils.isLoggedIn())) {
+      navigation.navigate('Login');
+    }
   }
 
   render() {

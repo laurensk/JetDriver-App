@@ -18,8 +18,9 @@ class Login extends React.Component<PropsType, StateType> {
     const {} = this.props;
 
     return (
-      <View>
-        <Text>Login</Text>
+      <View style={{flex: 1, backgroundColor: 'white'}}>
+        <Text>Login to JetDriver</Text>
+        <Text>We never sell your data</Text>
       </View>
     );
   }

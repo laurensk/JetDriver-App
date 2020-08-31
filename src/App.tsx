@@ -9,13 +9,37 @@ import {NavigationTheme} from './toolbox/NavigationTheme';
 
 const ModalStack = createStackNavigator();
 function JetDriverModalStack() {
+  const headerTheme =
+    useColorScheme() === 'dark'
+      ? NavigationTheme.darkNavigationHeaderTheme()
+      : NavigationTheme.lightNavigationHeaderTheme();
+
+  const headerTitleTheme =
+    useColorScheme() === 'dark'
+      ? NavigationTheme.darkNavigationTitleTheme()
+      : NavigationTheme.lightNavigationHeaderTheme();
+
   return (
     <ModalStack.Navigator mode="modal">
-      <ModalStack.Screen name="Main" component={Home} />
+      <ModalStack.Screen
+        name="Main"
+        component={Home}
+        options={{
+          headerTitle: 'JetDriver',
+          headerStyle: headerTheme,
+          headerTitleStyle: headerTitleTheme,
+        }}
+      />
       <ModalStack.Screen
         name="Login"
         component={Login}
-        options={{headerShown: false}}
+        options={{
+          headerLeft: () => null,
+          gestureEnabled: false,
+          headerTitle: 'Welcome to JetDriver',
+          headerStyle: headerTheme,
+          headerTitleStyle: headerTitleTheme,
+        }}
       />
     </ModalStack.Navigator>
   );
@@ -39,9 +63,10 @@ function JetDriverNavigationStack() {
         name="ModalStack"
         component={JetDriverModalStack}
         options={{
-          headerTitle: 'JetDriver',
-          headerStyle: headerTheme,
-          headerTitleStyle: headerTitleTheme,
+          headerShown: false,
+          // headerTitle: 'JetDriver',
+          // headerStyle: headerTheme,
+          // headerTitleStyle: headerTitleTheme,
         }}
       />
       <NavigationStack.Screen
