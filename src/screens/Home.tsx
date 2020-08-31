@@ -1,8 +1,9 @@
 import React from 'react';
-import {View, ColorSchemeName, Image, Text, Button} from 'react-native';
+import {View, ColorSchemeName, Image, Text} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
 import AppContext from '../utils/AppContext';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {Button, Icon} from 'react-native-elements';
 
 interface PropsType {
   theme: {[k: string]: string};
@@ -35,51 +36,82 @@ class Home extends React.Component<PropsType, StateType> {
         <View>
           <Text>Gute Fahrt, Laurens</Text>
         </View>
-        <TouchableOpacity>
-          <View
-            style={{
-              backgroundColor: 'lightblue',
-              height: 50,
-              flexDirection: 'row',
-            }}>
-            <Text>🚘 </Text>
-            <Text>Fahrt eintragen</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <View
-            style={{
-              backgroundColor: 'lightblue',
-              height: 50,
-              flexDirection: 'row',
-            }}>
-            <Text>🚘 </Text>
-            <Text>Fahrtenprotokoll anzeigen</Text>
-          </View>
-        </TouchableOpacity>
         <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity>
-            <View
-              style={{
-                backgroundColor: 'lightblue',
-                height: 50,
-                flexDirection: 'row',
-              }}>
-              <Text>🚘 </Text>
-              <Text>Autos verwalten</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <View
-              style={{
-                backgroundColor: 'lightblue',
-                height: 50,
-                flexDirection: 'row',
-              }}>
-              <Text>🚘 </Text>
-              <Text>Begleiter verwalten</Text>
-            </View>
-          </TouchableOpacity>
+          <Button
+            style={{paddingHorizontal: 3}}
+            buttonStyle={{width: 180, height: 50}}
+            icon={
+              <Icon
+                style={{paddingRight: 10}}
+                name="car"
+                type="material-community"
+                size={25}
+                color="white"
+              />
+            }
+            title="Fahrt starten"
+          />
+          <Button
+            style={{paddingHorizontal: 3}}
+            buttonStyle={{width: 200, height: 50}}
+            icon={
+              <Icon
+                style={{paddingRight: 10}}
+                name="database-plus"
+                type="material-community"
+                size={25}
+                color="white"
+              />
+            }
+            title="Fahrt eintragen"
+          />
+        </View>
+        <Button
+          type="outline"
+          style={{paddingTop: 10, paddingHorizontal: 3}}
+          buttonStyle={{width: 386, height: 50}}
+          icon={
+            <Icon
+              style={{paddingRight: 10}}
+              name="format-list-bulleted"
+              type="material-community"
+              size={25}
+              color="#2089DC"
+            />
+          }
+          title="Fahrtenprotoll anzeigen"
+        />
+        <View style={{flexDirection: 'row', paddingTop: 10}}>
+          <Button
+            type="outline"
+            style={{paddingHorizontal: 3}}
+            buttonStyle={{width: 180, height: 50}}
+            icon={
+              <Icon
+                style={{paddingRight: 10}}
+                name="car"
+                type="material-community"
+                size={25}
+                color="#2089DC"
+              />
+            }
+            title="Autos"
+          />
+          <Button
+            type="outline"
+            style={{paddingHorizontal: 3}}
+            buttonStyle={{width: 200, height: 50}}
+            icon={
+              <Icon
+                style={{paddingRight: 10}}
+                name="account-group"
+                type="material-community"
+                size={25}
+                color="#2089DC"
+              />
+            }
+            title="Begleiter"
+          />
         </View>
         <View style={{flexDirection: 'row'}}>
           <TouchableOpacity>
