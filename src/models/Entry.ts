@@ -1,4 +1,4 @@
-interface Entry {
+export interface Entry {
   uuid: string;
   date: Date;
   startMileage: number;
@@ -10,5 +10,3 @@ interface Entry {
   companion: null;
   user: null;
 }
-
-export default Entry;

@@ -10,7 +10,7 @@ import {NavigationTheme} from './toolbox/NavigationTheme';
 const ModalStack = createStackNavigator();
 function JetDriverModalStack() {
   return (
-    <ModalStack.Navigator>
+    <ModalStack.Navigator mode="modal">
       <ModalStack.Screen name="Main" component={Home} />
       <ModalStack.Screen
         name="Login"
