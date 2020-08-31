@@ -4,6 +4,7 @@ import {NavigationScreenProp} from 'react-navigation';
 import AppContext from '../utils/AppContext';
 import {Button, Icon} from 'react-native-elements';
 import {AccountUtils} from '../utils/AccountUtils';
+import {Account} from '../models/Account';
 
 interface PropsType {
   theme: {[k: string]: string};
@@ -11,18 +12,35 @@ interface PropsType {
   navigation: NavigationScreenProp<any, any>;
 }
 
-interface StateType {}
+interface StateType {
+  account: Account;
+}
 
 class Home extends React.Component<PropsType, StateType> {
   constructor(props: PropsType) {
     super(props);
+    this.state = {
+      account: new Account('', '', '', ''),
+    };
   }
 
   async componentDidMount() {
-    const {navigation} = this.props;
-    if (!(await AccountUtils.isLoggedIn())) {
-      navigation.navigate('Login');
+    await AccountUtils.setUser(
+      '1bdeff56-6ffb-44eb-b995-67727d9ae9cb',
+      'lk@laurensk.at',
+      'Laurens Kropf',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiMWJkZWZmNTYtNmZmYi00NGViLWI5OTUtNjc3MjdkOWFlOWNiIiwiaWF0IjoxNTk4ODE0ODU5fQ.SawJ_uBOqKJyHz2cmEEjC-rDtzDJy2ZqX6YZ46Wko0c',
+    );
+    const account = await AccountUtils.getUser();
+    if (account != null) {
+      this.setState({
+        account: account,
+      });
     }
+    // const {navigation} = this.props;
+    // if (!(await AccountUtils.isLoggedIn())) {
+    //   navigation.navigate('Login');
+    // }
   }
 
   render() {
@@ -42,13 +60,14 @@ class Home extends React.Component<PropsType, StateType> {
           style={{width: 250, height: 150}}></Image>
         <View style={{paddingTop: 100}}></View>
         <View>
+          {}
           <Text
             style={{
               fontSize: 20,
               color: '#2089DC',
               fontFamily: 'Arial Rounded MT Bold',
             }}>
-            Gute Fahrt, Laurens Kropf
+            Gute Fahrt, {this.state.account.name || 'Nutzer'}
           </Text>
         </View>
         <View style={{paddingTop: 25}}></View>
