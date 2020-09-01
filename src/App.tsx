@@ -6,6 +6,7 @@ import Login from './screens/Login';
 import Home from './screens/Home';
 import CreateEntry from './screens/CreateEntry';
 import {NavigationTheme} from './toolbox/NavigationTheme';
+import SplashScreen from 'react-native-splash-screen';
 
 const ModalStack = createStackNavigator();
 function JetDriverModalStack() {
@@ -64,9 +65,6 @@ function JetDriverNavigationStack() {
         component={JetDriverModalStack}
         options={{
           headerShown: false,
-          // headerTitle: 'JetDriver',
-          // headerStyle: headerTheme,
-          // headerTitleStyle: headerTitleTheme,
         }}
       />
       <NavigationStack.Screen
@@ -83,6 +81,7 @@ function JetDriverNavigationStack() {
 }
 
 export default () => {
+  SplashScreen.hide();
   return (
     <NavigationContainer>
       <JetDriverNavigationStack></JetDriverNavigationStack>
