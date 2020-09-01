@@ -1,27 +1,44 @@
 import React from 'react';
-import {View, TextInput, Text, Button} from 'react-native';
+import {
+  View,
+  TextInput,
+  Text,
+  Button,
+  ColorSchemeName,
+  Modal,
+  StatusBar,
+} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
 import {ApiService} from '../api/ApiService';
+import AppContext from '../utils/AppContext';
+import {Header} from 'react-native-elements';
 
 interface PropsType {
   navigation: NavigationScreenProp<any, any>;
+  theme: {[k: string]: string};
+  colorScheme: ColorSchemeName;
   startMileage: number;
   startDate: Date;
   endMileage: number;
   endDate: Date;
 }
 
-interface StateType {}
+interface StateType {
+  showModal: boolean;
+}
 
 class CreateEntry extends React.Component<PropsType, StateType> {
   apiService = new ApiService();
 
   constructor(props: PropsType) {
     super(props);
-    this.state = {};
+    this.state = {
+      showModal: false,
+    };
   }
 
   render() {
+    const {theme, colorScheme, navigation} = this.props;
     const {startMileage, startDate, endMileage, endDate} = this.props;
 
     const carId = '7d05ef86-68de-4abf-96d0-a2090edbf707';
@@ -32,7 +49,33 @@ class CreateEntry extends React.Component<PropsType, StateType> {
     let dayTimeId = '';
 
     return (
-      <View>
+      <View style={{flex: 1, backgroundColor: theme.backgroundColor}}>
+        <Modal
+          animationType="slide"
+          visible={this.state.showModal}
+          presentationStyle={'pageSheet'}>
+          <View
+            style={{
+              flex: 1,
+              paddingTop: 100,
+            }}>
+            <Text>modal</Text>
+            <Button
+              title={'hide model'}
+              onPress={() => {
+                StatusBar.setBarStyle('dark-content');
+                this.setState({showModal: false});
+              }}></Button>
+          </View>
+        </Modal>
+
+        <Button
+          title={'show modal'}
+          onPress={() => {
+            StatusBar.setBarStyle('light-content');
+            this.setState({showModal: true});
+          }}></Button>
+
         <Text>routeDest</Text>
         <TextInput
           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
@@ -79,4 +122,4 @@ class CreateEntry extends React.Component<PropsType, StateType> {
   }
 }
 
-export default CreateEntry;
+export default AppContext(CreateEntry);

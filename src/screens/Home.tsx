@@ -9,9 +9,9 @@ import {QuickDriveUtils} from '../utils/QuickDriveUtils';
 import AsyncStorage from '@react-native-community/async-storage';
 
 interface PropsType {
+  navigation: NavigationScreenProp<any, any>;
   theme: {[k: string]: string};
   colorScheme: ColorSchemeName;
-  navigation: NavigationScreenProp<any, any>;
 }
 
 interface StateType {
@@ -90,6 +90,9 @@ class Home extends React.Component<PropsType, StateType> {
               />
             }
             title="Eintragen"
+            onPress={() => {
+              this.props.navigation.navigate('CreateEntry');
+            }}
           />
           <Button
             onPress={() => this.toggleQuickDrive()}
