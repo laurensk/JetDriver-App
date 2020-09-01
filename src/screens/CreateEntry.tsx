@@ -28,8 +28,8 @@ class CreateEntry extends React.Component<PropsType, StateType> {
     const companionId = 'f0db7f18-65e6-4bdc-8b5b-cfcc804f50af';
     const roadConditionId = 1;
 
-    let dayTimeId = '';
     let routeDest = '';
+    let dayTimeId = '';
 
     return (
       <View>
@@ -51,15 +51,31 @@ class CreateEntry extends React.Component<PropsType, StateType> {
         <Text>('4', 'AFTERNOON');</Text>
         <Text>('5', 'EVENING');</Text>
         <Text>('6', 'NIGHT');</Text>
-        <Button title={'Safe'} onPress={() => {}}></Button>
+        <Button
+          title={'Safe'}
+          onPress={() =>
+            this.createEntry(routeDest, Number(dayTimeId))
+          }></Button>
       </View>
     );
   }
 
-  createEntry() {
-    this.apiService.createEntry(stuff, () => {
-      // do some stuff
-    });
+  createEntry(routeDest: string, dayTimeId: number) {
+    this.apiService.createEntry(
+      this.props.startDate,
+      this.props.endDate,
+      this.props.startMileage,
+      this.props.endMileage,
+      routeDest,
+      '',
+      'carid',
+      1,
+      dayTimeId,
+      'comid',
+      () => {
+        // do some stuff
+      },
+    );
   }
 }
 
