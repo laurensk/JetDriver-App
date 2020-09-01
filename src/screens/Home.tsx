@@ -1,11 +1,12 @@
 import React from 'react';
-import {View, ColorSchemeName, Image, Text} from 'react-native';
+import {View, ColorSchemeName, Image, Text, Alert} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
 import AppContext from '../utils/AppContext';
 import {Button, Icon} from 'react-native-elements';
 import {AccountUtils} from '../utils/AccountUtils';
 import {Account} from '../models/Account';
 import {QuickDriveUtils} from '../utils/QuickDriveUtils';
+import AsyncStorage from '@react-native-community/async-storage';
 
 interface PropsType {
   theme: {[k: string]: string};
@@ -40,6 +41,7 @@ class Home extends React.Component<PropsType, StateType> {
         account: account,
       });
     }
+    this.checkQuickDriveStatus();
     // const {navigation} = this.props;
     // if (!(await AccountUtils.isLoggedIn())) {
     //   navigation.navigate('Login');
@@ -90,7 +92,7 @@ class Home extends React.Component<PropsType, StateType> {
             title="Eintragen"
           />
           <Button
-            onPress={() => QuickDriveUtils.startQuickDrive()}
+            onPress={() => this.toggleQuickDrive()}
             style={{paddingHorizontal: 3}}
             buttonStyle={{width: 190, height: 50}}
             icon={
@@ -102,7 +104,9 @@ class Home extends React.Component<PropsType, StateType> {
                 color="white"
               />
             }
-            title="Fahrt starten"
+            title={
+              this.state.quickDriveStatus ? 'Fahrt beenden' : 'Fahrt starten'
+            }
           />
         </View>
         <Button
@@ -173,15 +177,22 @@ class Home extends React.Component<PropsType, StateType> {
   }
 
   async toggleQuickDrive() {
-    if (QuickDriveUtils.checkForQuickDrive()) {
+    if (await QuickDriveUtils.checkForQuickDrive()) {
       this.checkQuickDriveStatus();
-      QuickDriveUtils.stopQuickDrive(
-        (startDate, endDate, startMileage, endMileage) => {
-          // navigate to create entry with props
+      await QuickDriveUtils.stopQuickDrive(
+        async (
+          startDate: Date,
+          endDate: Date,
+          startMileage: number,
+          endMileage: number,
+        ) => {
+          this.checkQuickDriveStatus();
+          Alert.alert(`Gefahrene Kilometer: ${endMileage - startMileage}`);
         },
       );
     } else {
-      QuickDriveUtils.startQuickDrive(() => {
+      await QuickDriveUtils.startQuickDrive(() => {
+        console.log('enabled');
         this.checkQuickDriveStatus();
       });
     }
