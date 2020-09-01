@@ -18,6 +18,7 @@ export class NavigationTheme {
           backgroundColor: '#121212',
           borderBottomColor: '#1A1B1B', // #202020 #1A1B1B
           borderBottomWidth: 0.4,
+          shadowOpacity: 0.3,
         };
   }
 
