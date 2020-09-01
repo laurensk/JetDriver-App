@@ -187,7 +187,7 @@ class Home extends React.Component<PropsType, StateType> {
           endMileage: number,
         ) => {
           this.checkQuickDriveStatus();
-          Alert.alert(`Gefahrene Kilometer: ${endMileage - startMileage}`);
+          this.props.navigation.navigate('CreateEntry');
         },
       );
     } else {

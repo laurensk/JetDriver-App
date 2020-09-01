@@ -61,7 +61,7 @@ function JetDriverNavigationStack() {
   return (
     <NavigationStack.Navigator>
       <NavigationStack.Screen
-        name="ModalStack"
+        name="JetDriver"
         component={JetDriverModalStack}
         options={{
           headerShown: false,
