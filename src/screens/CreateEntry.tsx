@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component, ComponentClass} from 'react';
 import {
   View,
   TextInput,
@@ -7,11 +7,13 @@ import {
   ColorSchemeName,
   Modal,
   StatusBar,
+  useColorScheme,
 } from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
 import {ApiService} from '../api/ApiService';
 import AppContext from '../utils/AppContext';
-import {Header} from 'react-native-elements';
+import {createNativeStackNavigator} from 'react-native-screens/native-stack';
+import {NavigationTheme} from '../toolbox/NavigationTheme';
 
 interface PropsType {
   navigation: NavigationScreenProp<any, any>;
@@ -26,6 +28,42 @@ interface PropsType {
 interface StateType {
   showModal: boolean;
 }
+
+const ModalCustom = (props: any) => {
+  const Stack = createNativeStackNavigator();
+
+  const headerTheme =
+    useColorScheme() === 'dark'
+      ? NavigationTheme.darkNavigationHeaderTheme()
+      : NavigationTheme.lightNavigationHeaderTheme();
+
+  const headerTitleTheme =
+    useColorScheme() === 'dark'
+      ? NavigationTheme.darkNavigationTitleTheme()
+      : NavigationTheme.lightNavigationTitleTheme();
+  return (
+    <Modal
+      animationType="slide"
+      visible={props.visible}
+      presentationStyle={'pageSheet'}>
+      <Stack.Navigator>
+        <Stack.Screen
+          name={props.headerTitle}
+          component={props.component}
+          options={{
+            headerStyle: headerTheme,
+            headerTitleStyle: headerTitleTheme,
+            headerLeft: () => (
+              <Button
+                title={props.headerCloseText}
+                onPress={props.headerOnClose()}></Button>
+            ),
+          }}
+        />
+      </Stack.Navigator>
+    </Modal>
+  );
+};
 
 class CreateEntry extends React.Component<PropsType, StateType> {
   apiService = new ApiService();
@@ -48,26 +86,22 @@ class CreateEntry extends React.Component<PropsType, StateType> {
     let routeDest = '';
     let dayTimeId = '';
 
+    const chooseCarModal = () => {
+      return (
+        <View>
+          <Text>hallo</Text>
+        </View>
+      );
+    };
+
     return (
       <View style={{flex: 1, backgroundColor: theme.backgroundColor}}>
-        <Modal
-          animationType="slide"
-          visible={this.state.showModal}
-          presentationStyle={'pageSheet'}>
-          <View
-            style={{
-              flex: 1,
-              paddingTop: 100,
-            }}>
-            <Text>modal</Text>
-            <Button
-              title={'hide model'}
-              onPress={() => {
-                StatusBar.setBarStyle('dark-content');
-                this.setState({showModal: false});
-              }}></Button>
-          </View>
-        </Modal>
+        <ModalCustom
+          headerTitle="Auto auswählen"
+          headerCloseText="Abbrechen"
+          headerOnClose={this.setState({showModal: false})}
+          component={chooseCarModal}
+          visible={this.state.showModal}></ModalCustom>
 
         <Button
           title={'show modal'}

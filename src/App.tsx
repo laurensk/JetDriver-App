@@ -7,8 +7,10 @@ import Home from './screens/Home';
 import CreateEntry from './screens/CreateEntry';
 import {NavigationTheme} from './toolbox/NavigationTheme';
 import SplashScreen from 'react-native-splash-screen';
+import {enableScreens} from 'react-native-screens';
+import {createNativeStackNavigator} from 'react-native-screens/native-stack';
 
-const ModalStack = createStackNavigator();
+const ModalStack = createNativeStackNavigator();
 function JetDriverModalStack() {
   const headerTheme =
     useColorScheme() === 'dark'
@@ -18,7 +20,7 @@ function JetDriverModalStack() {
   const headerTitleTheme =
     useColorScheme() === 'dark'
       ? NavigationTheme.darkNavigationTitleTheme()
-      : NavigationTheme.lightNavigationHeaderTheme();
+      : NavigationTheme.lightNavigationTitleTheme();
 
   return (
     <ModalStack.Navigator mode="modal">
@@ -46,7 +48,7 @@ function JetDriverModalStack() {
   );
 }
 
-const NavigationStack = createStackNavigator();
+const NavigationStack = createNativeStackNavigator();
 function JetDriverNavigationStack() {
   const headerTheme =
     useColorScheme() === 'dark'
@@ -56,7 +58,7 @@ function JetDriverNavigationStack() {
   const headerTitleTheme =
     useColorScheme() === 'dark'
       ? NavigationTheme.darkNavigationTitleTheme()
-      : NavigationTheme.lightNavigationHeaderTheme();
+      : NavigationTheme.lightNavigationTitleTheme();
 
   return (
     <NavigationStack.Navigator>
@@ -82,6 +84,7 @@ function JetDriverNavigationStack() {
 
 export default () => {
   SplashScreen.hide();
+  enableScreens();
   return (
     <NavigationContainer>
       <JetDriverNavigationStack></JetDriverNavigationStack>
