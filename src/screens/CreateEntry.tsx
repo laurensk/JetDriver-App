@@ -13,6 +13,8 @@ import {NavigationScreenProp} from 'react-navigation';
 import {ApiService} from '../api/ApiService';
 import AppContext from '../utils/AppContext';
 import {ModalSheet} from '../toolbox/ModalSheet';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {ModalSheetUtils} from '../toolbox/ModalSheetUtils';
 
 interface PropsType {
   navigation: NavigationScreenProp<any, any>;
@@ -25,7 +27,8 @@ interface PropsType {
 }
 
 interface StateType {
-  showModal: boolean;
+  carModal: boolean;
+  carIdSelected: string;
 }
 
 class CreateEntry extends React.Component<PropsType, StateType> {
@@ -34,7 +37,8 @@ class CreateEntry extends React.Component<PropsType, StateType> {
   constructor(props: PropsType) {
     super(props);
     this.state = {
-      showModal: false,
+      carModal: false,
+      carIdSelected: '',
     };
   }
 
@@ -42,17 +46,22 @@ class CreateEntry extends React.Component<PropsType, StateType> {
     const {theme, colorScheme, navigation} = this.props;
     const {startMileage, startDate, endMileage, endDate} = this.props;
 
-    const carId = '7d05ef86-68de-4abf-96d0-a2090edbf707';
-    const companionId = 'f0db7f18-65e6-4bdc-8b5b-cfcc804f50af';
-    const roadConditionId = 1;
-
-    let routeDest = '';
-    let dayTimeId = '';
-
     const chooseCarModal = () => {
       return (
-        <View>
+        <View style={{flex: 1}}>
           <Text>hallo</Text>
+          <TouchableOpacity
+            onPress={() => {
+              ModalSheetUtils.dismissModal(() => {
+                this.setState({
+                  carIdSelected: 'hello world',
+                  carModal: false,
+                });
+              });
+            }}>
+            <Text>select car with id 1</Text>
+          </TouchableOpacity>
+          <TextInput></TextInput>
         </View>
       );
     };
@@ -63,41 +72,24 @@ class CreateEntry extends React.Component<PropsType, StateType> {
           headerTitle="Auto auswählen"
           headerCloseText="Abbrechen"
           headerOnClose={() => {
-            this.setState({showModal: false});
+            ModalSheetUtils.dismissModal(() => {
+              this.setState({
+                carModal: false,
+              });
+            });
           }}
           component={chooseCarModal}
-          visible={this.state.showModal}></ModalSheet>
+          visible={this.state.carModal}></ModalSheet>
 
         <Button
-          title={'show modal'}
+          title={'select car'}
           onPress={() => {
-            StatusBar.setBarStyle('light-content');
-            this.setState({showModal: true});
+            ModalSheetUtils.showModal(() => {
+              this.setState({carModal: true});
+            });
           }}></Button>
 
-        <Text>routeDest</Text>
-        <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-          onChangeText={(text) => (routeDest = text)}
-        />
-        <Text>---</Text>
-        <Text>dayTimeId</Text>
-        <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-          onChangeText={(text) => (dayTimeId = text)}
-        />
-        <Text>---</Text>
-        <Text>('1', 'MORNING');</Text>
-        <Text>('2', 'FORENOON');</Text>
-        <Text>('3', 'MIDDAY');</Text>
-        <Text>('4', 'AFTERNOON');</Text>
-        <Text>('5', 'EVENING');</Text>
-        <Text>('6', 'NIGHT');</Text>
-        <Button
-          title={'Safe'}
-          onPress={() =>
-            this.createEntry(routeDest, Number(dayTimeId))
-          }></Button>
+        <Text>you've selected car {this.state.carIdSelected}</Text>
       </View>
     );
   }
