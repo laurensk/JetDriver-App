@@ -29,23 +29,19 @@ class Home extends React.Component<PropsType, StateType> {
   }
 
   async componentDidMount() {
-    await AccountUtils.setUser(
-      '1bdeff56-6ffb-44eb-b995-67727d9ae9cb',
-      'lk@laurensk.at',
-      'Laurens Kropf',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiMWJkZWZmNTYtNmZmYi00NGViLWI5OTUtNjc3MjdkOWFlOWNiIiwiaWF0IjoxNTk4ODE0ODU5fQ.SawJ_uBOqKJyHz2cmEEjC-rDtzDJy2ZqX6YZ46Wko0c',
-    );
-    const account = await AccountUtils.getUser();
-    if (account != null) {
+    await this.checkLoginState();
+    this.checkQuickDriveStatus();
+  }
+
+  async checkLoginState() {
+    const {navigation} = this.props;
+    if (!(await AccountUtils.isLoggedIn())) {
+      navigation.navigate('Login');
+    } else {
       this.setState({
-        account: account,
+        account: (await AccountUtils.getUser()) as Account,
       });
     }
-    this.checkQuickDriveStatus();
-    // const {navigation} = this.props;
-    // if (!(await AccountUtils.isLoggedIn())) {
-    //   navigation.navigate('Login');
-    // }
   }
 
   render() {
@@ -165,6 +161,7 @@ class Home extends React.Component<PropsType, StateType> {
           <Button title="Kontakt" type="clear" />
         </View>
         <Button
+          onPress={() => this.logOut()}
           title="Abmelden"
           type="clear"
           titleStyle={{fontWeight: '600'}}
@@ -199,6 +196,30 @@ class Home extends React.Component<PropsType, StateType> {
         this.checkQuickDriveStatus();
       });
     }
+  }
+
+  async logOut() {
+    Alert.alert(
+      'Bist du sicher?',
+      'Möchtest du dich wirklich abmelden? Du kannst JetDriver nicht ohne ein Konto nutzen.',
+      [
+        {
+          text: 'Abbrechen',
+          style: 'cancel',
+        },
+        {
+          text: 'Abmelden',
+          style: 'destructive',
+          onPress: async () => {
+            await AccountUtils.removeUser();
+            this.setState({
+              account: new Account('', '', '', ''),
+            });
+            await this.checkLoginState();
+          },
+        },
+      ],
+    );
   }
 }
 
