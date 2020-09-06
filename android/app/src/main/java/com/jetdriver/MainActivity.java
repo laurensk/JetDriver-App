@@ -15,9 +15,9 @@ public class MainActivity extends ReactActivity {
     return "JetDriver";
   }
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    SplashScreen.show(this);
-    super.onCreate(savedInstanceState);
-  }
+  //@Override
+  //protected void onCreate(Bundle savedInstanceState) {
+  //  SplashScreen.show(this);
+  //  super.onCreate(savedInstanceState);
+  //}
 }
