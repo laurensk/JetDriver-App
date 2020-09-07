@@ -1,9 +1,7 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, StatusBar, Button} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
 import AppContext from '../utils/AppContext';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from 'react-native-screens/native-stack';
 import NavigationModal from '../toolbox/NavigationModal';
 
 interface PropsType {
@@ -25,9 +23,20 @@ class Login extends React.Component<PropsType, StateType> {
       <View style={{flex: 1, backgroundColor: 'white'}}>
         <Text>Login to JetDriver</Text>
         <Text>We never sell your data</Text>
+        <Button
+          title="goback"
+          onPress={() => {
+            this.props.navigation.goBack();
+          }}></Button>
       </View>
     );
   }
 }
 
-export default AppContext(Login);
+export default AppContext(
+  NavigationModal(Login, {
+    title: 'Willkommen',
+    largeTitle: false,
+    gestureEnabled: false,
+  }),
+);

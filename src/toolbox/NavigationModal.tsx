@@ -1,42 +1,25 @@
 import React from 'react';
-import {View, Text, ColorSchemeName} from 'react-native';
-import {NavigationScreenProp} from 'react-navigation';
-import AppContext from '../utils/AppContext';
-import {NavigationContainer} from '@react-navigation/native';
+import {useColorScheme, StatusBar} from 'react-native';
 import {createNativeStackNavigator} from 'react-native-screens/native-stack';
 import {NavigationTheme} from './NavigationTheme';
+import {NavigationContainer} from '@react-navigation/native';
+import Home from '../screens/Home';
 
-interface PropsType {
-  navigation: NavigationScreenProp<any, any>;
-  colorScheme: ColorSchemeName;
-  component: any;
+interface NavigationSettings {
   title: string;
   largeTitle: boolean;
   gestureEnabled: boolean;
 }
 
-class NavigationModal extends React.Component<PropsType> {
-  constructor(props: PropsType) {
-    super(props);
-  }
-
-  render() {
-    const {
-      navigation,
-      component,
-      title,
-      largeTitle,
-      gestureEnabled,
-      colorScheme,
-    } = this.props;
-
+export default (Component: any, navigationSettings: NavigationSettings) => {
+  return (props: any) => {
     const NavigationStack = createNativeStackNavigator();
     function ModalNavigationStack() {
+      const colorScheme = useColorScheme();
       const headerTheme =
         colorScheme === 'dark'
           ? NavigationTheme.darkNavigationHeaderTheme()
           : NavigationTheme.lightNavigationHeaderTheme();
-
       const headerTitleTheme =
         colorScheme === 'dark'
           ? NavigationTheme.darkNavigationTitleTheme()
@@ -49,25 +32,24 @@ class NavigationModal extends React.Component<PropsType> {
           }}>
           <NavigationStack.Screen
             name="Main"
-            component={component}
             options={{
-              gestureEnabled: gestureEnabled,
-              headerTitle: title,
-              headerLargeTitle: largeTitle,
+              gestureEnabled: navigationSettings.gestureEnabled,
+              headerTitle: navigationSettings.title,
+              headerLargeTitle: navigationSettings.largeTitle,
               headerStyle: headerTheme,
               headerTitleStyle: headerTitleTheme,
-            }}
-          />
+            }}>
+            {() => <Component {...props}></Component>}
+          </NavigationStack.Screen>
         </NavigationStack.Navigator>
       );
     }
 
     return (
-      <NavigationContainer>
+      <NavigationContainer independent={true}>
+        <StatusBar barStyle="light-content"></StatusBar>
         <ModalNavigationStack></ModalNavigationStack>
       </NavigationContainer>
     );
-  }
-}
-
-export default NavigationModal;
+  };
+};
