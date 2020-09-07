@@ -22,7 +22,13 @@ class Login extends React.Component<PropsType, StateType> {
     const {navigation, theme, colorScheme} = this.props;
 
     return (
-      <View style={{flex: 1, backgroundColor: theme.backgroundColor}}></View>
+      <View style={{flex: 1, backgroundColor: theme.backgroundColor}}>
+        <Button
+          title="Einloggen"
+          onPress={() => {
+            // set user here
+          }}></Button>
+      </View>
     );
   }
 }
