@@ -14,7 +14,6 @@ import {ApiService} from '../api/ApiService';
 import AppContext from '../utils/AppContext';
 import {ModalSheet} from '../toolbox/ModalSheet';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {ModalSheetUtils} from '../toolbox/ModalSheetUtils';
 
 interface PropsType {
   navigation: NavigationScreenProp<any, any>;
@@ -52,11 +51,9 @@ class CreateEntry extends React.Component<PropsType, StateType> {
           <Text>hallo</Text>
           <TouchableOpacity
             onPress={() => {
-              ModalSheetUtils.dismissModal(() => {
-                this.setState({
-                  carIdSelected: 'hello world',
-                  carModal: false,
-                });
+              this.setState({
+                carIdSelected: 'hello world',
+                carModal: false,
               });
             }}>
             <Text>select car with id 1</Text>
@@ -72,10 +69,8 @@ class CreateEntry extends React.Component<PropsType, StateType> {
           headerTitle="Auto auswählen"
           headerCloseText="Abbrechen"
           headerOnClose={() => {
-            ModalSheetUtils.dismissModal(() => {
-              this.setState({
-                carModal: false,
-              });
+            this.setState({
+              carModal: false,
             });
           }}
           component={chooseCarModal}
@@ -84,9 +79,7 @@ class CreateEntry extends React.Component<PropsType, StateType> {
         <Button
           title={'select car'}
           onPress={() => {
-            ModalSheetUtils.showModal(() => {
-              this.setState({carModal: true});
-            });
+            this.setState({carModal: true});
           }}></Button>
 
         <Text>you've selected car {this.state.carIdSelected}</Text>
