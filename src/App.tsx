@@ -8,6 +8,7 @@ import {NavigationTheme} from './toolbox/NavigationTheme';
 import SplashScreen from 'react-native-splash-screen';
 import {enableScreens} from 'react-native-screens';
 import {createNativeStackNavigator} from 'react-native-screens/native-stack';
+import {OrientationLocker} from './toolbox/OrientationLocker';
 
 const NavigationStack = createNativeStackNavigator();
 function JetDriverNavigationStack() {
@@ -60,6 +61,7 @@ function JetDriverNavigationStack() {
 }
 
 export default () => {
+  OrientationLocker.lock();
   SplashScreen.hide();
   enableScreens();
   return (
