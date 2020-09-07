@@ -6,7 +6,6 @@ import {Button, Icon} from 'react-native-elements';
 import {AccountUtils} from '../utils/AccountUtils';
 import {Account} from '../models/Account';
 import {QuickDriveUtils} from '../utils/QuickDriveUtils';
-import AsyncStorage from '@react-native-community/async-storage';
 
 interface PropsType {
   navigation: NavigationScreenProp<any, any>;
