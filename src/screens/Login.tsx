@@ -1,11 +1,13 @@
 import React from 'react';
-import {View, Text, StatusBar, Button} from 'react-native';
+import {View, Text, StatusBar, Button, ColorSchemeName} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
 import AppContext from '../utils/AppContext';
 import NavigationModal from '../toolbox/NavigationModal';
 
 interface PropsType {
   navigation: NavigationScreenProp<any, any>;
+  theme: {[k: string]: string};
+  colorScheme: ColorSchemeName;
 }
 
 interface StateType {}
@@ -17,25 +19,17 @@ class Login extends React.Component<PropsType, StateType> {
   }
 
   render() {
-    const {} = this.props;
+    const {navigation, theme, colorScheme} = this.props;
 
     return (
-      <View style={{flex: 1, backgroundColor: 'white'}}>
-        <Text>Login to JetDriver</Text>
-        <Text>We never sell your data</Text>
-        <Button
-          title="goback"
-          onPress={() => {
-            this.props.navigation.goBack();
-          }}></Button>
-      </View>
+      <View style={{flex: 1, backgroundColor: theme.backgroundColor}}></View>
     );
   }
 }
 
 export default AppContext(
   NavigationModal(Login, {
-    title: 'Willkommen',
+    title: 'Willkommen bei JetDriver',
     largeTitle: false,
     gestureEnabled: false,
   }),
