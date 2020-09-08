@@ -68,7 +68,6 @@ class Home extends React.Component<PropsType, StateType> {
           style={{width: 250, height: 150}}></Image>
         <View style={{paddingTop: 100}}></View>
         <View>
-          {}
           <Text
             style={{
               fontSize: 20,
@@ -79,10 +78,11 @@ class Home extends React.Component<PropsType, StateType> {
           </Text>
         </View>
         <View style={{paddingTop: 25}}></View>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row', width: '95%'}}>
           <Button
             style={{paddingHorizontal: 3}}
-            buttonStyle={{width: 190, height: 50}}
+            containerStyle={{flex: 1}}
+            buttonStyle={{height: 50}}
             icon={
               <Icon style={{paddingRight: 10}} name="database-plus" type="material-community" size={25} color="white" />
             }
@@ -94,38 +94,43 @@ class Home extends React.Component<PropsType, StateType> {
           <Button
             onPress={() => this.toggleQuickDrive()}
             style={{paddingHorizontal: 3}}
-            buttonStyle={{width: 190, height: 50}}
+            containerStyle={{flex: 1}}
+            buttonStyle={{height: 50}}
             icon={<Icon style={{paddingRight: 10}} name="car" type="material-community" size={25} color="white" />}
             title={this.state.quickDriveStatus ? 'Fahrt beenden' : 'Fahrt starten'}
           />
         </View>
-        <Button
-          type="outline"
-          style={{paddingTop: 10, paddingHorizontal: 3}}
-          buttonStyle={{width: 386, height: 50}}
-          icon={
-            <Icon
-              style={{paddingRight: 10}}
-              name="format-list-bulleted"
-              type="material-community"
-              size={25}
-              color="#2089DC"
-            />
-          }
-          title="Fahrtenprotoll anzeigen"
-        />
-        <View style={{flexDirection: 'row', paddingTop: 10}}>
+        <View style={{width: '95%'}}>
+          <Button
+            type="outline"
+            style={{paddingTop: 10, paddingHorizontal: 3}}
+            buttonStyle={{height: 50}}
+            icon={
+              <Icon
+                style={{paddingRight: 10}}
+                name="format-list-bulleted"
+                type="material-community"
+                size={25}
+                color="#2089DC"
+              />
+            }
+            title="Fahrtenprotoll anzeigen"
+          />
+        </View>
+        <View style={{flexDirection: 'row', paddingTop: 10, width: '95%'}}>
           <Button
             type="outline"
             style={{paddingHorizontal: 3}}
-            buttonStyle={{width: 190, height: 50}}
+            containerStyle={{flex: 1}}
+            buttonStyle={{height: 50}}
             icon={<Icon style={{paddingRight: 10}} name="car" type="material-community" size={25} color="#2089DC" />}
             title="Autos"
           />
           <Button
             type="outline"
             style={{paddingHorizontal: 3}}
-            buttonStyle={{width: 190, height: 50}}
+            containerStyle={{flex: 1}}
+            buttonStyle={{height: 50}}
             icon={
               <Icon
                 style={{paddingRight: 10}}
