@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, ColorSchemeName, Image, Text, Alert} from 'react-native';
+import {View, ColorSchemeName, Image, Text, Alert, Linking} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
 import AppContext from '../utils/AppContext';
 import {Button, Icon} from 'react-native-elements';
@@ -114,7 +114,8 @@ class Home extends React.Component<PropsType, StateType> {
                 color="#2089DC"
               />
             }
-            title="Fahrtenprotoll anzeigen"
+            title="Fahrtenprotokoll anzeigen"
+            onPress={() => this.props.navigation.navigate('Entries')}
           />
         </View>
         <View style={{flexDirection: 'row', paddingTop: 10, width: '95%'}}>
@@ -125,6 +126,7 @@ class Home extends React.Component<PropsType, StateType> {
             buttonStyle={{height: 50}}
             icon={<Icon style={{paddingRight: 10}} name="car" type="material-community" size={25} color="#2089DC" />}
             title="Autos"
+            onPress={() => this.props.navigation.navigate('Cars')}
           />
           <Button
             type="outline"
@@ -141,12 +143,13 @@ class Home extends React.Component<PropsType, StateType> {
               />
             }
             title="Begleiter"
+            onPress={() => this.props.navigation.navigate('Companions')}
           />
         </View>
         <View style={{paddingTop: 100}}></View>
         <View style={{flexDirection: 'row'}}>
-          <Button title="Über JetDriver" type="clear" />
-          <Button title="Kontakt" type="clear" />
+          <Button title="Über JetDriver" type="clear" onPress={() => this.props.navigation.navigate('About')} />
+          <Button title="Kontakt" type="clear" onPress={() => this.openContact()} />
         </View>
         <Button onPress={() => this.logOut()} title="Abmelden" type="clear" titleStyle={{fontWeight: '600'}} />
       </View>
@@ -204,6 +207,13 @@ class Home extends React.Component<PropsType, StateType> {
         },
       ]
     );
+  }
+
+  async openContact() {
+    const contactUrl = 'mailto:apps@laurensk.at';
+    if (await Linking.canOpenURL(contactUrl)) {
+      await Linking.openURL(contactUrl);
+    }
   }
 }
 
