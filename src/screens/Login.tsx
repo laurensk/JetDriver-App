@@ -1,6 +1,12 @@
 import React from 'react';
-import {View, Text, ColorSchemeName, Image} from 'react-native';
-import {NavigationScreenProp} from 'react-navigation';
+import {
+  View,
+  Text,
+  ColorSchemeName,
+  Image,
+  KeyboardAvoidingView,
+} from 'react-native';
+import {NavigationScreenProp, SceneView} from 'react-navigation';
 import AppContext from '../utils/AppContext';
 import NavigationModal from '../toolbox/NavigationModal';
 import SegmentedControl from '@react-native-community/segmented-control';
@@ -8,7 +14,9 @@ import {Input, Button} from 'react-native-elements';
 import {
   TouchableHighlight,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native-gesture-handler';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 interface PropsType {
   navigation: NavigationScreenProp<any, any>;
@@ -18,6 +26,9 @@ interface PropsType {
 
 interface StateType {
   loginSegment: number;
+  name: string;
+  email: string;
+  password: string;
 }
 
 class Login extends React.Component<PropsType, StateType> {
@@ -25,6 +36,9 @@ class Login extends React.Component<PropsType, StateType> {
     super(props);
     this.state = {
       loginSegment: 0,
+      name: '',
+      email: '',
+      password: '',
     };
   }
 
@@ -38,95 +52,135 @@ class Login extends React.Component<PropsType, StateType> {
           backgroundColor: theme.backgroundColor,
           justifyContent: 'center',
         }}>
-        <View style={{alignItems: 'center', paddingBottom: 50}}>
-          <Image
-            source={require('../assets/jetdriver_logo.png')}
-            resizeMode={'contain'}
-            style={{width: 250, height: 150}}></Image>
-        </View>
-        <SegmentedControl
-          style={{width: '80%', alignSelf: 'center'}}
-          values={['Registrieren', 'Anmelden']}
-          selectedIndex={this.state.loginSegment}
-          onChange={(event) => {
-            this.setState({
-              loginSegment: event.nativeEvent.selectedSegmentIndex,
-            });
-          }}></SegmentedControl>
-        <View
-          style={{
-            width: '80%',
-            alignSelf: 'center',
-            paddingTop: 50,
-            height: 350,
-          }}>
-          {this.state.loginSegment == 0 && (
-            <Input placeholder="Name" onChangeText={(value) => {}} />
-          )}
-          <Input
-            keyboardType={'email-address'}
-            placeholder="E-Mail"
-            onChangeText={(value) => {}}
-          />
-          <Input
-            secureTextEntry={true}
-            placeholder="Passwort"
-            onChangeText={(value) => {}}
-          />
-          {this.state.loginSegment == 0 && (
+        <KeyboardAwareScrollView
+          extraHeight={100}
+          style={{flex: 1}}
+          resetScrollToCoords={{x: 0, y: 0}}>
+          <View>
+            <View
+              style={{alignItems: 'center', paddingBottom: 50, paddingTop: 50}}>
+              <Image
+                source={require('../assets/jetdriver_logo.png')}
+                resizeMode={'contain'}
+                style={{width: 250, height: 150}}></Image>
+            </View>
+            <SegmentedControl
+              style={{width: '80%', alignSelf: 'center'}}
+              values={['Registrieren', 'Anmelden']}
+              selectedIndex={this.state.loginSegment}
+              onChange={(event) => {
+                this.setState({
+                  loginSegment: event.nativeEvent.selectedSegmentIndex,
+                });
+              }}></SegmentedControl>
             <View
               style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: 350,
-                paddingTop: 10,
+                width: '80%',
+                alignSelf: 'center',
+                paddingTop: 50,
+                height: 350,
               }}>
-              <Text>Wenn du ein Konto erstellst, stimmst du unseren</Text>
-              <View style={{flexDirection: 'row'}}>
-                <TouchableOpacity>
-                  <Text style={{color: '#2089DC'}}> AGB's </Text>
-                </TouchableOpacity>
-                <Text>und der </Text>
-                <TouchableOpacity>
-                  <Text style={{color: '#2089DC'}}>Datenschutzerklärung </Text>
-                </TouchableOpacity>
-                <Text>zu.</Text>
-              </View>
+              {this.state.loginSegment == 0 && (
+                <Input
+                  placeholder="Name"
+                  defaultValue={this.state.name}
+                  autoCorrect={false}
+                  onChangeText={(name) => {
+                    this.setState({name: name});
+                  }}
+                />
+              )}
+              <Input
+                autoCapitalize={'none'}
+                keyboardType={'email-address'}
+                autoCorrect={false}
+                placeholder="E-Mail"
+                onChangeText={(email) => {
+                  this.setState({email: email});
+                }}
+              />
+              <Input
+                secureTextEntry={true}
+                autoCorrect={false}
+                placeholder="Passwort"
+                onChangeText={(password) => {
+                  this.setState({password: password});
+                }}
+              />
+              {this.state.loginSegment == 0 && (
+                <View
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: 350,
+                    paddingTop: 10,
+                  }}>
+                  <Text>Wenn du ein Konto erstellst, stimmst du unseren</Text>
+                  <View style={{flexDirection: 'row'}}>
+                    <TouchableOpacity>
+                      <Text style={{color: '#2089DC'}}> AGB's </Text>
+                    </TouchableOpacity>
+                    <Text>und der </Text>
+                    <TouchableOpacity>
+                      <Text style={{color: '#2089DC'}}>
+                        Datenschutzerklärung{' '}
+                      </Text>
+                    </TouchableOpacity>
+                    <Text>zu.</Text>
+                  </View>
+                </View>
+              )}
+              {this.state.loginSegment == 1 && (
+                <View
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: 350,
+                    paddingTop: 10,
+                  }}>
+                  <Text>Wenn du dich anmeldest, stimmst du unseren</Text>
+                  <View style={{flexDirection: 'row'}}>
+                    <TouchableOpacity>
+                      <Text style={{color: '#2089DC'}}> AGB's </Text>
+                    </TouchableOpacity>
+                    <Text>und der </Text>
+                    <TouchableOpacity>
+                      <Text style={{color: '#2089DC'}}>
+                        Datenschutzerklärung{' '}
+                      </Text>
+                    </TouchableOpacity>
+                    <Text>zu.</Text>
+                  </View>
+                </View>
+              )}
             </View>
-          )}
-          {this.state.loginSegment == 1 && (
-            <View
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: 350,
-                paddingTop: 10,
-              }}>
-              <Text>Wenn du dich anmeldest, stimmst du unseren</Text>
-              <View style={{flexDirection: 'row'}}>
-                <TouchableOpacity>
-                  <Text style={{color: '#2089DC'}}> AGB's </Text>
-                </TouchableOpacity>
-                <Text>und der </Text>
-                <TouchableOpacity>
-                  <Text style={{color: '#2089DC'}}>Datenschutzerklärung </Text>
-                </TouchableOpacity>
-                <Text>zu.</Text>
-              </View>
+            <View style={{paddingTop: 30}}>
+              <Button
+                onPress={() => this.loginSignUpButton()}
+                style={{width: '80%', alignSelf: 'center', paddingBottom: 20}}
+                title={
+                  this.state.loginSegment == 0 ? 'Konto erstellen' : 'Anmelden'
+                }
+              />
             </View>
-          )}
-        </View>
-        <View style={{paddingTop: 30}}>
-          <Button
-            onPress={() => {}}
-            style={{width: '80%', alignSelf: 'center'}}
-            title={
-              this.state.loginSegment == 0 ? 'Konto erstellen' : 'Anmelden'
-            }
-          />
-        </View>
+          </View>
+        </KeyboardAwareScrollView>
       </View>
     );
+  }
+
+  loginSignUpButton() {
+    if (this.state.loginSegment == 0) {
+      this.signUpWith(this.state.name, this.state.email, this.state.password);
+    } else {
+      this.loginWith(this.state.email, this.state.password);
+    }
+  }
+  loginWith(email: string, password: string) {
+    console.log('hello there ' + email);
+  }
+  signUpWith(name: string, email: string, password: string) {
+    console.log('welcome, ' + name);
   }
 }
 
