@@ -28,6 +28,10 @@ class Home extends React.Component<PropsType, StateType> {
   }
 
   async componentDidMount() {
+    const event = this.props.navigation.addListener('focus', () => {
+      this.checkLoginState();
+    });
+
     await this.checkLoginState();
     this.checkQuickDriveStatus();
   }
@@ -37,10 +41,14 @@ class Home extends React.Component<PropsType, StateType> {
     if (!(await AccountUtils.isLoggedIn())) {
       navigation.navigate('Login');
     } else {
-      this.setState({
-        account: (await AccountUtils.getUser()) as Account,
-      });
+      this.getAccount();
     }
+  }
+
+  async getAccount() {
+    this.setState({
+      account: (await AccountUtils.getUser()) as Account,
+    });
   }
 
   render() {
