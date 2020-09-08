@@ -1,10 +1,14 @@
 import React from 'react';
-import {View, Text, StatusBar, ColorSchemeName, Image} from 'react-native';
+import {View, Text, ColorSchemeName, Image} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
 import AppContext from '../utils/AppContext';
 import NavigationModal from '../toolbox/NavigationModal';
 import SegmentedControl from '@react-native-community/segmented-control';
-import {Input, Button, Icon} from 'react-native-elements';
+import {Input, Button} from 'react-native-elements';
+import {
+  TouchableHighlight,
+  TouchableOpacity,
+} from 'react-native-gesture-handler';
 
 interface PropsType {
   navigation: NavigationScreenProp<any, any>;
@@ -34,7 +38,7 @@ class Login extends React.Component<PropsType, StateType> {
           backgroundColor: theme.backgroundColor,
           justifyContent: 'center',
         }}>
-        <View style={{alignItems: 'center', paddingBottom: 100}}>
+        <View style={{alignItems: 'center', paddingBottom: 50}}>
           <Image
             source={require('../assets/jetdriver_logo.png')}
             resizeMode={'contain'}
@@ -54,7 +58,7 @@ class Login extends React.Component<PropsType, StateType> {
             width: '80%',
             alignSelf: 'center',
             paddingTop: 50,
-            height: 240,
+            height: 350,
           }}>
           {this.state.loginSegment == 0 && (
             <Input placeholder="Name" onChangeText={(value) => {}} />
@@ -69,6 +73,48 @@ class Login extends React.Component<PropsType, StateType> {
             placeholder="Passwort"
             onChangeText={(value) => {}}
           />
+          {this.state.loginSegment == 0 && (
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: 350,
+                paddingTop: 10,
+              }}>
+              <Text>Wenn du ein Konto erstellst, stimmst du unseren</Text>
+              <View style={{flexDirection: 'row'}}>
+                <TouchableOpacity>
+                  <Text style={{color: '#2089DC'}}> AGB's </Text>
+                </TouchableOpacity>
+                <Text>und der </Text>
+                <TouchableOpacity>
+                  <Text style={{color: '#2089DC'}}>Datenschutzerklärung </Text>
+                </TouchableOpacity>
+                <Text>zu.</Text>
+              </View>
+            </View>
+          )}
+          {this.state.loginSegment == 1 && (
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: 350,
+                paddingTop: 10,
+              }}>
+              <Text>Wenn du dich anmeldest, stimmst du unseren</Text>
+              <View style={{flexDirection: 'row'}}>
+                <TouchableOpacity>
+                  <Text style={{color: '#2089DC'}}> AGB's </Text>
+                </TouchableOpacity>
+                <Text>und der </Text>
+                <TouchableOpacity>
+                  <Text style={{color: '#2089DC'}}>Datenschutzerklärung </Text>
+                </TouchableOpacity>
+                <Text>zu.</Text>
+              </View>
+            </View>
+          )}
         </View>
         <View style={{paddingTop: 30}}>
           <Button
