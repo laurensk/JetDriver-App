@@ -1,5 +1,5 @@
 import React from 'react';
-import {useColorScheme} from 'react-native';
+import {useColorScheme, LogBox} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import Login from './screens/Login';
 import Home from './screens/Home';
@@ -61,6 +61,7 @@ function JetDriverNavigationStack() {
 }
 
 export default () => {
+  LogBox.ignoreAllLogs();
   OrientationLocker.lock();
   SplashScreen.hide();
   enableScreens();
