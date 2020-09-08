@@ -1,30 +1,28 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  ColorSchemeName,
-  Image,
-  KeyboardAvoidingView,
-} from 'react-native';
-import {NavigationScreenProp, SceneView} from 'react-navigation';
+import {View, Text, ColorSchemeName, Image, Linking} from 'react-native';
+import {NavigationScreenProp, NavigationRoute} from 'react-navigation';
 import AppContext from '../utils/AppContext';
 import NavigationModal from '../toolbox/NavigationModal';
 import SegmentedControl from '@react-native-community/segmented-control';
 import {Input, Button} from 'react-native-elements';
-import {
-  TouchableHighlight,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import Spinner from 'react-native-loading-spinner-overlay';
+import {ApiService} from '../api/ApiService';
+import {User} from '../models/User';
+import {ApiError} from '../api/ApiError.model';
+import {ErrorAlert} from '../toolbox/ErrorAlert';
+import {ApiErrorTranslation} from '../api/ApiErrorTranslation';
 
 interface PropsType {
   navigation: NavigationScreenProp<any, any>;
+  route: NavigationRoute;
   theme: {[k: string]: string};
   colorScheme: ColorSchemeName;
 }
 
 interface StateType {
+  activityIndicator: boolean;
   loginSegment: number;
   name: string;
   email: string;
@@ -35,6 +33,7 @@ class Login extends React.Component<PropsType, StateType> {
   constructor(props: PropsType) {
     super(props);
     this.state = {
+      activityIndicator: false,
       loginSegment: 0,
       name: '',
       email: '',
@@ -52,6 +51,7 @@ class Login extends React.Component<PropsType, StateType> {
           backgroundColor: theme.backgroundColor,
           justifyContent: 'center',
         }}>
+        <Spinner visible={this.state.activityIndicator}></Spinner>
         <KeyboardAwareScrollView
           extraHeight={100}
           style={{flex: 1}}
@@ -110,6 +110,7 @@ class Login extends React.Component<PropsType, StateType> {
               {this.state.loginSegment == 0 && (
                 <View
                   style={{
+                    alignSelf: 'center',
                     justifyContent: 'center',
                     alignItems: 'center',
                     width: 350,
@@ -117,11 +118,11 @@ class Login extends React.Component<PropsType, StateType> {
                   }}>
                   <Text>Wenn du ein Konto erstellst, stimmst du unseren</Text>
                   <View style={{flexDirection: 'row'}}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.openTerms()}>
                       <Text style={{color: '#2089DC'}}> AGB's </Text>
                     </TouchableOpacity>
                     <Text>und der </Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.openPrivacyPolicy()}>
                       <Text style={{color: '#2089DC'}}>
                         Datenschutzerklärung{' '}
                       </Text>
@@ -133,6 +134,7 @@ class Login extends React.Component<PropsType, StateType> {
               {this.state.loginSegment == 1 && (
                 <View
                   style={{
+                    alignSelf: 'center',
                     justifyContent: 'center',
                     alignItems: 'center',
                     width: 350,
@@ -140,11 +142,11 @@ class Login extends React.Component<PropsType, StateType> {
                   }}>
                   <Text>Wenn du dich anmeldest, stimmst du unseren</Text>
                   <View style={{flexDirection: 'row'}}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.openTerms()}>
                       <Text style={{color: '#2089DC'}}> AGB's </Text>
                     </TouchableOpacity>
                     <Text>und der </Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.openPrivacyPolicy()}>
                       <Text style={{color: '#2089DC'}}>
                         Datenschutzerklärung{' '}
                       </Text>
@@ -176,11 +178,50 @@ class Login extends React.Component<PropsType, StateType> {
       this.loginWith(this.state.email, this.state.password);
     }
   }
+
   loginWith(email: string, password: string) {
-    console.log('hello there ' + email);
+    this.setState({activityIndicator: true});
+    ApiService.login(email, password, (user: User, error: ApiError) => {
+      this.setState({activityIndicator: false});
+      if (error) {
+        setTimeout(
+          () => ErrorAlert.present(ApiErrorTranslation.get(error.message)),
+          10,
+        );
+      } else {
+        this.props.navigation.goBack();
+      }
+    });
   }
+
   signUpWith(name: string, email: string, password: string) {
-    console.log('welcome, ' + name);
+    this.setState({activityIndicator: true});
+    ApiService.signUp(name, email, password, (user: User, error: ApiError) => {
+      this.setState({activityIndicator: false});
+      if (error) {
+        setTimeout(
+          () => ErrorAlert.present(ApiErrorTranslation.get(error.message)),
+          10,
+        );
+      } else {
+        this.props.navigation.goBack();
+      }
+    });
+  }
+
+  async openTerms() {
+    const termsUrl = 'https://legal.laurensk.at/terms-and-conditions/?lang=de';
+    if (await Linking.canOpenURL(termsUrl)) {
+      await Linking.openURL(termsUrl);
+    }
+  }
+
+  async openPrivacyPolicy() {
+    const privacyPolicyUrl =
+      'https://legal.laurensk.at/privacy-policy/?lang=de';
+    if (await Linking.canOpenURL(privacyPolicyUrl)) {
+      await Linking.openURL(privacyPolicyUrl);
+    }
   }
 }
 
