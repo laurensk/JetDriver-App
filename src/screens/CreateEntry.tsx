@@ -15,6 +15,8 @@ interface PropsType {
 }
 
 interface StateType {
+  startMileage: string;
+  endMileage: string;
   carModal: boolean;
   carIdSelected: string;
   companionModal: boolean;
@@ -29,6 +31,8 @@ class CreateEntry extends React.Component<PropsType, StateType> {
   constructor(props: PropsType) {
     super(props);
     this.state = {
+      startMileage: '',
+      endMileage: '',
       carModal: false,
       carIdSelected: '',
       companionModal: false,
@@ -40,13 +44,19 @@ class CreateEntry extends React.Component<PropsType, StateType> {
     };
   }
 
+  componentDidMount() {
+    if (this.props.route.params?.quickDriver == true) {
+      const {startMileage, endMileage, startDate, endDate} = this.props.route.params;
+      console.log(startMileage, endMileage);
+      this.setState({
+        startMileage: startMileage.toString(),
+        endMileage: endMileage.toString(),
+      });
+    }
+  }
+
   render() {
     const {theme, colorScheme, navigation} = this.props;
-
-    const startDate = this.props.route.params || undefined;
-    const endDate = this.props.route.params || undefined;
-    const startMileage = this.props.route.params || undefined;
-    const endMileage = this.props.route.params || undefined;
 
     const chooseCarModal = () => {
       return (
@@ -81,13 +91,13 @@ class CreateEntry extends React.Component<PropsType, StateType> {
         />
         <Input
           autoCapitalize={'none'}
-          defaultValue={startMileage.toString()}
+          defaultValue={this.state.startMileage}
           placeholder="Startkilometerstand"
           onChangeText={(value) => {}}
         />
         <Input
           autoCapitalize={'none'}
-          defaultValue={String(endMileage)}
+          defaultValue={this.state.endMileage}
           placeholder="Endkilometerstand"
           onChangeText={(value) => {}}
         />

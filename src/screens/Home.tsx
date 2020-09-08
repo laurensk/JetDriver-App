@@ -165,7 +165,13 @@ class Home extends React.Component<PropsType, StateType> {
       await QuickDriveUtils.stopQuickDrive(
         async (startDate: Date, endDate: Date, startMileage: number, endMileage: number) => {
           this.checkQuickDriveStatus();
-          this.props.navigation.navigate('CreateEntry');
+          this.props.navigation.navigate('CreateEntry', {
+            quickDriver: true,
+            startMileage: startMileage,
+            endMileage: endMileage,
+            startDate: startDate,
+            endDate: endDate,
+          });
         }
       );
     } else {
