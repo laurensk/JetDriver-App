@@ -25,10 +25,7 @@ export const ModalSheet = (props: any) => {
       : NavigationTheme.lightNavigationTitleTheme();
 
   return (
-    <Modal
-      animationType="slide"
-      visible={props.visible}
-      presentationStyle={'pageSheet'}>
+    <Modal animationType="slide" visible={props.visible} presentationStyle={'pageSheet'}>
       <Stack.Navigator>
         <Stack.Screen
           name={props.headerTitle}

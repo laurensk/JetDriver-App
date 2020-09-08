@@ -7,15 +7,11 @@ export default (Component: any) => {
     const colorScheme = useColorScheme();
     return colorScheme == 'dark' ? (
       <DarkThemeContext.Consumer>
-        {(theme) => (
-          <Component {...props} theme={theme} colorScheme={colorScheme} />
-        )}
+        {(theme) => <Component {...props} theme={theme} colorScheme={colorScheme} />}
       </DarkThemeContext.Consumer>
     ) : (
       <DefaultThemeContext.Consumer>
-        {(theme) => (
-          <Component {...props} theme={theme} colorScheme={colorScheme} />
-        )}
+        {(theme) => <Component {...props} theme={theme} colorScheme={colorScheme} />}
       </DefaultThemeContext.Consumer>
     );
   };

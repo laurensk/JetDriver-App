@@ -8,14 +8,7 @@ export class Car {
   brand: string;
   model: string;
 
-  constructor(
-    uuid: string,
-    carType: CarType,
-    numberPlate: string,
-    name: string,
-    brand: string,
-    model: string,
-  ) {
+  constructor(uuid: string, carType: CarType, numberPlate: string, name: string, brand: string, model: string) {
     this.uuid = uuid;
     this.carType = carType;
     this.numberPlate = numberPlate;

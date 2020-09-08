@@ -84,13 +84,7 @@ class Home extends React.Component<PropsType, StateType> {
             style={{paddingHorizontal: 3}}
             buttonStyle={{width: 190, height: 50}}
             icon={
-              <Icon
-                style={{paddingRight: 10}}
-                name="database-plus"
-                type="material-community"
-                size={25}
-                color="white"
-              />
+              <Icon style={{paddingRight: 10}} name="database-plus" type="material-community" size={25} color="white" />
             }
             title="Eintragen"
             onPress={() => {
@@ -101,18 +95,8 @@ class Home extends React.Component<PropsType, StateType> {
             onPress={() => this.toggleQuickDrive()}
             style={{paddingHorizontal: 3}}
             buttonStyle={{width: 190, height: 50}}
-            icon={
-              <Icon
-                style={{paddingRight: 10}}
-                name="car"
-                type="material-community"
-                size={25}
-                color="white"
-              />
-            }
-            title={
-              this.state.quickDriveStatus ? 'Fahrt beenden' : 'Fahrt starten'
-            }
+            icon={<Icon style={{paddingRight: 10}} name="car" type="material-community" size={25} color="white" />}
+            title={this.state.quickDriveStatus ? 'Fahrt beenden' : 'Fahrt starten'}
           />
         </View>
         <Button
@@ -135,15 +119,7 @@ class Home extends React.Component<PropsType, StateType> {
             type="outline"
             style={{paddingHorizontal: 3}}
             buttonStyle={{width: 190, height: 50}}
-            icon={
-              <Icon
-                style={{paddingRight: 10}}
-                name="car"
-                type="material-community"
-                size={25}
-                color="#2089DC"
-              />
-            }
+            icon={<Icon style={{paddingRight: 10}} name="car" type="material-community" size={25} color="#2089DC" />}
             title="Autos"
           />
           <Button
@@ -167,12 +143,7 @@ class Home extends React.Component<PropsType, StateType> {
           <Button title="Über JetDriver" type="clear" />
           <Button title="Kontakt" type="clear" />
         </View>
-        <Button
-          onPress={() => this.logOut()}
-          title="Abmelden"
-          type="clear"
-          titleStyle={{fontWeight: '600'}}
-        />
+        <Button onPress={() => this.logOut()} title="Abmelden" type="clear" titleStyle={{fontWeight: '600'}} />
       </View>
     );
   }
@@ -187,15 +158,10 @@ class Home extends React.Component<PropsType, StateType> {
     if (await QuickDriveUtils.checkForQuickDrive()) {
       this.checkQuickDriveStatus();
       await QuickDriveUtils.stopQuickDrive(
-        async (
-          startDate: Date,
-          endDate: Date,
-          startMileage: number,
-          endMileage: number,
-        ) => {
+        async (startDate: Date, endDate: Date, startMileage: number, endMileage: number) => {
           this.checkQuickDriveStatus();
           this.props.navigation.navigate('CreateEntry');
-        },
+        }
       );
     } else {
       await QuickDriveUtils.startQuickDrive(() => {
@@ -225,7 +191,7 @@ class Home extends React.Component<PropsType, StateType> {
             await this.checkLoginState();
           },
         },
-      ],
+      ]
     );
   }
 }

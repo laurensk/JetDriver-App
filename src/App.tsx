@@ -43,6 +43,7 @@ function JetDriverNavigationStack() {
           headerTitle: 'Fahrt eintragen',
           headerStyle: headerTheme,
           headerTitleStyle: headerTitleTheme,
+          headerLargeTitle: true,
         }}
       />
       <NavigationStack.Screen

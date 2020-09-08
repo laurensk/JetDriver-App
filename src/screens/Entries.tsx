@@ -1,9 +1,12 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, ColorSchemeName} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
+import AppContext from '../utils/AppContext';
 
 interface PropsType {
   navigation: NavigationScreenProp<any, any>;
+  theme: {[k: string]: string};
+  colorScheme: ColorSchemeName;
 }
 
 interface StateType {}
@@ -15,14 +18,14 @@ class Entries extends React.Component<PropsType, StateType> {
   }
 
   render() {
-    const {} = this.props;
+    const {theme, colorScheme, navigation} = this.props;
 
     return (
-      <View>
-        <Text>Entries</Text>
+      <View style={{flex: 1, backgroundColor: theme.backgroundColor}}>
+        <Text>your entries</Text>
       </View>
     );
   }
 }
 
-export default Entries;
+export default AppContext(Entries);

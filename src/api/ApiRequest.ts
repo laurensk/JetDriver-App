@@ -6,16 +6,9 @@ import {User} from '../models/User';
 export class ApiRequest {
   static apiEndpoint: string = 'https://api.jetdriver.laurensk.at';
 
-  static async responseHandler(
-    response: AxiosResponse<any>,
-    parseType: any,
-    isArray: boolean,
-    callback: Function,
-  ) {
+  static async responseHandler(response: AxiosResponse<any>, parseType: any, isArray: boolean, callback: Function) {
     const rawData = Object.values(response.data)[0];
-    const data = isArray
-      ? (rawData as typeof parseType)
-      : (rawData as typeof parseType[]);
+    const data = isArray ? (rawData as typeof parseType) : (rawData as typeof parseType[]);
     callback(data, null);
   }
 
@@ -38,13 +31,7 @@ export class ApiRequest {
     };
   }
 
-  static async get(
-    path: string,
-    parseType: any,
-    isArray: boolean,
-    callback: Function,
-    header?: object,
-  ) {
+  static async get(path: string, parseType: any, isArray: boolean, callback: Function, header?: object) {
     const reqUrl = this.apiEndpoint + path;
     const reqHeader = header || (await this.getHeader());
     Axios.get(reqUrl, reqHeader)
@@ -58,7 +45,7 @@ export class ApiRequest {
     parseType: any,
     isArray: boolean,
     callback: Function,
-    header?: object,
+    header?: object
   ) {
     const reqUrl = this.apiEndpoint + path;
     const reqHeader = header || (await this.getHeader());

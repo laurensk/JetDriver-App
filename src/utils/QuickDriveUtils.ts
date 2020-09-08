@@ -31,7 +31,7 @@ export class QuickDriveUtils {
       ],
       'plain-text',
       '',
-      'phone-pad',
+      'phone-pad'
     );
   }
   static async startQuickDriveData(startMileage: number, callback: Function) {
@@ -53,20 +53,15 @@ export class QuickDriveUtils {
         this.showQuickDriveError(this.quickDriveErrors.notANumber);
         return;
       }
-      this.stopQuickDriveData(
-        endMileage,
-        (startDate: Date, startMileage: number) => {
-          callback(startDate, Date(), startMileage, endMileage);
-        },
-      );
+      this.stopQuickDriveData(endMileage, (startDate: Date, startMileage: number) => {
+        callback(startDate, Date(), startMileage, endMileage);
+      });
     });
   }
 
   static async stopQuickDriveData(endMileage: number, callback: Function) {
     const startDate = await AsyncStorage.getItem('JD_QD_STARTDATE');
-    const startMileage = Number(
-      await AsyncStorage.getItem('JD_QD_STARTMILEAGE'),
-    );
+    const startMileage = Number(await AsyncStorage.getItem('JD_QD_STARTMILEAGE'));
 
     console.log(startMileage, endMileage);
     if (startMileage > endMileage) {
@@ -97,7 +92,7 @@ export class QuickDriveUtils {
       ],
       'plain-text',
       '',
-      'phone-pad',
+      'phone-pad'
     );
   }
 
@@ -112,7 +107,6 @@ export class QuickDriveUtils {
 
   static quickDriveErrors = {
     notANumber: 'Bitte gib einen gültigen Kilometerstand ein.',
-    lowerThanStart:
-      'Bitte gib einen Kilometerstand ein, der größer als der ursprüngliche Kilometerstand ist.',
+    lowerThanStart: 'Bitte gib einen Kilometerstand ein, der größer als der ursprüngliche Kilometerstand ist.',
   };
 }

@@ -1,49 +1,52 @@
 import React, {Component, ComponentClass} from 'react';
-import {
-  View,
-  TextInput,
-  Text,
-  Button,
-  ColorSchemeName,
-  Modal,
-  StatusBar,
-  useColorScheme,
-} from 'react-native';
-import {NavigationScreenProp} from 'react-navigation';
+import {View, TextInput, Text, Button, ColorSchemeName, Modal, StatusBar, useColorScheme} from 'react-native';
+import {NavigationScreenProp, NavigationRoute} from 'react-navigation';
 import {ApiService} from '../api/ApiService';
 import AppContext from '../utils/AppContext';
 import {ModalSheet} from '../toolbox/ModalSheet';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {Input} from 'react-native-elements';
 
 interface PropsType {
+  route: NavigationRoute;
   navigation: NavigationScreenProp<any, any>;
   theme: {[k: string]: string};
   colorScheme: ColorSchemeName;
-  startMileage: number;
-  startDate: Date;
-  endMileage: number;
-  endDate: Date;
 }
 
 interface StateType {
   carModal: boolean;
   carIdSelected: string;
+  companionModal: boolean;
+  companionIdSelected: string;
+  roadConditionModal: boolean;
+  roadConditionIdSelected: number;
+  daytimeModal: boolean;
+  daytimeIdSelected: number;
 }
 
 class CreateEntry extends React.Component<PropsType, StateType> {
-  apiService = new ApiService();
-
   constructor(props: PropsType) {
     super(props);
     this.state = {
       carModal: false,
       carIdSelected: '',
+      companionModal: false,
+      companionIdSelected: '',
+      roadConditionModal: false,
+      roadConditionIdSelected: -1,
+      daytimeModal: false,
+      daytimeIdSelected: -1,
     };
   }
 
   render() {
     const {theme, colorScheme, navigation} = this.props;
-    const {startMileage, startDate, endMileage, endDate} = this.props;
+
+    const startDate = this.props.route.params || undefined;
+    const endDate = this.props.route.params || undefined;
+    const startMileage = this.props.route.params || undefined;
+    const endMileage = this.props.route.params || undefined;
 
     const chooseCarModal = () => {
       return (
@@ -74,7 +77,20 @@ class CreateEntry extends React.Component<PropsType, StateType> {
             });
           }}
           component={chooseCarModal}
-          visible={this.state.carModal}></ModalSheet>
+          visible={this.state.carModal}
+        />
+        <Input
+          autoCapitalize={'none'}
+          defaultValue={startMileage.toString()}
+          placeholder="Startkilometerstand"
+          onChangeText={(value) => {}}
+        />
+        <Input
+          autoCapitalize={'none'}
+          defaultValue={String(endMileage)}
+          placeholder="Endkilometerstand"
+          onChangeText={(value) => {}}
+        />
 
         <Button
           title={'select car'}
@@ -84,24 +100,6 @@ class CreateEntry extends React.Component<PropsType, StateType> {
 
         <Text>you've selected car {this.state.carIdSelected}</Text>
       </View>
-    );
-  }
-
-  createEntry(routeDest: string, dayTimeId: number) {
-    this.apiService.createEntry(
-      this.props.startDate,
-      this.props.endDate,
-      this.props.startMileage,
-      this.props.endMileage,
-      routeDest,
-      '',
-      'carid',
-      1,
-      dayTimeId,
-      'comid',
-      () => {
-        // do some stuff
-      },
     );
   }
 }

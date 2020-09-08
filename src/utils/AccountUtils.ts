@@ -16,12 +16,7 @@ export class AccountUtils {
     return new Account(uuid, email, name, token);
   }
 
-  static async setUser(
-    uuid: string,
-    email: string,
-    name: string,
-    token: string,
-  ) {
+  static async setUser(uuid: string, email: string, name: string, token: string) {
     await AsyncStorage.setItem('JD_ACC_UUID', uuid);
     await AsyncStorage.setItem('JD_ACC_EMAIL', email);
     await AsyncStorage.setItem('JD_ACC_NAME', name);

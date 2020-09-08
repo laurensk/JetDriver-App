@@ -25,7 +25,7 @@ export class Entry {
     car: Car,
     roadCondition: RoadCondition,
     companion: Companion,
-    user: User,
+    user: User
   ) {
     this.uuid = uuid;
     this.date = date;

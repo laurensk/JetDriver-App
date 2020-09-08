@@ -52,20 +52,16 @@ class Login extends React.Component<PropsType, StateType> {
           justifyContent: 'center',
         }}>
         <Spinner visible={this.state.activityIndicator}></Spinner>
-        <KeyboardAwareScrollView
-          extraHeight={100}
-          style={{flex: 1}}
-          resetScrollToCoords={{x: 0, y: 0}}>
+        <KeyboardAwareScrollView extraHeight={100} style={{flex: 1}} resetScrollToCoords={{x: 0, y: 0}}>
           <View>
-            <View
-              style={{alignItems: 'center', paddingBottom: 50, paddingTop: 50}}>
+            <View style={{alignItems: 'center', paddingBottom: 50, paddingTop: 50}}>
               <Image
                 source={require('../assets/jetdriver_logo.png')}
                 resizeMode={'contain'}
                 style={{width: 250, height: 150}}></Image>
             </View>
             <SegmentedControl
-              style={{width: '80%', alignSelf: 'center'}}
+              style={{width: '80%', alignSelf: 'center', height: 30}}
               values={['Registrieren', 'Anmelden']}
               selectedIndex={this.state.loginSegment}
               onChange={(event) => {
@@ -123,9 +119,7 @@ class Login extends React.Component<PropsType, StateType> {
                     </TouchableOpacity>
                     <Text>und der </Text>
                     <TouchableOpacity onPress={() => this.openPrivacyPolicy()}>
-                      <Text style={{color: '#2089DC'}}>
-                        Datenschutzerklärung{' '}
-                      </Text>
+                      <Text style={{color: '#2089DC'}}>Datenschutzerklärung </Text>
                     </TouchableOpacity>
                     <Text>zu.</Text>
                   </View>
@@ -147,9 +141,7 @@ class Login extends React.Component<PropsType, StateType> {
                     </TouchableOpacity>
                     <Text>und der </Text>
                     <TouchableOpacity onPress={() => this.openPrivacyPolicy()}>
-                      <Text style={{color: '#2089DC'}}>
-                        Datenschutzerklärung{' '}
-                      </Text>
+                      <Text style={{color: '#2089DC'}}>Datenschutzerklärung </Text>
                     </TouchableOpacity>
                     <Text>zu.</Text>
                   </View>
@@ -159,10 +151,16 @@ class Login extends React.Component<PropsType, StateType> {
             <View style={{paddingTop: 30}}>
               <Button
                 onPress={() => this.loginSignUpButton()}
-                style={{width: '80%', alignSelf: 'center', paddingBottom: 20}}
-                title={
-                  this.state.loginSegment == 0 ? 'Konto erstellen' : 'Anmelden'
-                }
+                style={{
+                  width: '80%',
+                  alignSelf: 'center',
+                  paddingBottom: 20,
+                }}
+                buttonStyle={{
+                  height: 50,
+                  borderRadius: 10,
+                }}
+                title={this.state.loginSegment == 0 ? 'Konto erstellen' : 'Anmelden'}
               />
             </View>
           </View>
@@ -184,10 +182,7 @@ class Login extends React.Component<PropsType, StateType> {
     ApiService.login(email, password, (user: User, error: ApiError) => {
       this.setState({activityIndicator: false});
       if (error) {
-        setTimeout(
-          () => ErrorAlert.present(ApiErrorTranslation.get(error.message)),
-          10,
-        );
+        setTimeout(() => ErrorAlert.present(ApiErrorTranslation.get(error.message)), 10);
       } else {
         this.props.navigation.goBack();
       }
@@ -199,10 +194,7 @@ class Login extends React.Component<PropsType, StateType> {
     ApiService.signUp(name, email, password, (user: User, error: ApiError) => {
       this.setState({activityIndicator: false});
       if (error) {
-        setTimeout(
-          () => ErrorAlert.present(ApiErrorTranslation.get(error.message)),
-          10,
-        );
+        setTimeout(() => ErrorAlert.present(ApiErrorTranslation.get(error.message)), 10);
       } else {
         this.props.navigation.goBack();
       }
@@ -217,8 +209,7 @@ class Login extends React.Component<PropsType, StateType> {
   }
 
   async openPrivacyPolicy() {
-    const privacyPolicyUrl =
-      'https://legal.laurensk.at/privacy-policy/?lang=de';
+    const privacyPolicyUrl = 'https://legal.laurensk.at/privacy-policy/?lang=de';
     if (await Linking.canOpenURL(privacyPolicyUrl)) {
       await Linking.openURL(privacyPolicyUrl);
     }
@@ -230,5 +221,5 @@ export default AppContext(
     title: 'Willkommen bei JetDriver',
     largeTitle: false,
     gestureEnabled: false,
-  }),
+  })
 );
