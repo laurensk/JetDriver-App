@@ -1,17 +1,21 @@
-import React from 'react';
+import React, {Component, ComponentType} from 'react';
 import {createNativeStackNavigator} from 'react-native-screens/native-stack';
-import {useColorScheme, Modal, Button, View, StatusBar} from 'react-native';
+import {useColorScheme, Modal, Button, View, StatusBar, Text} from 'react-native';
 import {NavigationTheme} from './NavigationTheme';
 
-export const ModalSheet = (props: any) => {
+interface PropsType {
+  component: any;
+  headerTitle: string;
+  headerCloseText: string;
+  headerOnClose: Function;
+  visible: boolean;
+}
+
+export const ModalSheet = (props: PropsType) => {
   const modalComponent = () => {
-    return (
-      <View>
-        <StatusBar barStyle="light-content"></StatusBar>
-        <props.component></props.component>
-      </View>
-    );
+    return <props.component></props.component>;
   };
+
   const Stack = createNativeStackNavigator();
 
   const headerTheme =
@@ -26,6 +30,7 @@ export const ModalSheet = (props: any) => {
 
   return (
     <Modal animationType="slide" visible={props.visible} presentationStyle={'pageSheet'}>
+      <StatusBar barStyle="light-content"></StatusBar>
       <Stack.Navigator>
         <Stack.Screen
           name={props.headerTitle}

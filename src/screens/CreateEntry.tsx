@@ -6,6 +6,11 @@ import AppContext from '../utils/AppContext';
 import {ModalSheet} from '../toolbox/ModalSheet';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Input} from 'react-native-elements';
+import {ChooseCar} from '../components/ChooseCar';
+import {Car} from '../models/Car';
+import {Companion} from '../models/Companion';
+import {RoadCondition} from '../models/RoadCondition';
+import {Daytime} from '../models/Daytime';
 
 interface PropsType {
   route: NavigationRoute;
@@ -18,13 +23,13 @@ interface StateType {
   startMileage: string;
   endMileage: string;
   carModal: boolean;
-  carIdSelected: string;
+  carSelected?: Car;
   companionModal: boolean;
-  companionIdSelected: string;
+  companionSelected?: Companion;
   roadConditionModal: boolean;
-  roadConditionIdSelected: number;
+  roadConditionSelected?: RoadCondition;
   daytimeModal: boolean;
-  daytimeIdSelected: number;
+  daytimeSelected?: Daytime;
 }
 
 class CreateEntry extends React.Component<PropsType, StateType> {
@@ -34,13 +39,9 @@ class CreateEntry extends React.Component<PropsType, StateType> {
       startMileage: '',
       endMileage: '',
       carModal: false,
-      carIdSelected: '',
       companionModal: false,
-      companionIdSelected: '',
       roadConditionModal: false,
-      roadConditionIdSelected: -1,
       daytimeModal: false,
-      daytimeIdSelected: -1,
     };
   }
 
@@ -58,35 +59,17 @@ class CreateEntry extends React.Component<PropsType, StateType> {
   render() {
     const {theme, colorScheme, navigation} = this.props;
 
-    const chooseCarModal = () => {
-      return (
-        <View style={{flex: 1}}>
-          <Text>hallo</Text>
-          <TouchableOpacity
-            onPress={() => {
-              this.setState({
-                carIdSelected: 'hello world',
-                carModal: false,
-              });
-            }}>
-            <Text>select car with id 1</Text>
-          </TouchableOpacity>
-          <TextInput></TextInput>
-        </View>
-      );
-    };
-
     return (
       <View style={{flex: 1, backgroundColor: theme.backgroundColor}}>
         <ModalSheet
           headerTitle="Auto auswählen"
           headerCloseText="Abbrechen"
-          headerOnClose={() => {
-            this.setState({
-              carModal: false,
-            });
-          }}
-          component={chooseCarModal}
+          headerOnClose={() => this.setState({carModal: false})}
+          component={() => (
+            <ChooseCar
+              visible={(value: boolean) => this.setState({carModal: value})}
+              chooseCar={(car: Car) => this.setState({carSelected: car})}></ChooseCar>
+          )}
           visible={this.state.carModal}
         />
         <Input
@@ -108,7 +91,7 @@ class CreateEntry extends React.Component<PropsType, StateType> {
             this.setState({carModal: true});
           }}></Button>
 
-        <Text>you've selected car {this.state.carIdSelected}</Text>
+        <Text>you've selected car {this.state.carSelected?.uuid}</Text>
       </View>
     );
   }
