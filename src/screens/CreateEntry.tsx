@@ -67,7 +67,7 @@ class CreateEntry extends React.Component<PropsType, StateType> {
           headerOnClose={() => this.setState({carModal: false})}
           component={() => (
             <ChooseCar
-              visible={(value: boolean) => this.setState({carModal: value})}
+              visible={(visible: boolean) => this.setState({carModal: visible})}
               chooseCar={(car: Car) => this.setState({carSelected: car})}></ChooseCar>
           )}
           visible={this.state.carModal}
