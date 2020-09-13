@@ -4,13 +4,13 @@ import {NavigationScreenProp, NavigationRoute} from 'react-navigation';
 import {ApiService} from '../api/ApiService';
 import AppContext from '../utils/AppContext';
 import {ModalSheet} from '../toolbox/ModalSheet';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {Input} from 'react-native-elements';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {ChooseCar} from '../components/ChooseCar';
 import {Car} from '../models/Car';
 import {Companion} from '../models/Companion';
 import {RoadCondition} from '../models/RoadCondition';
 import {Daytime} from '../models/Daytime';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 interface PropsType {
   route: NavigationRoute;
@@ -22,6 +22,8 @@ interface PropsType {
 interface StateType {
   startMileage: string;
   endMileage: string;
+  startDate: Date;
+  endDate: Date;
   carModal: boolean;
   carSelected?: Car;
   companionModal: boolean;
@@ -38,6 +40,8 @@ class CreateEntry extends React.Component<PropsType, StateType> {
     this.state = {
       startMileage: '',
       endMileage: '',
+      startDate: new Date(),
+      endDate: new Date(),
       carModal: false,
       companionModal: false,
       roadConditionModal: false,
@@ -48,10 +52,13 @@ class CreateEntry extends React.Component<PropsType, StateType> {
   componentDidMount() {
     if (this.props.route.params?.quickDriver == true) {
       const {startMileage, endMileage, startDate, endDate} = this.props.route.params;
-      console.log(startMileage, endMileage);
+      console.log('param: ', JSON.parse(startDate));
+      console.log('newdate: ', new Date());
       this.setState({
         startMileage: startMileage.toString(),
         endMileage: endMileage.toString(),
+        startDate: JSON.parse(startDate) as Date,
+        endDate: JSON.parse(endDate) as Date,
       });
     }
   }
@@ -72,26 +79,223 @@ class CreateEntry extends React.Component<PropsType, StateType> {
           )}
           visible={this.state.carModal}
         />
-        <Input
-          autoCapitalize={'none'}
-          defaultValue={this.state.startMileage}
-          placeholder="Startkilometerstand"
-          onChangeText={(value) => {}}
-        />
-        <Input
-          autoCapitalize={'none'}
-          defaultValue={this.state.endMileage}
-          placeholder="Endkilometerstand"
-          onChangeText={(value) => {}}
-        />
-
-        <Button
-          title={'select car'}
-          onPress={() => {
-            this.setState({carModal: true});
-          }}></Button>
-
-        <Text>you've selected car {this.state.carSelected?.uuid}</Text>
+        <KeyboardAwareScrollView>
+          <View style={{padding: 30}}>
+            <View
+              style={{
+                backgroundColor: '#FAFBFB',
+                padding: 15,
+                borderRadius: 5,
+                borderColor: 'lightgrey',
+                borderWidth: 1,
+              }}>
+              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={{fontWeight: 'bold', fontSize: 15}}>Startkilometerstand</Text>
+                <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                  <TextInput
+                    placeholder="1234"
+                    keyboardType="number-pad"
+                    value={this.state.startMileage}
+                    onChangeText={(t) => {
+                      this.setState({startMileage: t});
+                    }}></TextInput>
+                  <Text> km</Text>
+                </View>
+              </View>
+            </View>
+            <View
+              style={{
+                marginTop: 5,
+                backgroundColor: '#FAFBFB',
+                padding: 15,
+                borderRadius: 5,
+                borderColor: 'lightgrey',
+                borderWidth: 1,
+              }}>
+              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={{fontWeight: 'bold', fontSize: 15}}>Startdatum</Text>
+                <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                  <TextInput
+                    placeholder="6969"
+                    value={
+                      this.state.startDate.getDate() +
+                      '.' +
+                      String(this.state.startDate.getMonth() + 1) +
+                      '.' +
+                      this.state.startDate.getFullYear() +
+                      ' ' +
+                      this.state.startDate.getHours() +
+                      ':' +
+                      this.state.startDate.getMinutes()
+                    }
+                    onChangeText={(t) => {}}></TextInput>
+                </View>
+              </View>
+            </View>
+            <View
+              style={{
+                marginTop: 25,
+                backgroundColor: '#FAFBFB',
+                padding: 15,
+                borderRadius: 5,
+                borderColor: 'lightgrey',
+                borderWidth: 1,
+              }}>
+              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={{fontWeight: 'bold', fontSize: 15}}>Endkilometerstand</Text>
+                <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                  <TextInput
+                    placeholder="1234"
+                    keyboardType="number-pad"
+                    value={this.state.endMileage}
+                    onChangeText={(t) => {
+                      this.setState({endMileage: t});
+                    }}></TextInput>
+                  <Text> km</Text>
+                </View>
+              </View>
+            </View>
+            <View
+              style={{
+                marginTop: 5,
+                backgroundColor: '#FAFBFB',
+                padding: 15,
+                borderRadius: 5,
+                borderColor: 'lightgrey',
+                borderWidth: 1,
+              }}>
+              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={{fontWeight: 'bold', fontSize: 15}}>Enddatum</Text>
+                <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                  <TextInput
+                    placeholder="6969"
+                    value={
+                      this.state.startDate.getDate() +
+                      '.' +
+                      String(this.state.startDate.getMonth() + 1) +
+                      '.' +
+                      this.state.startDate.getFullYear() +
+                      ' ' +
+                      this.state.startDate.getHours() +
+                      ':' +
+                      this.state.startDate.getMinutes()
+                    }
+                    onChangeText={(t) => {}}></TextInput>
+                </View>
+              </View>
+            </View>
+            <View
+              style={{
+                marginTop: 25,
+                backgroundColor: '#FAFBFB',
+                padding: 15,
+                borderRadius: 5,
+                borderColor: 'lightgrey',
+                borderWidth: 1,
+              }}>
+              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={{fontWeight: 'bold', fontSize: 15}}>Fahrstecke</Text>
+                <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                  <TextInput placeholder="Graz" value={this.state.startMileage} onChangeText={(t) => {}}></TextInput>
+                </View>
+              </View>
+            </View>
+            {/* Properties */}
+            <View
+              style={{
+                marginTop: 5,
+                backgroundColor: '#FAFBFB',
+                padding: 15,
+                borderRadius: 5,
+                borderColor: 'lightgrey',
+                borderWidth: 1,
+              }}>
+              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={{fontWeight: 'bold', fontSize: 15}}>Straßenzustand</Text>
+                <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                  <TextInput
+                    editable={false}
+                    placeholder="Auswählen"
+                    value={this.state.startMileage}
+                    onChangeText={(t) => {}}></TextInput>
+                </View>
+              </View>
+            </View>
+            <View
+              style={{
+                marginTop: 25,
+                backgroundColor: '#FAFBFB',
+                padding: 15,
+                borderRadius: 5,
+                borderColor: 'lightgrey',
+                borderWidth: 1,
+              }}>
+              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={{fontWeight: 'bold', fontSize: 15}}>Auto</Text>
+                <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                  <TextInput
+                    editable={false}
+                    placeholder="Auswählen"
+                    value={this.state.startMileage}
+                    onChangeText={(t) => {}}></TextInput>
+                </View>
+              </View>
+            </View>
+            <View
+              style={{
+                marginTop: 5,
+                backgroundColor: '#FAFBFB',
+                padding: 15,
+                borderRadius: 5,
+                borderColor: 'lightgrey',
+                borderWidth: 1,
+              }}>
+              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={{fontWeight: 'bold', fontSize: 15}}>Begleiter</Text>
+                <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                  <TextInput
+                    editable={false}
+                    placeholder="Auswählen"
+                    value={this.state.startMileage}
+                    onChangeText={(t) => {}}></TextInput>
+                </View>
+              </View>
+            </View>
+            <View
+              style={{
+                marginTop: 5,
+                backgroundColor: '#FAFBFB',
+                padding: 15,
+                borderRadius: 5,
+                borderColor: 'lightgrey',
+                borderWidth: 1,
+              }}>
+              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={{fontWeight: 'bold', fontSize: 15}}>Tageszeit</Text>
+                <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                  <TextInput
+                    editable={false}
+                    placeholder="Auswählen"
+                    value={this.state.startMileage}
+                    onChangeText={(t) => {}}></TextInput>
+                </View>
+              </View>
+            </View>
+            <TouchableOpacity>
+              <View
+                style={{
+                  marginTop: 35,
+                  backgroundColor: '#007AFF',
+                  padding: 15,
+                  borderRadius: 5,
+                }}>
+                <View style={{justifyContent: 'center', alignSelf: 'center'}}>
+                  <Text style={{fontSize: 17, color: 'white'}}>Eintrag speichern</Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </KeyboardAwareScrollView>
       </View>
     );
   }

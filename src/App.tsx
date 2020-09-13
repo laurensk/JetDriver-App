@@ -47,7 +47,6 @@ function JetDriverNavigationStack() {
           headerTitle: 'Fahrt eintragen',
           headerStyle: headerTheme,
           headerTitleStyle: headerTitleTheme,
-          headerLargeTitle: true,
         }}
       />
       <NavigationStack.Screen
@@ -57,7 +56,6 @@ function JetDriverNavigationStack() {
           headerTitle: 'Fahrtenprotokoll',
           headerStyle: headerTheme,
           headerTitleStyle: headerTitleTheme,
-          headerLargeTitle: true,
         }}
       />
       <NavigationStack.Screen
@@ -67,7 +65,6 @@ function JetDriverNavigationStack() {
           headerTitle: 'Autos',
           headerStyle: headerTheme,
           headerTitleStyle: headerTitleTheme,
-          headerLargeTitle: true,
         }}
       />
       <NavigationStack.Screen
@@ -77,7 +74,6 @@ function JetDriverNavigationStack() {
           headerTitle: 'Begleiter',
           headerStyle: headerTheme,
           headerTitleStyle: headerTitleTheme,
-          headerLargeTitle: true,
         }}
       />
       <NavigationStack.Screen
@@ -87,7 +83,6 @@ function JetDriverNavigationStack() {
           headerTitle: 'Über JetDriver',
           headerStyle: headerTheme,
           headerTitleStyle: headerTitleTheme,
-          headerLargeTitle: true,
         }}
       />
       <NavigationStack.Screen

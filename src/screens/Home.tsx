@@ -172,8 +172,8 @@ class Home extends React.Component<PropsType, StateType> {
             quickDriver: true,
             startMileage: startMileage,
             endMileage: endMileage,
-            startDate: startDate,
-            endDate: endDate,
+            startDate: JSON.stringify(startDate),
+            endDate: JSON.stringify(endDate),
           });
         }
       );
