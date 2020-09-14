@@ -63,6 +63,14 @@ class CreateEntry extends React.Component<PropsType, StateType> {
     }
   }
 
+  async selectRoadCondition() {}
+
+  async selectCar() {}
+
+  async selectCompanion() {}
+
+  async selectDaytime() {}
+
   render() {
     const {theme, colorScheme, navigation} = this.props;
 
@@ -201,86 +209,94 @@ class CreateEntry extends React.Component<PropsType, StateType> {
               </View>
             </View>
             {/* Properties */}
-            <View
-              style={{
-                marginTop: 5,
-                backgroundColor: '#FAFBFB',
-                padding: 15,
-                borderRadius: 5,
-                borderColor: 'lightgrey',
-                borderWidth: 1,
-              }}>
-              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text style={{fontWeight: 'bold', fontSize: 15}}>Straßenzustand</Text>
-                <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-                  <TextInput
-                    editable={false}
-                    placeholder="Auswählen"
-                    value={this.state.startMileage}
-                    onChangeText={(t) => {}}></TextInput>
+            <TouchableOpacity onPress={() => this.selectRoadCondition()}>
+              <View
+                style={{
+                  marginTop: 5,
+                  backgroundColor: '#FAFBFB',
+                  padding: 15,
+                  borderRadius: 5,
+                  borderColor: 'lightgrey',
+                  borderWidth: 1,
+                }}>
+                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                  <Text style={{fontWeight: 'bold', fontSize: 15}}>Straßenzustand</Text>
+                  <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                    <TextInput
+                      editable={false}
+                      placeholder="Auswählen"
+                      value={this.state.roadConditionSelected?.roadCondition}
+                      onChangeText={(t) => {}}></TextInput>
+                  </View>
                 </View>
               </View>
-            </View>
-            <View
-              style={{
-                marginTop: 25,
-                backgroundColor: '#FAFBFB',
-                padding: 15,
-                borderRadius: 5,
-                borderColor: 'lightgrey',
-                borderWidth: 1,
-              }}>
-              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text style={{fontWeight: 'bold', fontSize: 15}}>Auto</Text>
-                <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-                  <TextInput
-                    editable={false}
-                    placeholder="Auswählen"
-                    value={this.state.startMileage}
-                    onChangeText={(t) => {}}></TextInput>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.selectCar()}>
+              <View
+                style={{
+                  marginTop: 25,
+                  backgroundColor: '#FAFBFB',
+                  padding: 15,
+                  borderRadius: 5,
+                  borderColor: 'lightgrey',
+                  borderWidth: 1,
+                }}>
+                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                  <Text style={{fontWeight: 'bold', fontSize: 15}}>Auto</Text>
+                  <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                    <TextInput
+                      editable={false}
+                      placeholder="Auswählen"
+                      value={this.state.carSelected?.name}
+                      onChangeText={(t) => {}}></TextInput>
+                  </View>
                 </View>
               </View>
-            </View>
-            <View
-              style={{
-                marginTop: 5,
-                backgroundColor: '#FAFBFB',
-                padding: 15,
-                borderRadius: 5,
-                borderColor: 'lightgrey',
-                borderWidth: 1,
-              }}>
-              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text style={{fontWeight: 'bold', fontSize: 15}}>Begleiter</Text>
-                <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-                  <TextInput
-                    editable={false}
-                    placeholder="Auswählen"
-                    value={this.state.startMileage}
-                    onChangeText={(t) => {}}></TextInput>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.selectCompanion()}>
+              <View
+                style={{
+                  marginTop: 5,
+                  backgroundColor: '#FAFBFB',
+                  padding: 15,
+                  borderRadius: 5,
+                  borderColor: 'lightgrey',
+                  borderWidth: 1,
+                }}>
+                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                  <Text style={{fontWeight: 'bold', fontSize: 15}}>Begleiter</Text>
+                  <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                    <TextInput
+                      editable={false}
+                      placeholder="Auswählen"
+                      value={this.state.companionSelected?.name}
+                      onChangeText={(t) => {}}></TextInput>
+                  </View>
                 </View>
               </View>
-            </View>
-            <View
-              style={{
-                marginTop: 5,
-                backgroundColor: '#FAFBFB',
-                padding: 15,
-                borderRadius: 5,
-                borderColor: 'lightgrey',
-                borderWidth: 1,
-              }}>
-              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text style={{fontWeight: 'bold', fontSize: 15}}>Tageszeit</Text>
-                <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-                  <TextInput
-                    editable={false}
-                    placeholder="Auswählen"
-                    value={this.state.startMileage}
-                    onChangeText={(t) => {}}></TextInput>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.selectDaytime()}>
+              <View
+                style={{
+                  marginTop: 5,
+                  backgroundColor: '#FAFBFB',
+                  padding: 15,
+                  borderRadius: 5,
+                  borderColor: 'lightgrey',
+                  borderWidth: 1,
+                }}>
+                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                  <Text style={{fontWeight: 'bold', fontSize: 15}}>Tageszeit</Text>
+                  <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                    <TextInput
+                      editable={false}
+                      placeholder="Auswählen"
+                      value={this.state.daytimeSelected?.daytime}
+                      onChangeText={(t) => {}}></TextInput>
+                  </View>
                 </View>
               </View>
-            </View>
+            </TouchableOpacity>
             <TouchableOpacity>
               <View
                 style={{
