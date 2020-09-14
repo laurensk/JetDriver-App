@@ -42,29 +42,29 @@ export class ApiService {
 
   static getRoadConditions(callback: Function) {
     ApiRequest.get(
-      'properties/roadCondition',
+      '/properties/roadCondition',
       RoadCondition,
       true,
-      (roadConditions: RoadCondition[], error: ApiError) => {
+      async (roadConditions: RoadCondition[], error: ApiError) => {
         callback(roadConditions, error);
       }
     );
   }
 
   static getCars(callback: Function) {
-    ApiRequest.get('cars', Car, true, (cars: Car[], error: ApiError) => {
+    ApiRequest.get('/cars', Car, true, async (cars: Car[], error: ApiError) => {
       callback(cars, error);
     });
   }
 
   static getCompanions(callback: Function) {
-    ApiRequest.get('companions', Companion, true, (companions: Companion[], error: ApiError) => {
+    ApiRequest.get('/companions', Companion, true, async (companions: Companion[], error: ApiError) => {
       callback(companions, error);
     });
   }
 
   static getDaytimes(callback: Function) {
-    ApiRequest.get('properties/daytime', Daytime, true, (daytimes: Daytime[], error: ApiError) => {
+    ApiRequest.get('/properties/daytime', Daytime, true, async (daytimes: Daytime[], error: ApiError) => {
       callback(daytimes, error);
     });
   }
