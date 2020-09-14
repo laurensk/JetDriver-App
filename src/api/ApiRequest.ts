@@ -13,14 +13,15 @@ export class ApiRequest {
   }
 
   static async errorHandler(error: any, callback: Function) {
+    if (!error || !error.response || !error.response.data) return callback(null, new ApiError('UNKNOWN_ERROR', 400));
     if (error.response.data.error.message != undefined) {
       const statusCode: number = error.response.data.error.statusCode;
       const message: string = error.response.data.error.message;
       const apiError = new ApiError(message, statusCode);
-      callback(null, apiError);
+      return callback(null, apiError);
     } else {
       const apiError = new ApiError('UNKNOWN_ERROR', 400);
-      callback(null, apiError);
+      return callback(null, apiError);
     }
   }
 
