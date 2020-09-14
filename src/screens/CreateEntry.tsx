@@ -5,7 +5,7 @@ import {ApiService} from '../api/ApiService';
 import AppContext from '../utils/AppContext';
 import {ModalSheet} from '../toolbox/ModalSheet';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
-import {ChooseCar} from '../components/ChooseCar';
+import ChooseCar from '../components/ChooseCar';
 import {Car} from '../models/Car';
 import {Companion} from '../models/Companion';
 import {RoadCondition} from '../models/RoadCondition';
@@ -104,11 +104,11 @@ class CreateEntry extends React.Component<PropsType, StateType> {
           headerTitle="Auto auswählen"
           headerCloseText="Abbrechen"
           headerOnClose={() => this.setState({carModal: false})}
-          component={() => (
-            <ChooseCar
-              visible={(visible: boolean) => this.setState({carModal: visible})}
-              chooseCar={(car: Car) => this.setState({carSelected: car})}></ChooseCar>
-          )}
+          component={ChooseCar}
+          componentProps={{
+            visible: (visible: boolean) => this.setState({carModal: visible}),
+            chooseCar: (car: Car) => this.setState({carSelected: car}),
+          }}
           visible={this.state.carModal}
         />
         <ModalSheet
