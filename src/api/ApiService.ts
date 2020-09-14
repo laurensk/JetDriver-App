@@ -3,6 +3,10 @@ import {ApiError} from './ApiError.model';
 import {User} from '../models/User';
 import {Account} from '../models/Account';
 import {AccountUtils} from '../utils/AccountUtils';
+import {Car} from '../models/Car';
+import {RoadCondition} from '../models/RoadCondition';
+import {Companion} from '../models/Companion';
+import {Daytime} from '../models/Daytime';
 
 export class ApiService {
   static async signUp(name: string, email: string, password: string, callback: Function) {
@@ -33,6 +37,35 @@ export class ApiService {
       } else {
         callback(user, error);
       }
+    });
+  }
+
+  static getRoadConditions(callback: Function) {
+    ApiRequest.get(
+      'properties/roadCondition',
+      RoadCondition,
+      true,
+      (roadConditions: RoadCondition[], error: ApiError) => {
+        callback(roadConditions, error);
+      }
+    );
+  }
+
+  static getCars(callback: Function) {
+    ApiRequest.get('cars', Car, true, (cars: Car[], error: ApiError) => {
+      callback(cars, error);
+    });
+  }
+
+  static getCompanions(callback: Function) {
+    ApiRequest.get('companions', Companion, true, (companions: Companion[], error: ApiError) => {
+      callback(companions, error);
+    });
+  }
+
+  static getDaytimes(callback: Function) {
+    ApiRequest.get('properties/daytime', Daytime, true, (daytimes: Daytime[], error: ApiError) => {
+      callback(daytimes, error);
     });
   }
 

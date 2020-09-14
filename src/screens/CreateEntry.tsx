@@ -11,6 +11,9 @@ import {Companion} from '../models/Companion';
 import {RoadCondition} from '../models/RoadCondition';
 import {Daytime} from '../models/Daytime';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {ChooseRoadCondition} from '../components/ChosseRoadCondition';
+import {ChooseCompanion} from '../components/ChooseCompanion';
+import {ChooseDaytime} from '../components/ChosseDaytime';
 
 interface PropsType {
   route: NavigationRoute;
@@ -63,19 +66,40 @@ class CreateEntry extends React.Component<PropsType, StateType> {
     }
   }
 
-  async selectRoadCondition() {}
+  selectRoadCondition() {
+    this.setState({roadConditionModal: true});
+  }
 
-  async selectCar() {}
+  selectCar() {
+    this.setState({carModal: true});
+  }
 
-  async selectCompanion() {}
+  selectCompanion() {
+    this.setState({companionModal: true});
+  }
 
-  async selectDaytime() {}
+  selectDaytime() {
+    this.setState({daytimeModal: true});
+  }
 
   render() {
     const {theme, colorScheme, navigation} = this.props;
 
     return (
       <View style={{flex: 1, backgroundColor: theme.backgroundColor}}>
+        <ModalSheet
+          headerTitle="Straßenzustand"
+          headerCloseText="Abbrechen"
+          headerOnClose={() => this.setState({roadConditionModal: false})}
+          component={() => (
+            <ChooseRoadCondition
+              visible={(visible: boolean) => this.setState({roadConditionModal: visible})}
+              chooseRoadCondition={(roadCondition: RoadCondition) =>
+                this.setState({roadConditionSelected: roadCondition})
+              }></ChooseRoadCondition>
+          )}
+          visible={this.state.roadConditionModal}
+        />
         <ModalSheet
           headerTitle="Auto auswählen"
           headerCloseText="Abbrechen"
@@ -86,6 +110,30 @@ class CreateEntry extends React.Component<PropsType, StateType> {
               chooseCar={(car: Car) => this.setState({carSelected: car})}></ChooseCar>
           )}
           visible={this.state.carModal}
+        />
+        <ModalSheet
+          headerTitle="Begleiter auswählen"
+          headerCloseText="Abbrechen"
+          headerOnClose={() => this.setState({companionModal: false})}
+          component={() => (
+            <ChooseCompanion
+              visible={(visible: boolean) => this.setState({companionModal: visible})}
+              chooseCompanion={(companion: Companion) =>
+                this.setState({companionSelected: companion})
+              }></ChooseCompanion>
+          )}
+          visible={this.state.companionModal}
+        />
+        <ModalSheet
+          headerTitle="Tageszeit auswählen"
+          headerCloseText="Abbrechen"
+          headerOnClose={() => this.setState({daytimeModal: false})}
+          component={() => (
+            <ChooseDaytime
+              visible={(visible: boolean) => this.setState({daytimeModal: visible})}
+              chooseDaytime={(daytime: Daytime) => this.setState({daytimeSelected: daytime})}></ChooseDaytime>
+          )}
+          visible={this.state.daytimeModal}
         />
         <KeyboardAwareScrollView>
           <View style={{padding: 30}}>
