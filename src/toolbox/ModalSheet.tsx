@@ -2,9 +2,11 @@ import React, {Component, ComponentType} from 'react';
 import {createNativeStackNavigator} from 'react-native-screens/native-stack';
 import {useColorScheme, Modal, Button, View, StatusBar, Text} from 'react-native';
 import {NavigationTheme} from './NavigationTheme';
+import ChooseCar from '../components/ChooseCar';
 
 interface PropsType {
   component: any;
+  componentProps: any;
   headerTitle: string;
   headerCloseText: string;
   headerOnClose: Function;
@@ -34,7 +36,6 @@ export const ModalSheet = (props: PropsType) => {
       <Stack.Navigator>
         <Stack.Screen
           name={props.headerTitle}
-          component={modalComponent}
           options={{
             headerStyle: headerTheme,
             headerTitleStyle: headerTitleTheme,
@@ -45,8 +46,9 @@ export const ModalSheet = (props: PropsType) => {
                   props.headerOnClose();
                 }}></Button>
             ),
-          }}
-        />
+          }}>
+          {() => <props.component {...props.componentProps} />}
+        </Stack.Screen>
       </Stack.Navigator>
     </Modal>
   );
