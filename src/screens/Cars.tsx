@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, ColorSchemeName} from 'react-native';
+import {View, Text, ColorSchemeName, Button} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
 import AppContext from '../utils/AppContext';
 
@@ -11,11 +11,20 @@ interface PropsType {
 
 interface StateType {}
 
-class Cars extends React.Component<PropsType, StateType> {
+export class Cars extends React.Component<PropsType, StateType> {
   constructor(props: PropsType) {
     super(props);
     this.state = {};
   }
+
+  static navigationButton = (
+    <Button
+      onPress={() => {
+        console.log('error');
+      }}
+      title="+"
+    />
+  );
 
   render() {
     const {theme, colorScheme, navigation} = this.props;

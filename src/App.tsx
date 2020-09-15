@@ -9,9 +9,9 @@ import SplashScreen from 'react-native-splash-screen';
 import {enableScreens} from 'react-native-screens';
 import {createNativeStackNavigator} from 'react-native-screens/native-stack';
 import {OrientationLocker} from './toolbox/OrientationLocker';
-import Entries from './screens/Entries';
-import Companions from './screens/Companions';
-import Cars from './screens/Cars';
+import * as Entries from './screens/Entries';
+import * as Companions from './screens/Companions';
+import * as Cars from './screens/Cars';
 import About from './screens/About';
 
 const NavigationStack = createNativeStackNavigator();
@@ -51,29 +51,32 @@ function JetDriverNavigationStack() {
       />
       <NavigationStack.Screen
         name="Entries"
-        component={Entries}
+        component={Entries.default}
         options={{
           headerTitle: 'Fahrtenprotokoll',
           headerStyle: headerTheme,
           headerTitleStyle: headerTitleTheme,
+          headerRight: () => Entries.Entries.navigationButton,
         }}
       />
       <NavigationStack.Screen
         name="Cars"
-        component={Cars}
+        component={Cars.default}
         options={{
           headerTitle: 'Autos',
           headerStyle: headerTheme,
           headerTitleStyle: headerTitleTheme,
+          headerRight: () => Cars.Cars.navigationButton,
         }}
       />
       <NavigationStack.Screen
         name="Companions"
-        component={Companions}
+        component={Companions.default}
         options={{
           headerTitle: 'Begleiter',
           headerStyle: headerTheme,
           headerTitleStyle: headerTitleTheme,
+          headerRight: () => Companions.Companions.navigationButton,
         }}
       />
       <NavigationStack.Screen
