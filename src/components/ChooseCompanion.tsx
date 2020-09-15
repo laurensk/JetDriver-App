@@ -1,31 +1,87 @@
 import React from 'react';
-import {View, Text} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {ActivityIndicator, Text, View} from 'react-native';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
+import {ApiError} from '../api/ApiError.model';
+import {ApiErrorTranslation} from '../api/ApiErrorTranslation';
+import {ApiService} from '../api/ApiService';
 import {Companion} from '../models/Companion';
+import {ErrorAlert} from '../toolbox/ErrorAlert';
+import AppContext from '../utils/AppContext';
 
 interface PropsType {
+  theme: {[k: string]: string};
   visible(visible: boolean): void;
   chooseCompanion(companion: Companion): void;
 }
 
-export const ChooseCompanion = (props: PropsType) => {
-  return (
-    <View style={{flex: 1}}>
-      <Text>hallo</Text>
-      <TouchableOpacity
-        onPress={() => {
-          //props.chooseCar();
-          props.visible(false);
-        }}>
-        <Text>select car with id 6969-car-4204</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          //props.chooseCar();
-          props.visible(false);
-        }}>
-        <Text>select car with id 1111-car-4444</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
+interface StateType {
+  loading: boolean;
+  companions: Companion[];
+}
+
+class ChooseCompanion extends React.Component<PropsType, StateType> {
+  constructor(props: PropsType) {
+    super(props);
+    this.state = {
+      loading: true,
+      companions: [],
+    };
+  }
+
+  componentDidMount() {
+    this.fetchCompanions();
+  }
+
+  render() {
+    const {theme} = this.props;
+
+    return (
+      <View style={{flex: 1, backgroundColor: theme.backgroundColor}}>
+        <ScrollView>
+          <View style={{padding: 30}}>
+            {this.state.loading && <ActivityIndicator></ActivityIndicator>}
+            {!this.state.loading && (
+              <View>
+                {this.state.companions.map((companion, key) => {
+                  return (
+                    <TouchableOpacity key={key} onPress={() => this.selectCompanion(companion)}>
+                      <View style={{height: 120, flex: 1, paddingBottom: 10}}>
+                        <View
+                          style={{
+                            flex: 1,
+                            marginTop: 5,
+                            backgroundColor: '#FAFBFB',
+                            padding: 15,
+                            borderRadius: 5,
+                            borderColor: 'lightgrey',
+                            borderWidth: 1,
+                          }}>
+                          <Text>{companion.name}</Text>
+                        </View>
+                      </View>
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
+            )}
+          </View>
+        </ScrollView>
+      </View>
+    );
+  }
+
+  fetchCompanions() {
+    ApiService.getCompanions((companions: Companion[], error: ApiError) => {
+      this.setState({loading: false});
+      if (error) setTimeout(() => ErrorAlert.present(ApiErrorTranslation.get(error.message)), 10);
+      this.setState({companions: companions});
+    });
+  }
+
+  selectCompanion(companion: Companion) {
+    this.props.chooseCompanion(companion);
+    this.props.visible(false);
+  }
+}
+
+export default AppContext(ChooseCompanion);

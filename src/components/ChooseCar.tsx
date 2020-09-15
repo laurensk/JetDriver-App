@@ -1,12 +1,10 @@
 import React from 'react';
 import {ActivityIndicator, Text, View} from 'react-native';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
-import Spinner from 'react-native-loading-spinner-overlay';
 import {ApiError} from '../api/ApiError.model';
 import {ApiErrorTranslation} from '../api/ApiErrorTranslation';
 import {ApiService} from '../api/ApiService';
 import {Car} from '../models/Car';
-import {CarType} from '../models/CarType';
 import {ErrorAlert} from '../toolbox/ErrorAlert';
 import AppContext from '../utils/AppContext';
 
@@ -45,7 +43,26 @@ class ChooseCar extends React.Component<PropsType, StateType> {
             {!this.state.loading && (
               <View>
                 {this.state.cars.map((car, key) => {
-                  return <Text key={key}>{car.name}</Text>;
+                  return (
+                    <TouchableOpacity key={key} onPress={() => this.selectCar(car)}>
+                      <View style={{height: 120, flex: 1, paddingBottom: 10}}>
+                        <View
+                          style={{
+                            flex: 1,
+                            marginTop: 5,
+                            backgroundColor: '#FAFBFB',
+                            padding: 15,
+                            borderRadius: 5,
+                            borderColor: 'lightgrey',
+                            borderWidth: 1,
+                          }}>
+                          <Text>
+                            {car.name} {car.numberPlate}
+                          </Text>
+                        </View>
+                      </View>
+                    </TouchableOpacity>
+                  );
                 })}
               </View>
             )}
@@ -61,6 +78,11 @@ class ChooseCar extends React.Component<PropsType, StateType> {
       if (error) setTimeout(() => ErrorAlert.present(ApiErrorTranslation.get(error.message)), 10);
       this.setState({cars: cars});
     });
+  }
+
+  selectCar(car: Car) {
+    this.props.chooseCar(car);
+    this.props.visible(false);
   }
 }
 
