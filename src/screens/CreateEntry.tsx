@@ -1,18 +1,17 @@
 import React, {Component, ComponentClass} from 'react';
-import {View, TextInput, Text, Button, ColorSchemeName, Modal, StatusBar, useColorScheme} from 'react-native';
+import {View, TextInput, Text, Button, ColorSchemeName} from 'react-native';
 import {NavigationScreenProp, NavigationRoute} from 'react-navigation';
-import {ApiService} from '../api/ApiService';
 import AppContext from '../utils/AppContext';
 import {ModalSheet} from '../toolbox/ModalSheet';
-import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import ChooseCar from '../components/ChooseCar';
+import ChooseRoadCondtions from '../components/ChooseRoadCondition';
+import ChooseDaytime from '../components/ChooseDaytime';
 import {Car} from '../models/Car';
 import {Companion} from '../models/Companion';
 import {RoadCondition} from '../models/RoadCondition';
 import {Daytime} from '../models/Daytime';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {ChooseRoadCondition} from '../components/ChosseRoadCondition';
-import {ChooseDaytime} from '../components/ChosseDaytime';
 import ChooseCompanion from '../components/ChooseCompanion';
 
 interface PropsType {
@@ -91,10 +90,11 @@ class CreateEntry extends React.Component<PropsType, StateType> {
           headerTitle="Straßenzustand"
           headerCloseText="Abbrechen"
           headerOnClose={() => this.setState({roadConditionModal: false})}
-          component={ChooseRoadCondition}
+          component={ChooseRoadCondtions}
           componentProps={{
-            visible: (visible: boolean) => this.setState({carModal: visible}),
-            chooseDaytime: (roadCondition: RoadCondition) => this.setState({roadConditionSelected: roadCondition}),
+            visible: (visible: boolean) => this.setState({roadConditionModal: visible}),
+            chooseRoadCondition: (roadCondition: RoadCondition) =>
+              this.setState({roadConditionSelected: roadCondition}),
           }}
           visible={this.state.roadConditionModal}
         />
