@@ -1,8 +1,7 @@
-import React, {Component, ComponentType} from 'react';
+import React from 'react';
 import {createNativeStackNavigator} from 'react-native-screens/native-stack';
-import {useColorScheme, Modal, Button, View, StatusBar, Text} from 'react-native';
+import {useColorScheme, Modal, Button, StatusBar} from 'react-native';
 import {NavigationTheme} from './NavigationTheme';
-import ChooseCar from '../components/ChooseCar';
 
 interface PropsType {
   component: any;
@@ -14,10 +13,6 @@ interface PropsType {
 }
 
 export const ModalSheet = (props: PropsType) => {
-  const modalComponent = () => {
-    return <props.component></props.component>;
-  };
-
   const Stack = createNativeStackNavigator();
 
   const headerTheme =
