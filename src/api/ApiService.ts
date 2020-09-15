@@ -1,7 +1,6 @@
 import {ApiRequest} from './ApiRequest';
 import {ApiError} from './ApiError.model';
 import {User} from '../models/User';
-import {Account} from '../models/Account';
 import {AccountUtils} from '../utils/AccountUtils';
 import {Car} from '../models/Car';
 import {RoadCondition} from '../models/RoadCondition';
@@ -42,7 +41,7 @@ export class ApiService {
 
   static getRoadConditions(callback: Function) {
     ApiRequest.get(
-      '/properties/roadCondition',
+      '/properties/roadConditions',
       RoadCondition,
       true,
       async (roadConditions: RoadCondition[], error: ApiError) => {
@@ -64,7 +63,7 @@ export class ApiService {
   }
 
   static getDaytimes(callback: Function) {
-    ApiRequest.get('/properties/daytime', Daytime, true, async (daytimes: Daytime[], error: ApiError) => {
+    ApiRequest.get('/properties/daytimes', Daytime, true, async (daytimes: Daytime[], error: ApiError) => {
       callback(daytimes, error);
     });
   }
