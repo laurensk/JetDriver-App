@@ -13,6 +13,8 @@ import {RoadCondition} from '../models/RoadCondition';
 import {Daytime} from '../models/Daytime';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import ChooseCompanion from '../components/ChooseCompanion';
+import {DaytimeTranslation} from '../utils/DaytimeTranslation';
+import {RoadConditionTranslation} from '../utils/RoadConditionTranslation';
 
 interface PropsType {
   route: NavigationRoute;
@@ -269,7 +271,7 @@ class CreateEntry extends React.Component<PropsType, StateType> {
                     <TextInput
                       editable={false}
                       placeholder="Auswählen"
-                      value={this.state.roadConditionSelected?.roadCondition}
+                      value={RoadConditionTranslation.get(this.state.roadConditionSelected?.roadCondition || '')}
                       onChangeText={(t) => {}}></TextInput>
                   </View>
                 </View>
@@ -335,7 +337,7 @@ class CreateEntry extends React.Component<PropsType, StateType> {
                     <TextInput
                       editable={false}
                       placeholder="Auswählen"
-                      value={this.state.daytimeSelected?.daytime}
+                      value={DaytimeTranslation.get(this.state.daytimeSelected?.daytime || '')}
                       onChangeText={(t) => {}}></TextInput>
                   </View>
                 </View>
