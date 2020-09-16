@@ -38,14 +38,14 @@ class ChooseCar extends React.Component<PropsType, StateType> {
     return (
       <View style={{flex: 1, backgroundColor: theme.backgroundColor}}>
         <ScrollView>
-          <View style={{padding: 30}}>
+          <View style={{padding: 20}}>
             {this.state.loading && <ActivityIndicator></ActivityIndicator>}
             {!this.state.loading && (
               <View>
                 {this.state.cars.map((car, key) => {
                   return (
                     <TouchableOpacity key={key} onPress={() => this.selectCar(car)}>
-                      <View style={{height: 120, flex: 1, paddingBottom: 10}}>
+                      <View style={{flex: 1, paddingVertical: 5}}>
                         <View
                           style={{
                             flex: 1,
@@ -56,9 +56,11 @@ class ChooseCar extends React.Component<PropsType, StateType> {
                             borderColor: 'lightgrey',
                             borderWidth: 1,
                           }}>
-                          <Text>
-                            {car.name} {car.numberPlate}
+                          <Text style={{fontWeight: 'bold', paddingBottom: 5}}>{car.name}</Text>
+                          <Text style={{paddingBottom: 5}}>
+                            {car.brand} {car.model}
                           </Text>
+                          <Text>{car.numberPlate}</Text>
                         </View>
                       </View>
                     </TouchableOpacity>
