@@ -7,6 +7,7 @@ import {ApiService} from '../api/ApiService';
 import {Daytime} from '../models/Daytime';
 import {ErrorAlert} from '../toolbox/ErrorAlert';
 import AppContext from '../utils/AppContext';
+import {DaytimeTranslation} from '../utils/DaytimeTranslation';
 
 interface PropsType {
   theme: {[k: string]: string};
@@ -38,14 +39,14 @@ class ChooseDaytime extends React.Component<PropsType, StateType> {
     return (
       <View style={{flex: 1, backgroundColor: theme.backgroundColor}}>
         <ScrollView>
-          <View style={{padding: 30}}>
+          <View style={{padding: 20}}>
             {this.state.loading && <ActivityIndicator></ActivityIndicator>}
             {!this.state.loading && (
               <View>
                 {this.state.daytimes.map((daytime, key) => {
                   return (
-                    <TouchableOpacity key={key} onPress={() => this.selectCompanion(daytime)}>
-                      <View style={{height: 120, flex: 1, paddingBottom: 10}}>
+                    <TouchableOpacity key={key} onPress={() => this.selectDaytime(daytime)}>
+                      <View style={{flex: 1, paddingVertical: 5}}>
                         <View
                           style={{
                             flex: 1,
@@ -56,7 +57,7 @@ class ChooseDaytime extends React.Component<PropsType, StateType> {
                             borderColor: 'lightgrey',
                             borderWidth: 1,
                           }}>
-                          <Text>{daytime.daytime}</Text>
+                          <Text style={{fontWeight: 'bold'}}>{DaytimeTranslation.get(daytime.daytime)}</Text>
                         </View>
                       </View>
                     </TouchableOpacity>
@@ -78,7 +79,7 @@ class ChooseDaytime extends React.Component<PropsType, StateType> {
     });
   }
 
-  selectCompanion(daytime: Daytime) {
+  selectDaytime(daytime: Daytime) {
     this.props.chooseDaytime(daytime);
     this.props.visible(false);
   }
