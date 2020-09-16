@@ -7,6 +7,7 @@ import {ApiService} from '../api/ApiService';
 import {RoadCondition} from '../models/RoadCondition';
 import {ErrorAlert} from '../toolbox/ErrorAlert';
 import AppContext from '../utils/AppContext';
+import {RoadConditionTranslation} from '../utils/RoadConditionTranslation';
 
 interface PropsType {
   theme: {[k: string]: string};
@@ -38,14 +39,14 @@ class ChooseRoadCondition extends React.Component<PropsType, StateType> {
     return (
       <View style={{flex: 1, backgroundColor: theme.backgroundColor}}>
         <ScrollView>
-          <View style={{padding: 30}}>
+          <View style={{padding: 20}}>
             {this.state.loading && <ActivityIndicator></ActivityIndicator>}
             {!this.state.loading && (
               <View>
-                {this.state.roadConditions.map((roadCondition, key) => {
+                {this.state.roadConditions.map((roadCondtion, key) => {
                   return (
-                    <TouchableOpacity key={key} onPress={() => this.selectRoadCondition(roadCondition)}>
-                      <View style={{height: 120, flex: 1, paddingBottom: 10}}>
+                    <TouchableOpacity key={key} onPress={() => this.selectRoadCondition(roadCondtion)}>
+                      <View style={{flex: 1, paddingVertical: 5}}>
                         <View
                           style={{
                             flex: 1,
@@ -56,7 +57,9 @@ class ChooseRoadCondition extends React.Component<PropsType, StateType> {
                             borderColor: 'lightgrey',
                             borderWidth: 1,
                           }}>
-                          <Text>{roadCondition.roadCondition}</Text>
+                          <Text style={{fontWeight: 'bold'}}>
+                            {RoadConditionTranslation.get(roadCondtion.roadCondition)}
+                          </Text>
                         </View>
                       </View>
                     </TouchableOpacity>
