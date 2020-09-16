@@ -38,14 +38,14 @@ class ChooseCompanion extends React.Component<PropsType, StateType> {
     return (
       <View style={{flex: 1, backgroundColor: theme.backgroundColor}}>
         <ScrollView>
-          <View style={{padding: 30}}>
+          <View style={{padding: 20}}>
             {this.state.loading && <ActivityIndicator></ActivityIndicator>}
             {!this.state.loading && (
               <View>
                 {this.state.companions.map((companion, key) => {
                   return (
                     <TouchableOpacity key={key} onPress={() => this.selectCompanion(companion)}>
-                      <View style={{height: 120, flex: 1, paddingBottom: 10}}>
+                      <View style={{flex: 1, paddingVertical: 5}}>
                         <View
                           style={{
                             flex: 1,
@@ -56,7 +56,7 @@ class ChooseCompanion extends React.Component<PropsType, StateType> {
                             borderColor: 'lightgrey',
                             borderWidth: 1,
                           }}>
-                          <Text>{companion.name}</Text>
+                          <Text style={{fontWeight: 'bold'}}>{companion.name}</Text>
                         </View>
                       </View>
                     </TouchableOpacity>
