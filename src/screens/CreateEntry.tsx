@@ -28,6 +28,7 @@ interface StateType {
   endMileage: string;
   startDate: Date;
   endDate: Date;
+  routeDest: string;
   carModal: boolean;
   carSelected?: Car;
   companionModal: boolean;
@@ -46,6 +47,7 @@ class CreateEntry extends React.Component<PropsType, StateType> {
       endMileage: '',
       startDate: new Date(),
       endDate: new Date(),
+      routeDest: '',
       carModal: false,
       companionModal: false,
       roadConditionModal: false,
@@ -250,7 +252,12 @@ class CreateEntry extends React.Component<PropsType, StateType> {
               <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                 <Text style={{fontWeight: 'bold', fontSize: 15}}>Fahrstecke</Text>
                 <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-                  <TextInput placeholder="Graz" value={this.state.startMileage} onChangeText={(t) => {}}></TextInput>
+                  <TextInput
+                    placeholder="Graz"
+                    value={this.state.routeDest}
+                    onChangeText={(t) => {
+                      this.setState({routeDest: t});
+                    }}></TextInput>
                 </View>
               </View>
             </View>
@@ -271,8 +278,9 @@ class CreateEntry extends React.Component<PropsType, StateType> {
                     <TextInput
                       editable={false}
                       placeholder="Auswählen"
-                      value={RoadConditionTranslation.get(this.state.roadConditionSelected?.roadCondition || '')}
-                      onChangeText={(t) => {}}></TextInput>
+                      value={RoadConditionTranslation.get(
+                        this.state.roadConditionSelected?.roadCondition || ''
+                      )}></TextInput>
                   </View>
                 </View>
               </View>
@@ -293,8 +301,7 @@ class CreateEntry extends React.Component<PropsType, StateType> {
                     <TextInput
                       editable={false}
                       placeholder="Auswählen"
-                      value={this.state.carSelected?.name}
-                      onChangeText={(t) => {}}></TextInput>
+                      value={this.state.carSelected?.name}></TextInput>
                   </View>
                 </View>
               </View>
@@ -315,8 +322,7 @@ class CreateEntry extends React.Component<PropsType, StateType> {
                     <TextInput
                       editable={false}
                       placeholder="Auswählen"
-                      value={this.state.companionSelected?.name}
-                      onChangeText={(t) => {}}></TextInput>
+                      value={this.state.companionSelected?.name}></TextInput>
                   </View>
                 </View>
               </View>
@@ -337,13 +343,15 @@ class CreateEntry extends React.Component<PropsType, StateType> {
                     <TextInput
                       editable={false}
                       placeholder="Auswählen"
-                      value={DaytimeTranslation.get(this.state.daytimeSelected?.daytime || '')}
-                      onChangeText={(t) => {}}></TextInput>
+                      value={DaytimeTranslation.get(this.state.daytimeSelected?.daytime || '')}></TextInput>
                   </View>
                 </View>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                this.createEntry();
+              }}>
               <View
                 style={{
                   marginTop: 35,
@@ -361,6 +369,14 @@ class CreateEntry extends React.Component<PropsType, StateType> {
       </View>
     );
   }
+
+  createEntry() {
+    console.log('will create entry from ' + this.state.startMileage + ' to ' + this.state.endMileage);
+  }
+
+  validateEntry() {}
+
+  postEntry() {}
 }
 
 export default AppContext(CreateEntry);
