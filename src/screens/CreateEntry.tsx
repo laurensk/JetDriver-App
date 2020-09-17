@@ -1,4 +1,4 @@
-import React, {Component, ComponentClass} from 'react';
+import React, {Component, ComponentClass, createRef} from 'react';
 import {View, TextInput, Text, Button, ColorSchemeName} from 'react-native';
 import {NavigationScreenProp, NavigationRoute} from 'react-navigation';
 import AppContext from '../utils/AppContext';
@@ -40,6 +40,9 @@ interface StateType {
 }
 
 class CreateEntry extends React.Component<PropsType, StateType> {
+  startDateRef = createRef();
+  endDateRef = createRef();
+
   constructor(props: PropsType) {
     super(props);
     this.state = {
