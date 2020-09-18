@@ -63,9 +63,7 @@ export class QuickDriveUtils {
     const startDate = await AsyncStorage.getItem('JD_QD_STARTDATE');
     const startMileage = Number(await AsyncStorage.getItem('JD_QD_STARTMILEAGE'));
 
-    console.log(startMileage, endMileage);
     if (startMileage > endMileage) {
-      console.log('going in');
       this.showQuickDriveError(this.quickDriveErrors.lowerThanStart);
       return;
     }

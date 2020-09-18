@@ -179,7 +179,6 @@ class Home extends React.Component<PropsType, StateType> {
       );
     } else {
       await QuickDriveUtils.startQuickDrive(() => {
-        console.log('enabled');
         this.checkQuickDriveStatus();
       });
     }
