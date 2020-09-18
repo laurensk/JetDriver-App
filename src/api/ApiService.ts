@@ -6,6 +6,7 @@ import {Car} from '../models/Car';
 import {RoadCondition} from '../models/RoadCondition';
 import {Companion} from '../models/Companion';
 import {Daytime} from '../models/Daytime';
+import {Entry} from '../models/Entry';
 
 export class ApiService {
   static async signUp(name: string, email: string, password: string, callback: Function) {
@@ -68,14 +69,31 @@ export class ApiService {
     });
   }
 
-  static postStuff(name: string, email: string, password: string) {
+  static createEntry(
+    startDate: Number,
+    endDate: Number,
+    startMileage: Number,
+    endMileage: Number,
+    routeDest: String,
+    roadConditionId: Number,
+    carUuid: String,
+    companionUuid: String,
+    daytimeId: Number,
+    callback: Function
+  ) {
     const data = {
-      name: name,
-      email: email,
-      password: password,
+      startDate: startDate,
+      endDate: endDate,
+      startMileage: startMileage,
+      endMileage: endMileage,
+      routeDest: routeDest,
+      roadConditionId: roadConditionId,
+      carId: carUuid,
+      companionId: companionUuid,
+      daytimeId: daytimeId,
     };
-    ApiRequest.post('/user/sign-up', data, User, false, (user: User, error: ApiError) => {
-      console.log(user.uuid, error);
+    ApiRequest.post('/entries', data, Entry, false, (entry: Entry, error: ApiError) => {
+      callback(entry, error);
     });
   }
 }

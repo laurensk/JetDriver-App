@@ -1,5 +1,5 @@
 import React, {Component, ComponentClass, createRef} from 'react';
-import {View, TextInput, Text, Button, ColorSchemeName} from 'react-native';
+import {View, TextInput, Text, Button, ColorSchemeName, Alert} from 'react-native';
 import {NavigationScreenProp, NavigationRoute} from 'react-navigation';
 import AppContext from '../utils/AppContext';
 import {ModalSheet} from '../toolbox/ModalSheet';
@@ -16,6 +16,12 @@ import ChooseCompanion from '../components/ChooseCompanion';
 import {DaytimeTranslation} from '../utils/DaytimeTranslation';
 import {RoadConditionTranslation} from '../utils/RoadConditionTranslation';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import Spinner from 'react-native-loading-spinner-overlay';
+import {ApiService} from '../api/ApiService';
+import {Entry} from '../models/Entry';
+import {ApiError} from '../api/ApiError.model';
+import {ErrorAlert} from '../toolbox/ErrorAlert';
+import {ApiErrorTranslation} from '../api/ApiErrorTranslation';
 
 interface PropsType {
   route: NavigationRoute;
@@ -40,12 +46,10 @@ interface StateType {
   roadConditionSelected?: RoadCondition;
   daytimeModal: boolean;
   daytimeSelected?: Daytime;
+  loading: boolean;
 }
 
 class CreateEntry extends React.Component<PropsType, StateType> {
-  startDateRef = createRef();
-  endDateRef = createRef();
-
   constructor(props: PropsType) {
     super(props);
     this.state = {
@@ -60,6 +64,7 @@ class CreateEntry extends React.Component<PropsType, StateType> {
       companionModal: false,
       roadConditionModal: false,
       daytimeModal: false,
+      loading: false,
     };
   }
 
@@ -96,6 +101,7 @@ class CreateEntry extends React.Component<PropsType, StateType> {
 
     return (
       <View style={{flex: 1, backgroundColor: theme.backgroundColor}}>
+        <Spinner visible={this.state.loading}></Spinner>
         <ModalSheet
           headerTitle="Straßenzustand"
           headerCloseText="Abbrechen"
@@ -205,8 +211,10 @@ class CreateEntry extends React.Component<PropsType, StateType> {
                         '.' +
                         this.state.startDate.getFullYear() +
                         ' ' +
+                        (this.state.startDate.getHours() < 10 ? '0' : '') +
                         this.state.startDate.getHours() +
                         ':' +
+                        (this.state.startDate.getMinutes() < 10 ? '0' : '') +
                         this.state.startDate.getMinutes()
                       }
                       editable={false}></TextInput>
@@ -259,8 +267,10 @@ class CreateEntry extends React.Component<PropsType, StateType> {
                         '.' +
                         this.state.endDate.getFullYear() +
                         ' ' +
+                        (this.state.endDate.getHours() < 10 ? '0' : '') +
                         this.state.endDate.getHours() +
                         ':' +
+                        (this.state.endDate.getMinutes() < 10 ? '0' : '') +
                         this.state.endDate.getMinutes()
                       }
                       editable={false}></TextInput>
@@ -279,7 +289,7 @@ class CreateEntry extends React.Component<PropsType, StateType> {
               }}>
               <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                 <Text style={{fontWeight: 'bold', fontSize: 15}}>Fahrstecke</Text>
-                <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                <View style={{flexDirection: 'row', justifyContent: 'flex-end', maxWidth: 200}}>
                   <TextInput
                     placeholder="Eingeben..."
                     value={this.state.routeDest}
@@ -399,12 +409,69 @@ class CreateEntry extends React.Component<PropsType, StateType> {
   }
 
   createEntry() {
-    console.log('will create entry from ' + this.state.startMileage + ' to ' + this.state.endMileage);
+    if (this.validateEntry()) {
+      this.postEntry(
+        Number(this.state.startDate.getTime()),
+        Number(this.state.endDate.getTime()),
+        Number(this.state.startMileage),
+        Number(this.state.endMileage),
+        this.state.routeDest,
+        this.state.roadConditionSelected?.id || -1,
+        this.state.carSelected?.uuid || '',
+        this.state.companionSelected?.uuid || '',
+        this.state.daytimeSelected?.id || -1
+      );
+    } else {
+      Alert.alert('Fehler', 'Die eingegebenen Daten sind ungültig. Bitte überprüfe deine Eingaben.');
+    }
   }
 
-  validateEntry() {}
+  validateEntry() {
+    return (
+      Number(this.state.startMileage) > 0 &&
+      Number(this.state.endMileage) > 0 &&
+      Number(this.state.endMileage) > Number(this.state.startMileage) &&
+      this.state.routeDest.length > 0 &&
+      this.state.roadConditionSelected &&
+      this.state.carSelected &&
+      this.state.companionSelected &&
+      this.state.daytimeSelected
+    );
+  }
 
-  postEntry() {}
+  postEntry(
+    startDate: Number,
+    endDate: Number,
+    startMileage: Number,
+    endMileage: Number,
+    routeDest: String,
+    roadConditionId: Number,
+    carUuid: String,
+    companionUuid: String,
+    daytimeId: Number
+  ) {
+    this.setState({loading: true});
+    ApiService.createEntry(
+      startDate,
+      endDate,
+      startMileage,
+      endMileage,
+      routeDest,
+      roadConditionId,
+      carUuid,
+      companionUuid,
+      daytimeId,
+      (entry: Entry, error: ApiError) => {
+        this.setState({loading: false});
+        if (error) {
+          setTimeout(() => ErrorAlert.present(ApiErrorTranslation.get(error.message)), 10);
+        } else {
+          this.props.navigation.goBack();
+          setTimeout(() => this.props.navigation.navigate('Entries'), 10);
+        }
+      }
+    );
+  }
 }
 
 export default AppContext(CreateEntry);
