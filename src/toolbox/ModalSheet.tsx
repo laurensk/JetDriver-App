@@ -1,7 +1,8 @@
 import React from 'react';
 import {createNativeStackNavigator} from 'react-native-screens/native-stack';
-import {useColorScheme, Modal, Button, StatusBar} from 'react-native';
+import {useColorScheme, Modal, StatusBar, Button} from 'react-native';
 import {NavigationTheme} from './NavigationTheme';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 interface PropsType {
   component: any;
@@ -35,11 +36,12 @@ export const ModalSheet = (props: PropsType) => {
             headerStyle: headerTheme,
             headerTitleStyle: headerTitleTheme,
             headerLeft: () => (
-              <Button
-                title={props.headerCloseText}
+              <TouchableOpacity
                 onPress={() => {
                   props.headerOnClose();
-                }}></Button>
+                }}>
+                <Button title={props.headerCloseText} onPress={() => {}}></Button>
+              </TouchableOpacity>
             ),
           }}>
           {() => <props.component {...props.componentProps} />}
