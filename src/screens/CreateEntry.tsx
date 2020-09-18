@@ -467,7 +467,6 @@ class CreateEntry extends React.Component<PropsType, StateType> {
           setTimeout(() => ErrorAlert.present(ApiErrorTranslation.get(error.message)), 10);
         } else {
           this.props.navigation.goBack();
-          setTimeout(() => this.props.navigation.navigate('Entries'), 10);
         }
       }
     );
