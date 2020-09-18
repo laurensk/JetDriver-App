@@ -15,6 +15,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import ChooseCompanion from '../components/ChooseCompanion';
 import {DaytimeTranslation} from '../utils/DaytimeTranslation';
 import {RoadConditionTranslation} from '../utils/RoadConditionTranslation';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 interface PropsType {
   route: NavigationRoute;
@@ -26,7 +27,9 @@ interface PropsType {
 interface StateType {
   startMileage: string;
   endMileage: string;
+  startDateModal: boolean;
   startDate: Date;
+  endDateModal: boolean;
   endDate: Date;
   routeDest: string;
   carModal: boolean;
@@ -48,7 +51,9 @@ class CreateEntry extends React.Component<PropsType, StateType> {
     this.state = {
       startMileage: '',
       endMileage: '',
+      startDateModal: false,
       startDate: new Date(),
+      endDateModal: false,
       endDate: new Date(),
       routeDest: '',
       carModal: false,
@@ -61,13 +66,11 @@ class CreateEntry extends React.Component<PropsType, StateType> {
   componentDidMount() {
     if (this.props.route.params?.quickDriver == true) {
       const {startMileage, endMileage, startDate, endDate} = this.props.route.params;
-      console.log('param: ', JSON.parse(startDate));
-      console.log('newdate: ', new Date());
       this.setState({
         startMileage: startMileage.toString(),
         endMileage: endMileage.toString(),
-        startDate: JSON.parse(startDate) as Date,
-        endDate: JSON.parse(endDate) as Date,
+        startDate: new Date(Date.parse(JSON.parse(startDate))),
+        endDate: new Date(Date.parse(JSON.parse(endDate))),
       });
     }
   }
@@ -138,6 +141,24 @@ class CreateEntry extends React.Component<PropsType, StateType> {
           }}
           visible={this.state.daytimeModal}
         />
+        <DateTimePickerModal
+          isVisible={this.state.startDateModal}
+          headerTextIOS="Wähle ein Datum aus"
+          cancelTextIOS="Abbrechen"
+          confirmTextIOS="Speichern"
+          mode="datetime"
+          onConfirm={(date: Date) => this.setState({startDate: date, endDateModal: false})}
+          onCancel={() => this.setState({startDateModal: false})}
+        />
+        <DateTimePickerModal
+          isVisible={this.state.endDateModal}
+          headerTextIOS="Wähle ein Datum aus"
+          cancelTextIOS="Abbrechen"
+          confirmTextIOS="Speichern"
+          mode="datetime"
+          onConfirm={(date: Date) => this.setState({endDate: date, endDateModal: false})}
+          onCancel={() => this.setState({endDateModal: false})}
+        />
         <KeyboardAwareScrollView>
           <View style={{padding: 30}}>
             <View
@@ -152,7 +173,7 @@ class CreateEntry extends React.Component<PropsType, StateType> {
                 <Text style={{fontWeight: 'bold', fontSize: 15}}>Startkilometerstand</Text>
                 <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
                   <TextInput
-                    placeholder="1234"
+                    placeholder="Eingeben..."
                     keyboardType="number-pad"
                     value={this.state.startMileage}
                     onChangeText={(t) => {
@@ -162,35 +183,37 @@ class CreateEntry extends React.Component<PropsType, StateType> {
                 </View>
               </View>
             </View>
-            <View
-              style={{
-                marginTop: 5,
-                backgroundColor: '#FAFBFB',
-                padding: 15,
-                borderRadius: 5,
-                borderColor: 'lightgrey',
-                borderWidth: 1,
-              }}>
-              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text style={{fontWeight: 'bold', fontSize: 15}}>Startdatum</Text>
-                <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-                  <TextInput
-                    placeholder="6969"
-                    value={
-                      this.state.startDate.getDate() +
-                      '.' +
-                      String(this.state.startDate.getMonth() + 1) +
-                      '.' +
-                      this.state.startDate.getFullYear() +
-                      ' ' +
-                      this.state.startDate.getHours() +
-                      ':' +
-                      this.state.startDate.getMinutes()
-                    }
-                    onChangeText={(t) => {}}></TextInput>
+            <TouchableOpacity onPress={() => this.setState({startDateModal: true})}>
+              <View
+                style={{
+                  marginTop: 5,
+                  backgroundColor: '#FAFBFB',
+                  padding: 15,
+                  borderRadius: 5,
+                  borderColor: 'lightgrey',
+                  borderWidth: 1,
+                }}>
+                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                  <Text style={{fontWeight: 'bold', fontSize: 15}}>Startdatum</Text>
+                  <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                    <TextInput
+                      placeholder="6969"
+                      value={
+                        this.state.startDate.getDate() +
+                        '.' +
+                        String(this.state.startDate.getMonth() + 1) +
+                        '.' +
+                        this.state.startDate.getFullYear() +
+                        ' ' +
+                        this.state.startDate.getHours() +
+                        ':' +
+                        this.state.startDate.getMinutes()
+                      }
+                      editable={false}></TextInput>
+                  </View>
                 </View>
               </View>
-            </View>
+            </TouchableOpacity>
             <View
               style={{
                 marginTop: 25,
@@ -204,7 +227,7 @@ class CreateEntry extends React.Component<PropsType, StateType> {
                 <Text style={{fontWeight: 'bold', fontSize: 15}}>Endkilometerstand</Text>
                 <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
                   <TextInput
-                    placeholder="1234"
+                    placeholder="Eingeben..."
                     keyboardType="number-pad"
                     value={this.state.endMileage}
                     onChangeText={(t) => {
@@ -214,35 +237,37 @@ class CreateEntry extends React.Component<PropsType, StateType> {
                 </View>
               </View>
             </View>
-            <View
-              style={{
-                marginTop: 5,
-                backgroundColor: '#FAFBFB',
-                padding: 15,
-                borderRadius: 5,
-                borderColor: 'lightgrey',
-                borderWidth: 1,
-              }}>
-              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text style={{fontWeight: 'bold', fontSize: 15}}>Enddatum</Text>
-                <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-                  <TextInput
-                    placeholder="6969"
-                    value={
-                      this.state.startDate.getDate() +
-                      '.' +
-                      String(this.state.startDate.getMonth() + 1) +
-                      '.' +
-                      this.state.startDate.getFullYear() +
-                      ' ' +
-                      this.state.startDate.getHours() +
-                      ':' +
-                      this.state.startDate.getMinutes()
-                    }
-                    onChangeText={(t) => {}}></TextInput>
+            <TouchableOpacity onPress={() => this.setState({endDateModal: true})}>
+              <View
+                style={{
+                  marginTop: 5,
+                  backgroundColor: '#FAFBFB',
+                  padding: 15,
+                  borderRadius: 5,
+                  borderColor: 'lightgrey',
+                  borderWidth: 1,
+                }}>
+                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                  <Text style={{fontWeight: 'bold', fontSize: 15}}>Enddatum</Text>
+                  <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                    <TextInput
+                      placeholder="6969"
+                      value={
+                        this.state.endDate.getDate() +
+                        '.' +
+                        String(this.state.endDate.getMonth() + 1) +
+                        '.' +
+                        this.state.endDate.getFullYear() +
+                        ' ' +
+                        this.state.endDate.getHours() +
+                        ':' +
+                        this.state.endDate.getMinutes()
+                      }
+                      editable={false}></TextInput>
+                  </View>
                 </View>
               </View>
-            </View>
+            </TouchableOpacity>
             <View
               style={{
                 marginTop: 25,
@@ -256,7 +281,7 @@ class CreateEntry extends React.Component<PropsType, StateType> {
                 <Text style={{fontWeight: 'bold', fontSize: 15}}>Fahrstecke</Text>
                 <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
                   <TextInput
-                    placeholder="Graz"
+                    placeholder="Eingeben..."
                     value={this.state.routeDest}
                     onChangeText={(t) => {
                       this.setState({routeDest: t});
