@@ -1,5 +1,5 @@
 import React from 'react';
-import {useColorScheme, LogBox} from 'react-native';
+import {useColorScheme, LogBox, YellowBox} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import Login from './screens/Login';
 import Home from './screens/Home';
@@ -52,12 +52,12 @@ function JetDriverNavigationStack() {
       <NavigationStack.Screen
         name="Entries"
         component={Entries.default}
-        options={{
+        options={({route, navigation}) => ({
           headerTitle: 'Fahrtenprotokoll',
           headerStyle: headerTheme,
           headerTitleStyle: headerTitleTheme,
-          headerRight: () => Entries.Entries.navigationButton,
-        }}
+          headerRight: () => Entries.Entries.navigationButton(route, navigation),
+        })}
       />
       <NavigationStack.Screen
         name="Cars"
@@ -76,7 +76,7 @@ function JetDriverNavigationStack() {
           headerTitle: 'Begleiter',
           headerStyle: headerTheme,
           headerTitleStyle: headerTitleTheme,
-          headerRight: () => Companions.Companions.navigationButton,
+          headerRight: (navigation) => Companions.Companions.navigationButton(navigation),
         }}
       />
       <NavigationStack.Screen
@@ -105,6 +105,7 @@ function JetDriverNavigationStack() {
 
 export default () => {
   LogBox.ignoreAllLogs();
+  LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
   OrientationLocker.lock();
   SplashScreen.hide();
   enableScreens();
