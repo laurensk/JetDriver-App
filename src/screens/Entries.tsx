@@ -27,6 +27,7 @@ interface StateType {
 export class Entries extends React.Component<PropsType, StateType> {
   constructor(props: PropsType) {
     super(props);
+    this.fetchEntries = this.fetchEntries.bind(this);
     this.createEntry = this.createEntry.bind(this);
     this.state = {
       loading: false,
@@ -52,6 +53,9 @@ export class Entries extends React.Component<PropsType, StateType> {
     this.props.navigation.setParams({
       createEntry: this.createEntry,
     });
+    this.props.navigation.setParams({
+      fetchEntries: this.fetchEntries,
+    });
     this.fetchEntries();
   }
 
@@ -63,7 +67,11 @@ export class Entries extends React.Component<PropsType, StateType> {
         <ScrollView>
           <View style={{paddingTop: 10, paddingBottom: 30}}>
             {this.state.loading && <ActivityIndicator></ActivityIndicator>}
-            {!this.state.loading && this.state.entries.length == 0 && <Text>Keine Einträge vorhanden</Text>}
+            {!this.state.loading && this.state.entries.length == 0 && (
+              <View>
+                <Text style={{color: 'grey', paddingTop: 50, textAlign: 'center'}}>Keine Einträge vorhanden</Text>
+              </View>
+            )}
             {!this.state.loading && (
               <View style={{paddingHorizontal: 20}}>
                 {this.state.entries.map((entry, key) => {
@@ -127,7 +135,7 @@ export class Entries extends React.Component<PropsType, StateType> {
   }
 
   createEntry() {
-    this.props.navigation.navigate('CreateEntry');
+    this.props.navigation.navigate('CreateEntry', {fetchEntries: this.fetchEntries});
   }
 
   fetchEntries() {
@@ -145,7 +153,6 @@ export class Entries extends React.Component<PropsType, StateType> {
 
   deleteEntry(entry: Entry) {
     ApiService.deleteEntry(entry, (deletion: ApiDeletion, error: ApiError) => {
-      console.log(error, deletion);
       if (error && error.message != 'ENTRY_NOT_FOUND')
         return setTimeout(() => ErrorAlert.present(ApiErrorTranslation.get(error.message)), 10);
       if (deletion.success != true) return setTimeout(() => ErrorAlert.present(ApiErrorTranslation.get('ERROR')), 10);
