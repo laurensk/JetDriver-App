@@ -62,22 +62,22 @@ function JetDriverNavigationStack() {
       <NavigationStack.Screen
         name="Cars"
         component={Cars.default}
-        options={{
+        options={({route, navigation}) => ({
           headerTitle: 'Autos',
           headerStyle: headerTheme,
           headerTitleStyle: headerTitleTheme,
-          headerRight: () => Cars.Cars.navigationButton,
-        }}
+          headerRight: () => Cars.Cars.navigationButton(route, navigation),
+        })}
       />
       <NavigationStack.Screen
         name="Companions"
         component={Companions.default}
-        options={{
+        options={({route, navigation}) => ({
           headerTitle: 'Begleiter',
           headerStyle: headerTheme,
           headerTitleStyle: headerTitleTheme,
-          headerRight: (navigation) => Companions.Companions.navigationButton(navigation),
-        }}
+          headerRight: () => Companions.Companions.navigationButton(route, navigation),
+        })}
       />
       <NavigationStack.Screen
         name="About"
