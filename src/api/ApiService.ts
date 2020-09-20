@@ -7,6 +7,7 @@ import {RoadCondition} from '../models/RoadCondition';
 import {Companion} from '../models/Companion';
 import {Daytime} from '../models/Daytime';
 import {Entry} from '../models/Entry';
+import {ApiDeletion} from './ApiDeletion.model';
 
 export class ApiService {
   static async signUp(name: string, email: string, password: string, callback: Function) {
@@ -66,6 +67,18 @@ export class ApiService {
   static getDaytimes(callback: Function) {
     ApiRequest.get('/properties/daytimes', Daytime, true, async (daytimes: Daytime[], error: ApiError) => {
       callback(daytimes, error);
+    });
+  }
+
+  static getEntries(callback: Function) {
+    ApiRequest.get('/entries', Entry, true, async (entries: Entry[], error: ApiError) => {
+      callback(entries, error);
+    });
+  }
+
+  static deleteEntry(entry: Entry, callback: Function) {
+    ApiRequest.delete('/entries/' + entry.uuid, async (deletion: ApiDeletion, error: ApiError) => {
+      callback(deletion, error);
     });
   }
 
