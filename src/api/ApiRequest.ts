@@ -2,6 +2,7 @@ import Axios, {AxiosResponse} from 'axios';
 import {AccountUtils} from '../utils/AccountUtils';
 import {ApiError} from './ApiError.model';
 import {User} from '../models/User';
+import {ApiDeletion} from './ApiDeletion.model';
 
 export class ApiRequest {
   static apiEndpoint: string = 'https://api.jetdriver.laurensk.at';
@@ -55,7 +56,13 @@ export class ApiRequest {
       .catch((err) => this.errorHandler(err, callback));
   }
 
-  static async delete() {}
+  static async delete(path: string, callback: Function, header?: object) {
+    const reqUrl = this.apiEndpoint + path;
+    const reqHeader = header || (await this.getHeader());
+    Axios.delete(reqUrl, reqHeader)
+      .then((res) => this.responseHandler(res, ApiDeletion, false, callback))
+      .catch((err) => this.errorHandler(err, callback));
+  }
 
   static async authRequest(action: string, data: object, callback: Function) {
     const reqUrl = this.apiEndpoint + '/user/' + action;
