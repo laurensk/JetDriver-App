@@ -6,6 +6,7 @@ import {ApiErrorTranslation} from '../api/ApiErrorTranslation';
 import {ApiService} from '../api/ApiService';
 import {RoadCondition} from '../models/RoadCondition';
 import {ErrorAlert} from '../toolbox/ErrorAlert';
+import ScrollViewBackSwipe from '../toolbox/ScrollViewBackSwipe';
 import AppContext from '../utils/AppContext';
 import {RoadConditionTranslation} from '../utils/RoadConditionTranslation';
 
@@ -39,7 +40,7 @@ class ChooseRoadCondition extends React.Component<PropsType, StateType> {
 
     return (
       <View style={{flex: 1, backgroundColor: theme.backgroundColor}}>
-        <ScrollView>
+        <ScrollViewBackSwipe>
           <View style={{padding: 20}}>
             {this.state.loading && <ActivityIndicator></ActivityIndicator>}
             {!this.state.loading && (
@@ -70,7 +71,7 @@ class ChooseRoadCondition extends React.Component<PropsType, StateType> {
               </View>
             )}
           </View>
-        </ScrollView>
+        </ScrollViewBackSwipe>
       </View>
     );
   }

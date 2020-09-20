@@ -1,11 +1,12 @@
 import React from 'react';
 import {ActivityIndicator, ColorSchemeName, Text, View} from 'react-native';
-import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import {ApiError} from '../api/ApiError.model';
 import {ApiErrorTranslation} from '../api/ApiErrorTranslation';
 import {ApiService} from '../api/ApiService';
 import {Daytime} from '../models/Daytime';
 import {ErrorAlert} from '../toolbox/ErrorAlert';
+import ScrollViewBackSwipe from '../toolbox/ScrollViewBackSwipe';
 import AppContext from '../utils/AppContext';
 import {DaytimeTranslation} from '../utils/DaytimeTranslation';
 
@@ -39,7 +40,7 @@ class ChooseDaytime extends React.Component<PropsType, StateType> {
 
     return (
       <View style={{flex: 1, backgroundColor: theme.backgroundColor}}>
-        <ScrollView>
+        <ScrollViewBackSwipe>
           <View style={{padding: 20}}>
             {this.state.loading && <ActivityIndicator></ActivityIndicator>}
             {!this.state.loading && (
@@ -70,7 +71,7 @@ class ChooseDaytime extends React.Component<PropsType, StateType> {
               </View>
             )}
           </View>
-        </ScrollView>
+        </ScrollViewBackSwipe>
       </View>
     );
   }

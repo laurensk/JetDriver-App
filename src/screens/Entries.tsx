@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {Ref} from 'react';
 import {View, Text, ColorSchemeName, ActivityIndicator, Alert} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {NavigationScreenProp} from 'react-navigation';
@@ -10,6 +9,7 @@ import {ApiErrorTranslation} from '../api/ApiErrorTranslation';
 import {ApiService} from '../api/ApiService';
 import {Entry} from '../models/Entry';
 import {ErrorAlert} from '../toolbox/ErrorAlert';
+import ScrollViewBackSwipe from '../toolbox/ScrollViewBackSwipe';
 import AppContext from '../utils/AppContext';
 import {DaytimeTranslation} from '../utils/DaytimeTranslation';
 import {RoadConditionTranslation} from '../utils/RoadConditionTranslation';
@@ -67,7 +67,7 @@ export class Entries extends React.Component<PropsType, StateType> {
 
     return (
       <View style={{flex: 1, backgroundColor: theme.backgroundColor}}>
-        <ScrollView>
+        <ScrollViewBackSwipe>
           <View style={{paddingTop: 10, paddingBottom: 30}}>
             {this.state.loading && <ActivityIndicator></ActivityIndicator>}
             {!this.state.loading && this.state.entries.length == 0 && (
@@ -162,7 +162,7 @@ export class Entries extends React.Component<PropsType, StateType> {
               </View>
             )}
           </View>
-        </ScrollView>
+        </ScrollViewBackSwipe>
       </View>
     );
   }

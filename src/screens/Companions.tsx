@@ -11,6 +11,7 @@ import {ApiService} from '../api/ApiService';
 import {Car} from '../models/Car';
 import {Companion} from '../models/Companion';
 import {ErrorAlert} from '../toolbox/ErrorAlert';
+import ScrollViewBackSwipe from '../toolbox/ScrollViewBackSwipe';
 import AppContext from '../utils/AppContext';
 
 interface PropsType {
@@ -60,7 +61,7 @@ export class Companions extends React.Component<PropsType, StateType> {
 
     return (
       <View style={{flex: 1, backgroundColor: theme.backgroundColor}}>
-        <ScrollView>
+        <ScrollViewBackSwipe>
           <View style={{paddingTop: 10, paddingBottom: 30}}>
             {this.state.loading && <ActivityIndicator></ActivityIndicator>}
             {!this.state.loading && this.state.companions.length == 0 && (
@@ -96,7 +97,7 @@ export class Companions extends React.Component<PropsType, StateType> {
               </View>
             )}
           </View>
-        </ScrollView>
+        </ScrollViewBackSwipe>
       </View>
     );
   }
