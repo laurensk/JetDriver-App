@@ -153,7 +153,10 @@ class CreateEntry extends React.Component<PropsType, StateType> {
           cancelTextIOS="Abbrechen"
           confirmTextIOS="Speichern"
           mode="datetime"
-          onConfirm={(date: Date) => this.setState({startDate: date, endDateModal: false})}
+          onConfirm={(date: Date) => {
+            this.setState({startDate: date});
+            this.setState({startDateModal: false});
+          }}
           onCancel={() => this.setState({startDateModal: false})}
         />
         <DateTimePickerModal
@@ -162,7 +165,10 @@ class CreateEntry extends React.Component<PropsType, StateType> {
           cancelTextIOS="Abbrechen"
           confirmTextIOS="Speichern"
           mode="datetime"
-          onConfirm={(date: Date) => this.setState({endDate: date, endDateModal: false})}
+          onConfirm={(date: Date) => {
+            this.setState({endDate: date});
+            this.setState({endDateModal: false});
+          }}
           onCancel={() => this.setState({endDateModal: false})}
         />
         <KeyboardAwareScrollView>
