@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, Text, ColorSchemeName, Button, ScrollView, ActivityIndicator, Alert} from 'react-native';
+import {View, Text, ColorSchemeName, ActivityIndicator, Alert} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {NavigationScreenProp} from 'react-navigation';
@@ -22,6 +23,7 @@ interface PropsType {
 interface StateType {
   loading: boolean;
   entries: Entry[];
+  mileageSum: number;
 }
 
 export class Entries extends React.Component<PropsType, StateType> {
@@ -32,6 +34,7 @@ export class Entries extends React.Component<PropsType, StateType> {
     this.state = {
       loading: false,
       entries: [],
+      mileageSum: 0,
     };
   }
 
@@ -74,6 +77,36 @@ export class Entries extends React.Component<PropsType, StateType> {
             )}
             {!this.state.loading && (
               <View style={{paddingHorizontal: 20}}>
+                <View style={{flex: 1, paddingVertical: 5}}>
+                  <View
+                    style={{
+                      flex: 1,
+                      marginTop: 5,
+                      backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
+                      padding: 15,
+                      borderRadius: 5,
+                      borderColor: this.props.colorScheme == 'dark' ? '#121212' : 'lightgrey',
+                      borderWidth: 1,
+                    }}>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                      <Text
+                        style={{
+                          fontSize: 17,
+                          fontWeight: 'bold',
+                          color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                        }}>
+                        {this.state.mileageSum} km
+                      </Text>
+                      <Text
+                        style={{
+                          fontSize: 17,
+                          color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                        }}>
+                        Summe Kilometer
+                      </Text>
+                    </View>
+                  </View>
+                </View>
                 {this.state.entries.map((entry, key) => {
                   return (
                     <TouchableOpacity key={key} onPress={() => this.entrySelected(entry)}>
@@ -146,7 +179,15 @@ export class Entries extends React.Component<PropsType, StateType> {
         return setTimeout(() => ErrorAlert.present(ApiErrorTranslation.get(error.message)), 10);
       let sortEntries: Entry[] = [];
       if (entries) sortEntries = entries;
-      if (sortEntries.length > 0) entries.sort((a, b) => b.startDate - a.startDate);
+      if (sortEntries.length > 0) {
+        entries.sort((a, b) => b.startDate - a.startDate);
+        this.setState({mileageSum: 0});
+        let mileageSum: number = 0;
+        entries.forEach((entry) => {
+          mileageSum += entry.endMileage - entry.startMileage;
+        });
+        this.setState({mileageSum: mileageSum});
+      }
       this.setState({entries: sortEntries});
     });
   }
