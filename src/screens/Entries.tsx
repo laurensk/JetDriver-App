@@ -3,7 +3,6 @@ import {View, Text, ColorSchemeName, Button} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {NavigationScreenProp} from 'react-navigation';
-import {HeaderButtons} from 'react-navigation-header-buttons';
 import AppContext from '../utils/AppContext';
 
 interface PropsType {
