@@ -22,6 +22,7 @@ import {Entry} from '../models/Entry';
 import {ApiError} from '../api/ApiError.model';
 import {ErrorAlert} from '../toolbox/ErrorAlert';
 import {ApiErrorTranslation} from '../api/ApiErrorTranslation';
+import ScrollViewBackView from '../toolbox/ScrollViewBackView';
 
 interface PropsType {
   route: NavigationRoute;
@@ -171,42 +172,11 @@ class CreateEntry extends React.Component<PropsType, StateType> {
           }}
           onCancel={() => this.setState({endDateModal: false})}
         />
-        <KeyboardAwareScrollView>
-          <View style={{padding: 30}}>
-            <View
-              style={{
-                backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
-                padding: 15,
-                borderRadius: 5,
-                borderColor: this.props.colorScheme == 'dark' ? '#121212' : 'lightgrey',
-                borderWidth: 1,
-              }}>
-              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text
-                  style={{
-                    fontWeight: 'bold',
-                    fontSize: 15,
-                    color: this.props.colorScheme == 'dark' ? 'white' : 'black',
-                  }}>
-                  Startkilometerstand
-                </Text>
-                <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-                  <TextInput
-                    style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
-                    placeholder="Eingeben..."
-                    keyboardType="number-pad"
-                    value={this.state.startMileage}
-                    onChangeText={(t) => {
-                      this.setState({startMileage: t});
-                    }}></TextInput>
-                  <Text style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}> km</Text>
-                </View>
-              </View>
-            </View>
-            <TouchableOpacity onPress={() => this.setState({startDateModal: true})}>
+        <ScrollViewBackView>
+          <KeyboardAwareScrollView>
+            <View style={{padding: 30}}>
               <View
                 style={{
-                  marginTop: 5,
                   backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
                   padding: 15,
                   borderRadius: 5,
@@ -220,164 +190,62 @@ class CreateEntry extends React.Component<PropsType, StateType> {
                       fontSize: 15,
                       color: this.props.colorScheme == 'dark' ? 'white' : 'black',
                     }}>
-                    Startdatum
+                    Startkilometerstand
                   </Text>
                   <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
                     <TextInput
                       style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
-                      placeholder="6969"
-                      value={
-                        this.state.startDate.getDate() +
-                        '.' +
-                        String(this.state.startDate.getMonth() + 1) +
-                        '.' +
-                        this.state.startDate.getFullYear() +
-                        ' ' +
-                        (this.state.startDate.getHours() < 10 ? '0' : '') +
-                        this.state.startDate.getHours() +
-                        ':' +
-                        (this.state.startDate.getMinutes() < 10 ? '0' : '') +
-                        this.state.startDate.getMinutes()
-                      }
-                      editable={false}></TextInput>
+                      placeholder="Eingeben..."
+                      keyboardType="number-pad"
+                      value={this.state.startMileage}
+                      onChangeText={(t) => {
+                        this.setState({startMileage: t});
+                      }}></TextInput>
+                    <Text style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}> km</Text>
                   </View>
                 </View>
               </View>
-            </TouchableOpacity>
-            <View
-              style={{
-                marginTop: 25,
-                backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
-                padding: 15,
-                borderRadius: 5,
-                borderColor: this.props.colorScheme == 'dark' ? '#121212' : 'lightgrey',
-                borderWidth: 1,
-              }}>
-              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text
+              <TouchableOpacity onPress={() => this.setState({startDateModal: true})}>
+                <View
                   style={{
-                    fontWeight: 'bold',
-                    fontSize: 15,
-                    color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                    marginTop: 5,
+                    backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
+                    padding: 15,
+                    borderRadius: 5,
+                    borderColor: this.props.colorScheme == 'dark' ? '#121212' : 'lightgrey',
+                    borderWidth: 1,
                   }}>
-                  Endkilometerstand
-                </Text>
-                <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-                  <TextInput
-                    style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
-                    placeholder="Eingeben..."
-                    keyboardType="number-pad"
-                    value={this.state.endMileage}
-                    onChangeText={(t) => {
-                      this.setState({endMileage: t});
-                    }}></TextInput>
-                  <Text style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}> km</Text>
-                </View>
-              </View>
-            </View>
-            <TouchableOpacity onPress={() => this.setState({endDateModal: true})}>
-              <View
-                style={{
-                  marginTop: 5,
-                  backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
-                  padding: 15,
-                  borderRadius: 5,
-                  borderColor: this.props.colorScheme == 'dark' ? '#121212' : 'lightgrey',
-                  borderWidth: 1,
-                }}>
-                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                  <Text
-                    style={{
-                      fontWeight: 'bold',
-                      fontSize: 15,
-                      color: this.props.colorScheme == 'dark' ? 'white' : 'black',
-                    }}>
-                    Enddatum
-                  </Text>
-                  <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-                    <TextInput
-                      style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
-                      placeholder="6969"
-                      value={
-                        this.state.endDate.getDate() +
-                        '.' +
-                        String(this.state.endDate.getMonth() + 1) +
-                        '.' +
-                        this.state.endDate.getFullYear() +
-                        ' ' +
-                        (this.state.endDate.getHours() < 10 ? '0' : '') +
-                        this.state.endDate.getHours() +
-                        ':' +
-                        (this.state.endDate.getMinutes() < 10 ? '0' : '') +
-                        this.state.endDate.getMinutes()
-                      }
-                      editable={false}></TextInput>
+                  <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <Text
+                      style={{
+                        fontWeight: 'bold',
+                        fontSize: 15,
+                        color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                      }}>
+                      Startdatum
+                    </Text>
+                    <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                      <TextInput
+                        style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
+                        placeholder="6969"
+                        value={
+                          this.state.startDate.getDate() +
+                          '.' +
+                          String(this.state.startDate.getMonth() + 1) +
+                          '.' +
+                          this.state.startDate.getFullYear() +
+                          ' ' +
+                          (this.state.startDate.getHours() < 10 ? '0' : '') +
+                          this.state.startDate.getHours() +
+                          ':' +
+                          (this.state.startDate.getMinutes() < 10 ? '0' : '') +
+                          this.state.startDate.getMinutes()
+                        }
+                        editable={false}></TextInput>
+                    </View>
                   </View>
                 </View>
-              </View>
-            </TouchableOpacity>
-            <View
-              style={{
-                marginTop: 25,
-                backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
-                padding: 15,
-                borderRadius: 5,
-                borderColor: this.props.colorScheme == 'dark' ? '#121212' : 'lightgrey',
-                borderWidth: 1,
-              }}>
-              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text
-                  style={{
-                    fontWeight: 'bold',
-                    fontSize: 15,
-                    color: this.props.colorScheme == 'dark' ? 'white' : 'black',
-                  }}>
-                  Fahrstecke
-                </Text>
-                <View style={{flexDirection: 'row', justifyContent: 'flex-end', maxWidth: 200}}>
-                  <TextInput
-                    style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
-                    placeholder="Eingeben..."
-                    value={this.state.routeDest}
-                    onChangeText={(t) => {
-                      this.setState({routeDest: t});
-                    }}></TextInput>
-                </View>
-              </View>
-            </View>
-            {/* Properties */}
-            <TouchableOpacity onPress={() => this.selectRoadCondition()}>
-              <View
-                style={{
-                  marginTop: 5,
-                  backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
-                  padding: 15,
-                  borderRadius: 5,
-                  borderColor: this.props.colorScheme == 'dark' ? '#121212' : 'lightgrey',
-                  borderWidth: 1,
-                }}>
-                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                  <Text
-                    style={{
-                      fontWeight: 'bold',
-                      fontSize: 15,
-                      color: this.props.colorScheme == 'dark' ? 'white' : 'black',
-                    }}>
-                    Straßenzustand
-                  </Text>
-                  <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-                    <TextInput
-                      style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
-                      editable={false}
-                      placeholder="Auswählen"
-                      value={RoadConditionTranslation.get(
-                        this.state.roadConditionSelected?.roadCondition || ''
-                      )}></TextInput>
-                  </View>
-                </View>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.selectCar()}>
+              </TouchableOpacity>
               <View
                 style={{
                   marginTop: 25,
@@ -394,22 +262,65 @@ class CreateEntry extends React.Component<PropsType, StateType> {
                       fontSize: 15,
                       color: this.props.colorScheme == 'dark' ? 'white' : 'black',
                     }}>
-                    Auto
+                    Endkilometerstand
                   </Text>
                   <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
                     <TextInput
                       style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
-                      editable={false}
-                      placeholder="Auswählen"
-                      value={this.state.carSelected?.name}></TextInput>
+                      placeholder="Eingeben..."
+                      keyboardType="number-pad"
+                      value={this.state.endMileage}
+                      onChangeText={(t) => {
+                        this.setState({endMileage: t});
+                      }}></TextInput>
+                    <Text style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}> km</Text>
                   </View>
                 </View>
               </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.selectCompanion()}>
+              <TouchableOpacity onPress={() => this.setState({endDateModal: true})}>
+                <View
+                  style={{
+                    marginTop: 5,
+                    backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
+                    padding: 15,
+                    borderRadius: 5,
+                    borderColor: this.props.colorScheme == 'dark' ? '#121212' : 'lightgrey',
+                    borderWidth: 1,
+                  }}>
+                  <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <Text
+                      style={{
+                        fontWeight: 'bold',
+                        fontSize: 15,
+                        color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                      }}>
+                      Enddatum
+                    </Text>
+                    <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                      <TextInput
+                        style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
+                        placeholder="6969"
+                        value={
+                          this.state.endDate.getDate() +
+                          '.' +
+                          String(this.state.endDate.getMonth() + 1) +
+                          '.' +
+                          this.state.endDate.getFullYear() +
+                          ' ' +
+                          (this.state.endDate.getHours() < 10 ? '0' : '') +
+                          this.state.endDate.getHours() +
+                          ':' +
+                          (this.state.endDate.getMinutes() < 10 ? '0' : '') +
+                          this.state.endDate.getMinutes()
+                        }
+                        editable={false}></TextInput>
+                    </View>
+                  </View>
+                </View>
+              </TouchableOpacity>
               <View
                 style={{
-                  marginTop: 5,
+                  marginTop: 25,
                   backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
                   padding: 15,
                   borderRadius: 5,
@@ -423,65 +334,157 @@ class CreateEntry extends React.Component<PropsType, StateType> {
                       fontSize: 15,
                       color: this.props.colorScheme == 'dark' ? 'white' : 'black',
                     }}>
-                    Begleiter
+                    Fahrstecke
                   </Text>
-                  <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                  <View style={{flexDirection: 'row', justifyContent: 'flex-end', maxWidth: 200}}>
                     <TextInput
                       style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
-                      editable={false}
-                      placeholder="Auswählen"
-                      value={this.state.companionSelected?.name}></TextInput>
+                      placeholder="Eingeben..."
+                      value={this.state.routeDest}
+                      onChangeText={(t) => {
+                        this.setState({routeDest: t});
+                      }}></TextInput>
                   </View>
                 </View>
               </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.selectDaytime()}>
-              <View
-                style={{
-                  marginTop: 5,
-                  backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
-                  padding: 15,
-                  borderRadius: 5,
-                  borderColor: this.props.colorScheme == 'dark' ? '#121212' : 'lightgrey',
-                  borderWidth: 1,
-                }}>
-                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                  <Text
-                    style={{
-                      fontWeight: 'bold',
-                      fontSize: 15,
-                      color: this.props.colorScheme == 'dark' ? 'white' : 'black',
-                    }}>
-                    Tageszeit
-                  </Text>
-                  <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-                    <TextInput
-                      style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
-                      editable={false}
-                      placeholder="Auswählen"
-                      value={DaytimeTranslation.get(this.state.daytimeSelected?.daytime || '')}></TextInput>
+              {/* Properties */}
+              <TouchableOpacity onPress={() => this.selectRoadCondition()}>
+                <View
+                  style={{
+                    marginTop: 5,
+                    backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
+                    padding: 15,
+                    borderRadius: 5,
+                    borderColor: this.props.colorScheme == 'dark' ? '#121212' : 'lightgrey',
+                    borderWidth: 1,
+                  }}>
+                  <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <Text
+                      style={{
+                        fontWeight: 'bold',
+                        fontSize: 15,
+                        color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                      }}>
+                      Straßenzustand
+                    </Text>
+                    <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                      <TextInput
+                        style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
+                        editable={false}
+                        placeholder="Auswählen"
+                        value={RoadConditionTranslation.get(
+                          this.state.roadConditionSelected?.roadCondition || ''
+                        )}></TextInput>
+                    </View>
                   </View>
                 </View>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                this.createEntry();
-              }}>
-              <View
-                style={{
-                  marginTop: 35,
-                  backgroundColor: '#007AFF',
-                  padding: 15,
-                  borderRadius: 5,
-                }}>
-                <View style={{justifyContent: 'center', alignSelf: 'center'}}>
-                  <Text style={{fontSize: 17, color: 'white'}}>Eintrag speichern</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => this.selectCar()}>
+                <View
+                  style={{
+                    marginTop: 25,
+                    backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
+                    padding: 15,
+                    borderRadius: 5,
+                    borderColor: this.props.colorScheme == 'dark' ? '#121212' : 'lightgrey',
+                    borderWidth: 1,
+                  }}>
+                  <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <Text
+                      style={{
+                        fontWeight: 'bold',
+                        fontSize: 15,
+                        color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                      }}>
+                      Auto
+                    </Text>
+                    <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                      <TextInput
+                        style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
+                        editable={false}
+                        placeholder="Auswählen"
+                        value={this.state.carSelected?.name}></TextInput>
+                    </View>
+                  </View>
                 </View>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </KeyboardAwareScrollView>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => this.selectCompanion()}>
+                <View
+                  style={{
+                    marginTop: 5,
+                    backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
+                    padding: 15,
+                    borderRadius: 5,
+                    borderColor: this.props.colorScheme == 'dark' ? '#121212' : 'lightgrey',
+                    borderWidth: 1,
+                  }}>
+                  <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <Text
+                      style={{
+                        fontWeight: 'bold',
+                        fontSize: 15,
+                        color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                      }}>
+                      Begleiter
+                    </Text>
+                    <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                      <TextInput
+                        style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
+                        editable={false}
+                        placeholder="Auswählen"
+                        value={this.state.companionSelected?.name}></TextInput>
+                    </View>
+                  </View>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => this.selectDaytime()}>
+                <View
+                  style={{
+                    marginTop: 5,
+                    backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
+                    padding: 15,
+                    borderRadius: 5,
+                    borderColor: this.props.colorScheme == 'dark' ? '#121212' : 'lightgrey',
+                    borderWidth: 1,
+                  }}>
+                  <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <Text
+                      style={{
+                        fontWeight: 'bold',
+                        fontSize: 15,
+                        color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                      }}>
+                      Tageszeit
+                    </Text>
+                    <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+                      <TextInput
+                        style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
+                        editable={false}
+                        placeholder="Auswählen"
+                        value={DaytimeTranslation.get(this.state.daytimeSelected?.daytime || '')}></TextInput>
+                    </View>
+                  </View>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  this.createEntry();
+                }}>
+                <View
+                  style={{
+                    marginTop: 35,
+                    backgroundColor: '#007AFF',
+                    padding: 15,
+                    borderRadius: 5,
+                  }}>
+                  <View style={{justifyContent: 'center', alignSelf: 'center'}}>
+                    <Text style={{fontSize: 17, color: 'white'}}>Eintrag speichern</Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </KeyboardAwareScrollView>
+        </ScrollViewBackView>
       </View>
     );
   }

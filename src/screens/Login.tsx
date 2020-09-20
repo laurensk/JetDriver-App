@@ -13,6 +13,7 @@ import {User} from '../models/User';
 import {ApiError} from '../api/ApiError.model';
 import {ErrorAlert} from '../toolbox/ErrorAlert';
 import {ApiErrorTranslation} from '../api/ApiErrorTranslation';
+import ScrollViewBackView from '../toolbox/ScrollViewBackView';
 
 interface PropsType {
   navigation: NavigationScreenProp<any, any>;
@@ -52,119 +53,121 @@ class Login extends React.Component<PropsType, StateType> {
           justifyContent: 'center',
         }}>
         <Spinner visible={this.state.activityIndicator}></Spinner>
-        <KeyboardAwareScrollView extraHeight={100} style={{flex: 1}} resetScrollToCoords={{x: 0, y: 0}}>
-          <View>
-            <View style={{alignItems: 'center', paddingBottom: 50, paddingTop: 50}}>
-              <Image
-                source={require('../assets/jetdriver_logo.png')}
-                resizeMode={'contain'}
-                style={{width: 250, height: 150}}></Image>
-            </View>
-            <SegmentedControl
-              style={{width: '80%', alignSelf: 'center', height: 30}}
-              values={['Registrieren', 'Anmelden']}
-              selectedIndex={this.state.loginSegment}
-              onChange={(event) => {
-                this.setState({
-                  loginSegment: event.nativeEvent.selectedSegmentIndex,
-                });
-              }}></SegmentedControl>
-            <View
-              style={{
-                width: '80%',
-                alignSelf: 'center',
-                paddingTop: 50,
-                height: 350,
-              }}>
-              {this.state.loginSegment == 0 && (
-                <Input
-                  placeholder="Name"
-                  defaultValue={this.state.name}
-                  autoCorrect={false}
-                  onChangeText={(name) => {
-                    this.setState({name: name});
-                  }}
-                />
-              )}
-              <Input
-                autoCapitalize={'none'}
-                keyboardType={'email-address'}
-                autoCorrect={false}
-                placeholder="E-Mail"
-                onChangeText={(email) => {
-                  this.setState({email: email});
-                }}
-              />
-              <Input
-                secureTextEntry={true}
-                autoCorrect={false}
-                placeholder="Passwort"
-                onChangeText={(password) => {
-                  this.setState({password: password});
-                }}
-              />
-              {this.state.loginSegment == 0 && (
-                <View
-                  style={{
-                    alignSelf: 'center',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    width: 350,
-                    paddingTop: 10,
-                  }}>
-                  <Text>Wenn du ein Konto erstellst, stimmst du unseren</Text>
-                  <View style={{flexDirection: 'row'}}>
-                    <TouchableOpacity onPress={() => this.openTerms()}>
-                      <Text style={{color: '#2089DC'}}> AGB's </Text>
-                    </TouchableOpacity>
-                    <Text>und der </Text>
-                    <TouchableOpacity onPress={() => this.openPrivacyPolicy()}>
-                      <Text style={{color: '#2089DC'}}>Datenschutzerklärung </Text>
-                    </TouchableOpacity>
-                    <Text>zu.</Text>
-                  </View>
-                </View>
-              )}
-              {this.state.loginSegment == 1 && (
-                <View
-                  style={{
-                    alignSelf: 'center',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    width: 350,
-                    paddingTop: 10,
-                  }}>
-                  <Text>Wenn du dich anmeldest, stimmst du unseren</Text>
-                  <View style={{flexDirection: 'row'}}>
-                    <TouchableOpacity onPress={() => this.openTerms()}>
-                      <Text style={{color: '#2089DC'}}> AGB's </Text>
-                    </TouchableOpacity>
-                    <Text>und der </Text>
-                    <TouchableOpacity onPress={() => this.openPrivacyPolicy()}>
-                      <Text style={{color: '#2089DC'}}>Datenschutzerklärung </Text>
-                    </TouchableOpacity>
-                    <Text>zu.</Text>
-                  </View>
-                </View>
-              )}
-            </View>
-            <View style={{paddingTop: 30}}>
-              <Button
-                onPress={() => this.loginSignUpButton()}
+        <ScrollViewBackView>
+          <KeyboardAwareScrollView extraHeight={100} style={{flex: 1}} resetScrollToCoords={{x: 0, y: 0}}>
+            <View>
+              <View style={{alignItems: 'center', paddingBottom: 50, paddingTop: 50}}>
+                <Image
+                  source={require('../assets/jetdriver_logo.png')}
+                  resizeMode={'contain'}
+                  style={{width: 250, height: 150}}></Image>
+              </View>
+              <SegmentedControl
+                style={{width: '80%', alignSelf: 'center', height: 30}}
+                values={['Registrieren', 'Anmelden']}
+                selectedIndex={this.state.loginSegment}
+                onChange={(event) => {
+                  this.setState({
+                    loginSegment: event.nativeEvent.selectedSegmentIndex,
+                  });
+                }}></SegmentedControl>
+              <View
                 style={{
                   width: '80%',
                   alignSelf: 'center',
-                  paddingBottom: 20,
-                }}
-                buttonStyle={{
-                  height: 50,
-                  borderRadius: 10,
-                }}
-                title={this.state.loginSegment == 0 ? 'Konto erstellen' : 'Anmelden'}
-              />
+                  paddingTop: 50,
+                  height: 350,
+                }}>
+                {this.state.loginSegment == 0 && (
+                  <Input
+                    placeholder="Name"
+                    defaultValue={this.state.name}
+                    autoCorrect={false}
+                    onChangeText={(name) => {
+                      this.setState({name: name});
+                    }}
+                  />
+                )}
+                <Input
+                  autoCapitalize={'none'}
+                  keyboardType={'email-address'}
+                  autoCorrect={false}
+                  placeholder="E-Mail"
+                  onChangeText={(email) => {
+                    this.setState({email: email});
+                  }}
+                />
+                <Input
+                  secureTextEntry={true}
+                  autoCorrect={false}
+                  placeholder="Passwort"
+                  onChangeText={(password) => {
+                    this.setState({password: password});
+                  }}
+                />
+                {this.state.loginSegment == 0 && (
+                  <View
+                    style={{
+                      alignSelf: 'center',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      width: 350,
+                      paddingTop: 10,
+                    }}>
+                    <Text>Wenn du ein Konto erstellst, stimmst du unseren</Text>
+                    <View style={{flexDirection: 'row'}}>
+                      <TouchableOpacity onPress={() => this.openTerms()}>
+                        <Text style={{color: '#2089DC'}}> AGB's </Text>
+                      </TouchableOpacity>
+                      <Text>und der </Text>
+                      <TouchableOpacity onPress={() => this.openPrivacyPolicy()}>
+                        <Text style={{color: '#2089DC'}}>Datenschutzerklärung </Text>
+                      </TouchableOpacity>
+                      <Text>zu.</Text>
+                    </View>
+                  </View>
+                )}
+                {this.state.loginSegment == 1 && (
+                  <View
+                    style={{
+                      alignSelf: 'center',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      width: 350,
+                      paddingTop: 10,
+                    }}>
+                    <Text>Wenn du dich anmeldest, stimmst du unseren</Text>
+                    <View style={{flexDirection: 'row'}}>
+                      <TouchableOpacity onPress={() => this.openTerms()}>
+                        <Text style={{color: '#2089DC'}}> AGB's </Text>
+                      </TouchableOpacity>
+                      <Text>und der </Text>
+                      <TouchableOpacity onPress={() => this.openPrivacyPolicy()}>
+                        <Text style={{color: '#2089DC'}}>Datenschutzerklärung </Text>
+                      </TouchableOpacity>
+                      <Text>zu.</Text>
+                    </View>
+                  </View>
+                )}
+              </View>
+              <View style={{paddingTop: 30}}>
+                <Button
+                  onPress={() => this.loginSignUpButton()}
+                  style={{
+                    width: '80%',
+                    alignSelf: 'center',
+                    paddingBottom: 20,
+                  }}
+                  buttonStyle={{
+                    height: 50,
+                    borderRadius: 10,
+                  }}
+                  title={this.state.loginSegment == 0 ? 'Konto erstellen' : 'Anmelden'}
+                />
+              </View>
             </View>
-          </View>
-        </KeyboardAwareScrollView>
+          </KeyboardAwareScrollView>
+        </ScrollViewBackView>
       </View>
     );
   }
