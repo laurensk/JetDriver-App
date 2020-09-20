@@ -1,5 +1,5 @@
 import React from 'react';
-import {ActivityIndicator, Text, View} from 'react-native';
+import {ActivityIndicator, ColorSchemeName, Text, View} from 'react-native';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {ApiError} from '../api/ApiError.model';
 import {ApiErrorTranslation} from '../api/ApiErrorTranslation';
@@ -10,6 +10,7 @@ import AppContext from '../utils/AppContext';
 
 interface PropsType {
   theme: {[k: string]: string};
+  colorScheme: ColorSchemeName;
   visible(visible: boolean): void;
   chooseCompanion(companion: Companion): void;
 }
@@ -50,13 +51,16 @@ class ChooseCompanion extends React.Component<PropsType, StateType> {
                           style={{
                             flex: 1,
                             marginTop: 5,
-                            backgroundColor: '#FAFBFB',
+                            backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
                             padding: 15,
                             borderRadius: 5,
-                            borderColor: 'lightgrey',
+                            borderColor: this.props.colorScheme == 'dark' ? '#121212' : 'lightgrey',
                             borderWidth: 1,
                           }}>
-                          <Text style={{fontWeight: 'bold'}}>{companion.name}</Text>
+                          <Text
+                            style={{fontWeight: 'bold', color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}>
+                            {companion.name}
+                          </Text>
                         </View>
                       </View>
                     </TouchableOpacity>

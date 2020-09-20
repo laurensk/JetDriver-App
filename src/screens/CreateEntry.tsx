@@ -169,23 +169,31 @@ class CreateEntry extends React.Component<PropsType, StateType> {
           <View style={{padding: 30}}>
             <View
               style={{
-                backgroundColor: '#FAFBFB',
+                backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
                 padding: 15,
                 borderRadius: 5,
-                borderColor: 'lightgrey',
+                borderColor: this.props.colorScheme == 'dark' ? '#121212' : 'lightgrey',
                 borderWidth: 1,
               }}>
               <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text style={{fontWeight: 'bold', fontSize: 15}}>Startkilometerstand</Text>
+                <Text
+                  style={{
+                    fontWeight: 'bold',
+                    fontSize: 15,
+                    color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                  }}>
+                  Startkilometerstand
+                </Text>
                 <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
                   <TextInput
+                    style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
                     placeholder="Eingeben..."
                     keyboardType="number-pad"
                     value={this.state.startMileage}
                     onChangeText={(t) => {
                       this.setState({startMileage: t});
                     }}></TextInput>
-                  <Text> km</Text>
+                  <Text style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}> km</Text>
                 </View>
               </View>
             </View>
@@ -193,16 +201,24 @@ class CreateEntry extends React.Component<PropsType, StateType> {
               <View
                 style={{
                   marginTop: 5,
-                  backgroundColor: '#FAFBFB',
+                  backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
                   padding: 15,
                   borderRadius: 5,
-                  borderColor: 'lightgrey',
+                  borderColor: this.props.colorScheme == 'dark' ? '#121212' : 'lightgrey',
                   borderWidth: 1,
                 }}>
                 <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                  <Text style={{fontWeight: 'bold', fontSize: 15}}>Startdatum</Text>
+                  <Text
+                    style={{
+                      fontWeight: 'bold',
+                      fontSize: 15,
+                      color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                    }}>
+                    Startdatum
+                  </Text>
                   <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
                     <TextInput
+                      style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
                       placeholder="6969"
                       value={
                         this.state.startDate.getDate() +
@@ -225,23 +241,31 @@ class CreateEntry extends React.Component<PropsType, StateType> {
             <View
               style={{
                 marginTop: 25,
-                backgroundColor: '#FAFBFB',
+                backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
                 padding: 15,
                 borderRadius: 5,
-                borderColor: 'lightgrey',
+                borderColor: this.props.colorScheme == 'dark' ? '#121212' : 'lightgrey',
                 borderWidth: 1,
               }}>
               <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text style={{fontWeight: 'bold', fontSize: 15}}>Endkilometerstand</Text>
+                <Text
+                  style={{
+                    fontWeight: 'bold',
+                    fontSize: 15,
+                    color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                  }}>
+                  Endkilometerstand
+                </Text>
                 <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
                   <TextInput
+                    style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
                     placeholder="Eingeben..."
                     keyboardType="number-pad"
                     value={this.state.endMileage}
                     onChangeText={(t) => {
                       this.setState({endMileage: t});
                     }}></TextInput>
-                  <Text> km</Text>
+                  <Text style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}> km</Text>
                 </View>
               </View>
             </View>
@@ -249,16 +273,24 @@ class CreateEntry extends React.Component<PropsType, StateType> {
               <View
                 style={{
                   marginTop: 5,
-                  backgroundColor: '#FAFBFB',
+                  backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
                   padding: 15,
                   borderRadius: 5,
-                  borderColor: 'lightgrey',
+                  borderColor: this.props.colorScheme == 'dark' ? '#121212' : 'lightgrey',
                   borderWidth: 1,
                 }}>
                 <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                  <Text style={{fontWeight: 'bold', fontSize: 15}}>Enddatum</Text>
+                  <Text
+                    style={{
+                      fontWeight: 'bold',
+                      fontSize: 15,
+                      color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                    }}>
+                    Enddatum
+                  </Text>
                   <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
                     <TextInput
+                      style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
                       placeholder="6969"
                       value={
                         this.state.endDate.getDate() +
@@ -281,16 +313,24 @@ class CreateEntry extends React.Component<PropsType, StateType> {
             <View
               style={{
                 marginTop: 25,
-                backgroundColor: '#FAFBFB',
+                backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
                 padding: 15,
                 borderRadius: 5,
-                borderColor: 'lightgrey',
+                borderColor: this.props.colorScheme == 'dark' ? '#121212' : 'lightgrey',
                 borderWidth: 1,
               }}>
               <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text style={{fontWeight: 'bold', fontSize: 15}}>Fahrstecke</Text>
+                <Text
+                  style={{
+                    fontWeight: 'bold',
+                    fontSize: 15,
+                    color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                  }}>
+                  Fahrstecke
+                </Text>
                 <View style={{flexDirection: 'row', justifyContent: 'flex-end', maxWidth: 200}}>
                   <TextInput
+                    style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
                     placeholder="Eingeben..."
                     value={this.state.routeDest}
                     onChangeText={(t) => {
@@ -304,16 +344,24 @@ class CreateEntry extends React.Component<PropsType, StateType> {
               <View
                 style={{
                   marginTop: 5,
-                  backgroundColor: '#FAFBFB',
+                  backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
                   padding: 15,
                   borderRadius: 5,
-                  borderColor: 'lightgrey',
+                  borderColor: this.props.colorScheme == 'dark' ? '#121212' : 'lightgrey',
                   borderWidth: 1,
                 }}>
                 <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                  <Text style={{fontWeight: 'bold', fontSize: 15}}>Straßenzustand</Text>
+                  <Text
+                    style={{
+                      fontWeight: 'bold',
+                      fontSize: 15,
+                      color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                    }}>
+                    Straßenzustand
+                  </Text>
                   <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
                     <TextInput
+                      style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
                       editable={false}
                       placeholder="Auswählen"
                       value={RoadConditionTranslation.get(
@@ -327,16 +375,24 @@ class CreateEntry extends React.Component<PropsType, StateType> {
               <View
                 style={{
                   marginTop: 25,
-                  backgroundColor: '#FAFBFB',
+                  backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
                   padding: 15,
                   borderRadius: 5,
-                  borderColor: 'lightgrey',
+                  borderColor: this.props.colorScheme == 'dark' ? '#121212' : 'lightgrey',
                   borderWidth: 1,
                 }}>
                 <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                  <Text style={{fontWeight: 'bold', fontSize: 15}}>Auto</Text>
+                  <Text
+                    style={{
+                      fontWeight: 'bold',
+                      fontSize: 15,
+                      color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                    }}>
+                    Auto
+                  </Text>
                   <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
                     <TextInput
+                      style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
                       editable={false}
                       placeholder="Auswählen"
                       value={this.state.carSelected?.name}></TextInput>
@@ -348,16 +404,24 @@ class CreateEntry extends React.Component<PropsType, StateType> {
               <View
                 style={{
                   marginTop: 5,
-                  backgroundColor: '#FAFBFB',
+                  backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
                   padding: 15,
                   borderRadius: 5,
-                  borderColor: 'lightgrey',
+                  borderColor: this.props.colorScheme == 'dark' ? '#121212' : 'lightgrey',
                   borderWidth: 1,
                 }}>
                 <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                  <Text style={{fontWeight: 'bold', fontSize: 15}}>Begleiter</Text>
+                  <Text
+                    style={{
+                      fontWeight: 'bold',
+                      fontSize: 15,
+                      color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                    }}>
+                    Begleiter
+                  </Text>
                   <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
                     <TextInput
+                      style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
                       editable={false}
                       placeholder="Auswählen"
                       value={this.state.companionSelected?.name}></TextInput>
@@ -369,16 +433,24 @@ class CreateEntry extends React.Component<PropsType, StateType> {
               <View
                 style={{
                   marginTop: 5,
-                  backgroundColor: '#FAFBFB',
+                  backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
                   padding: 15,
                   borderRadius: 5,
-                  borderColor: 'lightgrey',
+                  borderColor: this.props.colorScheme == 'dark' ? '#121212' : 'lightgrey',
                   borderWidth: 1,
                 }}>
                 <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                  <Text style={{fontWeight: 'bold', fontSize: 15}}>Tageszeit</Text>
+                  <Text
+                    style={{
+                      fontWeight: 'bold',
+                      fontSize: 15,
+                      color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                    }}>
+                    Tageszeit
+                  </Text>
                   <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
                     <TextInput
+                      style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
                       editable={false}
                       placeholder="Auswählen"
                       value={DaytimeTranslation.get(this.state.daytimeSelected?.daytime || '')}></TextInput>

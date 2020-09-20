@@ -1,5 +1,5 @@
 import React from 'react';
-import {ActivityIndicator, Text, View} from 'react-native';
+import {ActivityIndicator, ColorSchemeName, Text, View} from 'react-native';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {ApiError} from '../api/ApiError.model';
 import {ApiErrorTranslation} from '../api/ApiErrorTranslation';
@@ -11,6 +11,7 @@ import {RoadConditionTranslation} from '../utils/RoadConditionTranslation';
 
 interface PropsType {
   theme: {[k: string]: string};
+  colorScheme: ColorSchemeName;
   visible(visible: boolean): void;
   chooseRoadCondition(roadCondition: RoadCondition): void;
 }
@@ -51,13 +52,14 @@ class ChooseRoadCondition extends React.Component<PropsType, StateType> {
                           style={{
                             flex: 1,
                             marginTop: 5,
-                            backgroundColor: '#FAFBFB',
+                            backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
                             padding: 15,
                             borderRadius: 5,
-                            borderColor: 'lightgrey',
+                            borderColor: this.props.colorScheme == 'dark' ? '#121212' : 'lightgrey',
                             borderWidth: 1,
                           }}>
-                          <Text style={{fontWeight: 'bold'}}>
+                          <Text
+                            style={{fontWeight: 'bold', color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}>
                             {RoadConditionTranslation.get(roadCondtion.roadCondition)}
                           </Text>
                         </View>
