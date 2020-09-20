@@ -52,18 +52,6 @@ export class ApiService {
     );
   }
 
-  static getCars(callback: Function) {
-    ApiRequest.get('/cars', Car, true, async (cars: Car[], error: ApiError) => {
-      callback(cars, error);
-    });
-  }
-
-  static getCompanions(callback: Function) {
-    ApiRequest.get('/companions', Companion, true, async (companions: Companion[], error: ApiError) => {
-      callback(companions, error);
-    });
-  }
-
   static getDaytimes(callback: Function) {
     ApiRequest.get('/properties/daytimes', Daytime, true, async (daytimes: Daytime[], error: ApiError) => {
       callback(daytimes, error);
@@ -78,6 +66,30 @@ export class ApiService {
 
   static deleteEntry(entry: Entry, callback: Function) {
     ApiRequest.delete('/entries/' + entry.uuid, async (deletion: ApiDeletion, error: ApiError) => {
+      callback(deletion, error);
+    });
+  }
+
+  static getCars(callback: Function) {
+    ApiRequest.get('/cars', Car, true, async (cars: Car[], error: ApiError) => {
+      callback(cars, error);
+    });
+  }
+
+  static deleteCar(car: Car, callback: Function) {
+    ApiRequest.delete('/cars/' + car.uuid, async (deletion: ApiDeletion, error: ApiError) => {
+      callback(deletion, error);
+    });
+  }
+
+  static getCompanions(callback: Function) {
+    ApiRequest.get('/companions', Companion, true, async (companions: Companion[], error: ApiError) => {
+      callback(companions, error);
+    });
+  }
+
+  static deleteCompanion(companion: Companion, callback: Function) {
+    ApiRequest.delete('/companions/' + companion.uuid, async (deletion: ApiDeletion, error: ApiError) => {
       callback(deletion, error);
     });
   }
