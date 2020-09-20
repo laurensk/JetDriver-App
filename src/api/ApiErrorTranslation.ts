@@ -10,6 +10,9 @@ export class ApiErrorTranslation {
     COMPANION_NOT_FOUND: 'Diese Begleitperson konnte nicht gefunden werden.',
     ENTRY_NOT_FOUND: 'Dieser Eintrag konnte nicht gefunden werden.',
     PROPERTY_NOT_AVAILABLE: 'Diese Eigenschaft ist nicht verfügbar.',
+    CAR_DEPENDENCY: 'Dieses Auto wird von einem oder mehreren Einträgen verwendet und kann nicht gelöscht werden.',
+    COMPANION_DEPENDENCY:
+      'Dieser Begleiter wird von einem oder mehreren Einträgen verwendet und kann nicht gelöscht werden.',
   };
 
   static get(error: string) {
