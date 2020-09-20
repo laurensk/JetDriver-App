@@ -78,17 +78,17 @@ export class Entries extends React.Component<PropsType, StateType> {
             {!this.state.loading && (
               <View style={{paddingHorizontal: 20}}>
                 <View style={{flex: 1, paddingVertical: 5}}>
-                  <View
-                    style={{
-                      flex: 1,
-                      marginTop: 5,
-                      backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
-                      padding: 15,
-                      borderRadius: 5,
-                      borderColor: this.props.colorScheme == 'dark' ? '#121212' : 'lightgrey',
-                      borderWidth: 1,
-                    }}>
-                    {this.state.entries.length > 0 && (
+                  {this.state.entries.length > 0 && (
+                    <View
+                      style={{
+                        flex: 1,
+                        marginTop: 5,
+                        backgroundColor: this.props.colorScheme == 'dark' ? '#121212' : '#FAFBFB',
+                        padding: 15,
+                        borderRadius: 5,
+                        borderColor: this.props.colorScheme == 'dark' ? '#121212' : 'lightgrey',
+                        borderWidth: 1,
+                      }}>
                       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                         <Text
                           style={{
@@ -106,8 +106,8 @@ export class Entries extends React.Component<PropsType, StateType> {
                           Summe Kilometer
                         </Text>
                       </View>
-                    )}
-                  </View>
+                    </View>
+                  )}
                 </View>
                 {this.state.entries.map((entry, key) => {
                   return (
