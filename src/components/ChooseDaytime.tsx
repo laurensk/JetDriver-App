@@ -80,7 +80,11 @@ class ChooseDaytime extends React.Component<PropsType, StateType> {
     ApiService.getDaytimes((daytimes: Daytime[], error: ApiError) => {
       this.setState({loading: false});
       if (error) setTimeout(() => ErrorAlert.present(ApiErrorTranslation.get(error.message)), 10);
-      this.setState({daytimes: daytimes});
+      if (daytimes) {
+        this.setState({daytimes: daytimes});
+      } else {
+        this.props.visible(false);
+      }
     });
   }
 

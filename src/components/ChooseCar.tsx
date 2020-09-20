@@ -89,7 +89,11 @@ class ChooseCar extends React.Component<PropsType, StateType> {
     ApiService.getCars((cars: Car[], error: ApiError) => {
       this.setState({loading: false});
       if (error) setTimeout(() => ErrorAlert.present(ApiErrorTranslation.get(error.message)), 10);
-      this.setState({cars: cars});
+      if (cars) {
+        this.setState({cars: cars});
+      } else {
+        this.props.visible(false);
+      }
     });
   }
 

@@ -79,7 +79,11 @@ class ChooseCompanion extends React.Component<PropsType, StateType> {
     ApiService.getCompanions((companions: Companion[], error: ApiError) => {
       this.setState({loading: false});
       if (error) setTimeout(() => ErrorAlert.present(ApiErrorTranslation.get(error.message)), 10);
-      this.setState({companions: companions});
+      if (companions) {
+        this.setState({companions: companions});
+      } else {
+        this.props.visible(false);
+      }
     });
   }
 

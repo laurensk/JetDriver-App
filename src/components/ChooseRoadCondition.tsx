@@ -77,10 +77,14 @@ class ChooseRoadCondition extends React.Component<PropsType, StateType> {
   }
 
   fetchRoadConditions() {
-    ApiService.getRoadConditions((roadCondition: RoadCondition[], error: ApiError) => {
+    ApiService.getRoadConditions((roadConditions: RoadCondition[], error: ApiError) => {
       this.setState({loading: false});
       if (error) setTimeout(() => ErrorAlert.present(ApiErrorTranslation.get(error.message)), 10);
-      this.setState({roadConditions: roadCondition});
+      if (roadConditions) {
+        this.setState({roadConditions: roadConditions});
+      } else {
+        this.props.visible(false);
+      }
     });
   }
 
