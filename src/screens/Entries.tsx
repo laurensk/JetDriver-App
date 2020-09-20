@@ -88,23 +88,25 @@ export class Entries extends React.Component<PropsType, StateType> {
                       borderColor: this.props.colorScheme == 'dark' ? '#121212' : 'lightgrey',
                       borderWidth: 1,
                     }}>
-                    <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                      <Text
-                        style={{
-                          fontSize: 17,
-                          fontWeight: 'bold',
-                          color: this.props.colorScheme == 'dark' ? 'white' : 'black',
-                        }}>
-                        {this.state.mileageSum} km
-                      </Text>
-                      <Text
-                        style={{
-                          fontSize: 17,
-                          color: this.props.colorScheme == 'dark' ? 'white' : 'black',
-                        }}>
-                        Summe Kilometer
-                      </Text>
-                    </View>
+                    {this.state.entries.length > 0 && (
+                      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                        <Text
+                          style={{
+                            fontSize: 17,
+                            fontWeight: 'bold',
+                            color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                          }}>
+                          {this.state.mileageSum} km
+                        </Text>
+                        <Text
+                          style={{
+                            fontSize: 17,
+                            color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                          }}>
+                          Summe Kilometer
+                        </Text>
+                      </View>
+                    )}
                   </View>
                 </View>
                 {this.state.entries.map((entry, key) => {
