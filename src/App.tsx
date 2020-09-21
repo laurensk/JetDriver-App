@@ -13,6 +13,8 @@ import * as Entries from './screens/Entries';
 import * as Companions from './screens/Companions';
 import * as Cars from './screens/Cars';
 import About from './screens/About';
+import CreateCar from './screens/CreateCar';
+import CreateCompanion from './screens/CreateCompanion';
 
 const NavigationStack = createNativeStackNavigator();
 function JetDriverNavigationStack() {
@@ -45,6 +47,24 @@ function JetDriverNavigationStack() {
         component={CreateEntry}
         options={{
           headerTitle: 'Fahrt eintragen',
+          headerStyle: headerTheme,
+          headerTitleStyle: headerTitleTheme,
+        }}
+      />
+      <NavigationStack.Screen
+        name="CreateCar"
+        component={CreateCar}
+        options={{
+          headerTitle: 'Auto anlegen',
+          headerStyle: headerTheme,
+          headerTitleStyle: headerTitleTheme,
+        }}
+      />
+      <NavigationStack.Screen
+        name="CreateCompanion"
+        component={CreateCompanion}
+        options={{
+          headerTitle: 'Begleiter anlegen',
           headerStyle: headerTheme,
           headerTitleStyle: headerTitleTheme,
         }}
