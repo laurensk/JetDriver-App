@@ -8,6 +8,7 @@ import {Companion} from '../models/Companion';
 import {Daytime} from '../models/Daytime';
 import {Entry} from '../models/Entry';
 import {ApiDeletion} from './ApiDeletion.model';
+import {CarType} from '../models/CarType';
 
 export class ApiService {
   static async signUp(name: string, email: string, password: string, callback: Function) {
@@ -55,6 +56,12 @@ export class ApiService {
   static getDaytimes(callback: Function) {
     ApiRequest.get('/properties/daytimes', Daytime, true, async (daytimes: Daytime[], error: ApiError) => {
       callback(daytimes, error);
+    });
+  }
+
+  static getCarTypes(callback: Function) {
+    ApiRequest.get('/properties/carTypes', CarType, true, async (carTypes: CarType[], error: ApiError) => {
+      callback(carTypes, error);
     });
   }
 
@@ -119,6 +126,35 @@ export class ApiService {
     };
     ApiRequest.post('/entries', data, Entry, false, (entry: Entry, error: ApiError) => {
       callback(entry, error);
+    });
+  }
+
+  static createCar(
+    carTypeId: number,
+    name: string,
+    numberPlate: string,
+    brand: string,
+    model: string,
+    callback: Function
+  ) {
+    const data = {
+      typeId: carTypeId,
+      name: name,
+      numberPlate: numberPlate,
+      brand: brand,
+      model: model,
+    };
+    ApiRequest.post('/cars', data, Car, false, (car: Car, error: ApiError) => {
+      callback(car, error);
+    });
+  }
+
+  static createCompanion(name: string, callback: Function) {
+    const data = {
+      name: name,
+    };
+    ApiRequest.post('/companions', data, Companion, false, (companion: Companion, error: ApiError) => {
+      callback(companion, error);
     });
   }
 }
