@@ -28,6 +28,7 @@ interface StateType {
 export class Companions extends React.Component<PropsType, StateType> {
   constructor(props: PropsType) {
     super(props);
+    this.fetchCompanions = this.fetchCompanions.bind(this);
     this.createCompanion = this.createCompanion.bind(this);
     this.state = {
       loading: false,
@@ -50,6 +51,9 @@ export class Companions extends React.Component<PropsType, StateType> {
   };
 
   componentDidMount() {
+    this.props.navigation.setParams({
+      fetchCompanions: this.fetchCompanions,
+    });
     this.props.navigation.setParams({
       createCompanion: this.createCompanion,
     });
@@ -103,7 +107,7 @@ export class Companions extends React.Component<PropsType, StateType> {
   }
 
   createCompanion() {
-    this.props.navigation.navigate('CreateCompanion');
+    this.props.navigation.navigate('CreateCompanion', {fetchCompanions: this.fetchCompanions});
   }
 
   fetchCompanions() {
