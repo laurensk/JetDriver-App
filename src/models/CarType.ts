@@ -1,9 +1,9 @@
 export class CarType {
   id: number;
-  carType: string;
+  type: string;
 
-  constructor(id: number, carType: string) {
+  constructor(id: number, type: string) {
     this.id = id;
-    this.carType = carType;
+    this.type = type;
   }
 }
