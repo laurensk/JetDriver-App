@@ -26,6 +26,7 @@ interface StateType {
 export class Cars extends React.Component<PropsType, StateType> {
   constructor(props: PropsType) {
     super(props);
+    this.fetchCars = this.fetchCars.bind(this);
     this.createCar = this.createCar.bind(this);
     this.state = {
       loading: false,
@@ -48,6 +49,9 @@ export class Cars extends React.Component<PropsType, StateType> {
   };
 
   componentDidMount() {
+    this.props.navigation.setParams({
+      fetchCars: this.fetchCars,
+    });
     this.props.navigation.setParams({
       createCar: this.createCar,
     });
@@ -111,7 +115,7 @@ export class Cars extends React.Component<PropsType, StateType> {
   }
 
   createCar() {
-    this.props.navigation.navigate('CreateCar');
+    this.props.navigation.navigate('CreateCar', {fetchCars: this.fetchCars});
   }
 
   fetchCars() {
