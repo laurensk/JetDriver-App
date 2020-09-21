@@ -112,6 +112,7 @@ function JetDriverNavigationStack() {
         name="Login"
         component={Login}
         options={{
+          headerShown: false,
           gestureEnabled: false,
           title: 'Welcome to JetDriver',
           headerStyle: headerTheme,
