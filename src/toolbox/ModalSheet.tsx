@@ -1,8 +1,10 @@
 import React from 'react';
 import {createNativeStackNavigator} from 'react-native-screens/native-stack';
-import {useColorScheme, Modal, StatusBar, Button} from 'react-native';
+import {useColorScheme, Modal, StatusBar, Button, Platform} from 'react-native';
 import {NavigationTheme} from './NavigationTheme';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {createStackNavigator} from '@react-navigation/stack';
+import {Icon} from 'react-native-elements';
 
 interface PropsType {
   component: any;
@@ -14,7 +16,8 @@ interface PropsType {
 }
 
 export const ModalSheet = (props: PropsType) => {
-  const Stack = createNativeStackNavigator();
+  const NativeStack = createNativeStackNavigator();
+  const Stack = createStackNavigator();
 
   const headerTheme =
     useColorScheme() === 'dark'
@@ -29,24 +32,46 @@ export const ModalSheet = (props: PropsType) => {
   return (
     <Modal animationType="slide" visible={props.visible} presentationStyle={'pageSheet'}>
       <StatusBar barStyle="light-content"></StatusBar>
-      <Stack.Navigator>
-        <Stack.Screen
-          name={props.headerTitle}
-          options={{
-            headerStyle: headerTheme,
-            headerTitleStyle: headerTitleTheme,
-            headerLeft: () => (
-              <TouchableOpacity
-                onPress={() => {
-                  props.headerOnClose();
-                }}>
-                <Button title={props.headerCloseText} onPress={() => {}}></Button>
-              </TouchableOpacity>
-            ),
-          }}>
-          {() => <props.component {...props.componentProps} />}
-        </Stack.Screen>
-      </Stack.Navigator>
+      {Platform.OS == 'ios' && (
+        <NativeStack.Navigator>
+          <NativeStack.Screen
+            name={props.headerTitle}
+            options={{
+              headerStyle: headerTheme,
+              headerTitleStyle: headerTitleTheme,
+              headerLeft: () => (
+                <TouchableOpacity
+                  onPress={() => {
+                    props.headerOnClose();
+                  }}>
+                  <Button title={props.headerCloseText} onPress={() => {}}></Button>
+                </TouchableOpacity>
+              ),
+            }}>
+            {() => <props.component {...props.componentProps} />}
+          </NativeStack.Screen>
+        </NativeStack.Navigator>
+      )}
+      {Platform.OS != 'ios' && (
+        <Stack.Navigator mode="modal">
+          <Stack.Screen
+            name={props.headerTitle}
+            options={{
+              headerStyle: headerTheme,
+              headerTitleStyle: headerTitleTheme,
+              headerLeft: () => (
+                <TouchableOpacity
+                  onPress={() => {
+                    props.headerOnClose();
+                  }}>
+                  <Icon style={{paddingLeft: 20}} name="close" type="material-community" size={25} />
+                </TouchableOpacity>
+              ),
+            }}>
+            {() => <props.component {...props.componentProps} />}
+          </Stack.Screen>
+        </Stack.Navigator>
+      )}
     </Modal>
   );
 };
