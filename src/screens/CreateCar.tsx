@@ -90,6 +90,9 @@ class CreateCar extends React.Component<PropsType, StateType> {
                   </Text>
                   <View style={{flexDirection: 'row', justifyContent: 'flex-end', maxWidth: 200}}>
                     <TextInput
+                      placeholderTextColor={
+                        Platform.OS == 'android' && this.props.colorScheme == 'dark' ? 'grey' : undefined
+                      }
                       style={{
                         color: this.props.colorScheme == 'dark' ? 'white' : 'black',
                         paddingVertical: Platform.OS == 'android' ? 0 : undefined,
@@ -123,6 +126,9 @@ class CreateCar extends React.Component<PropsType, StateType> {
                   </Text>
                   <View style={{flexDirection: 'row', justifyContent: 'flex-end', maxWidth: 200}}>
                     <TextInput
+                      placeholderTextColor={
+                        Platform.OS == 'android' && this.props.colorScheme == 'dark' ? 'grey' : undefined
+                      }
                       style={{
                         color: this.props.colorScheme == 'dark' ? 'white' : 'black',
                         paddingVertical: Platform.OS == 'android' ? 0 : undefined,
@@ -157,6 +163,9 @@ class CreateCar extends React.Component<PropsType, StateType> {
                     </Text>
                     <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
                       <TextInput
+                        placeholderTextColor={
+                          Platform.OS == 'android' && this.props.colorScheme == 'dark' ? 'grey' : undefined
+                        }
                         style={{
                           color: this.props.colorScheme == 'dark' ? 'white' : 'black',
                           paddingVertical: Platform.OS == 'android' ? 0 : undefined,
@@ -189,6 +198,9 @@ class CreateCar extends React.Component<PropsType, StateType> {
                   </Text>
                   <View style={{flexDirection: 'row', justifyContent: 'flex-end', maxWidth: 200}}>
                     <TextInput
+                      placeholderTextColor={
+                        Platform.OS == 'android' && this.props.colorScheme == 'dark' ? 'grey' : undefined
+                      }
                       style={{
                         color: this.props.colorScheme == 'dark' ? 'white' : 'black',
                         paddingVertical: Platform.OS == 'android' ? 0 : undefined,
@@ -222,6 +234,9 @@ class CreateCar extends React.Component<PropsType, StateType> {
                   </Text>
                   <View style={{flexDirection: 'row', justifyContent: 'flex-end', maxWidth: 200}}>
                     <TextInput
+                      placeholderTextColor={
+                        Platform.OS == 'android' && this.props.colorScheme == 'dark' ? 'grey' : undefined
+                      }
                       style={{
                         color: this.props.colorScheme == 'dark' ? 'white' : 'black',
                         paddingVertical: Platform.OS == 'android' ? 0 : undefined,
