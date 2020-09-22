@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, ColorSchemeName, Image, Text, Alert, Linking} from 'react-native';
+import {View, ColorSchemeName, Image, Text, Alert, Linking, Platform} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
 import AppContext from '../utils/AppContext';
 import {Button, Icon} from 'react-native-elements';
@@ -81,7 +81,7 @@ class Home extends React.Component<PropsType, StateType> {
         <View style={{flexDirection: 'row', width: '95%'}}>
           <Button
             style={{paddingHorizontal: 3}}
-            containerStyle={{flex: 1}}
+            containerStyle={{flex: 1, paddingRight: Platform.OS == 'android' ? 5 : undefined}}
             buttonStyle={{height: 50}}
             icon={
               <Icon style={{paddingRight: 10}} name="database-plus" type="material-community" size={25} color="white" />
@@ -94,13 +94,13 @@ class Home extends React.Component<PropsType, StateType> {
           <Button
             onPress={() => this.toggleQuickDrive()}
             style={{paddingHorizontal: 3}}
-            containerStyle={{flex: 1}}
+            containerStyle={{flex: 1, paddingLeft: Platform.OS == 'android' ? 5 : undefined}}
             buttonStyle={{height: 50}}
             icon={<Icon style={{paddingRight: 10}} name="car" type="material-community" size={25} color="white" />}
             title={this.state.quickDriveStatus ? 'Fahrt beenden' : 'Fahrt starten'}
           />
         </View>
-        <View style={{width: '95%'}}>
+        <View style={{width: '95%', marginTop: Platform.OS == 'android' ? 10 : undefined}}>
           <Button
             type="outline"
             style={{paddingTop: 10, paddingHorizontal: 3}}
@@ -122,7 +122,7 @@ class Home extends React.Component<PropsType, StateType> {
           <Button
             type="outline"
             style={{paddingHorizontal: 3}}
-            containerStyle={{flex: 1}}
+            containerStyle={{flex: 1, paddingRight: Platform.OS == 'android' ? 5 : undefined}}
             buttonStyle={{height: 50}}
             icon={<Icon style={{paddingRight: 10}} name="car" type="material-community" size={25} color="#2089DC" />}
             title="Autos"
@@ -131,7 +131,7 @@ class Home extends React.Component<PropsType, StateType> {
           <Button
             type="outline"
             style={{paddingHorizontal: 3}}
-            containerStyle={{flex: 1}}
+            containerStyle={{flex: 1, paddingLeft: Platform.OS == 'android' ? 5 : undefined}}
             buttonStyle={{height: 50}}
             icon={
               <Icon
