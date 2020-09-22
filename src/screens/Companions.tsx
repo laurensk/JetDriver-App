@@ -73,7 +73,7 @@ export class Companions extends React.Component<PropsType, StateType> {
                 <Text style={{color: 'grey', paddingTop: 50, textAlign: 'center'}}>Keine Begleiter vorhanden</Text>
               </View>
             )}
-            {!this.state.loading && (
+            {!this.state.loading && this.state.companions.length > 0 && (
               <View style={{paddingHorizontal: 20}}>
                 {this.state.companions.map((companion, key) => {
                   return (
@@ -116,7 +116,12 @@ export class Companions extends React.Component<PropsType, StateType> {
       this.setState({loading: false});
       if (error && error.message != 'COMPANION_NOT_FOUND')
         return setTimeout(() => ErrorAlert.present(ApiErrorTranslation.get(error.message)), 10);
-      this.setState({companions: companions});
+      console.log('companions: ', companions);
+      if (companions) {
+        this.setState({companions: companions});
+      } else {
+        this.setState({companions: []});
+      }
     });
   }
 

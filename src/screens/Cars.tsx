@@ -71,7 +71,7 @@ export class Cars extends React.Component<PropsType, StateType> {
                 <Text style={{color: 'grey', paddingTop: 50, textAlign: 'center'}}>Keine Autos vorhanden</Text>
               </View>
             )}
-            {!this.state.loading && (
+            {!this.state.loading && this.state.cars.length > 0 && (
               <View style={{paddingHorizontal: 20}}>
                 {this.state.cars.map((car, key) => {
                   return (
@@ -124,7 +124,11 @@ export class Cars extends React.Component<PropsType, StateType> {
       this.setState({loading: false});
       if (error && error.message != 'CAR_NOT_FOUND')
         return setTimeout(() => ErrorAlert.present(ApiErrorTranslation.get(error.message)), 10);
-      this.setState({cars: cars});
+      if (cars) {
+        this.setState({cars: cars});
+      } else {
+        this.setState({cars: []});
+      }
     });
   }
 
