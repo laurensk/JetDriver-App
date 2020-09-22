@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, ColorSchemeName, Image, Linking} from 'react-native';
+import {View, Text, ColorSchemeName, Image, Linking, Platform} from 'react-native';
 import {NavigationScreenProp, NavigationRoute} from 'react-navigation';
 import AppContext from '../utils/AppContext';
 import NavigationModal from '../toolbox/NavigationModal';
@@ -80,6 +80,7 @@ class Login extends React.Component<PropsType, StateType> {
                 }}>
                 {this.state.loginSegment == 0 && (
                   <Input
+                    style={{color: this.props.colorScheme == 'dark' ? 'white' : undefined}}
                     placeholder="Name"
                     defaultValue={this.state.name}
                     autoCorrect={false}
@@ -89,6 +90,7 @@ class Login extends React.Component<PropsType, StateType> {
                   />
                 )}
                 <Input
+                  style={{color: this.props.colorScheme == 'dark' ? 'white' : undefined}}
                   autoCapitalize={'none'}
                   keyboardType={'email-address'}
                   autoCorrect={false}
@@ -98,6 +100,7 @@ class Login extends React.Component<PropsType, StateType> {
                   }}
                 />
                 <Input
+                  style={{color: this.props.colorScheme == 'dark' ? 'white' : undefined}}
                   secureTextEntry={true}
                   autoCorrect={false}
                   placeholder="Passwort"
@@ -114,16 +117,18 @@ class Login extends React.Component<PropsType, StateType> {
                       width: 350,
                       paddingTop: 10,
                     }}>
-                    <Text>Wenn du ein Konto erstellst, stimmst du unseren</Text>
+                    <Text style={{color: this.props.colorScheme == 'dark' ? 'white' : undefined}}>
+                      Wenn du ein Konto erstellst, stimmst du unseren
+                    </Text>
                     <View style={{flexDirection: 'row'}}>
                       <TouchableOpacity onPress={() => this.openTerms()}>
                         <Text style={{color: '#2089DC'}}> AGB's </Text>
                       </TouchableOpacity>
-                      <Text>und der </Text>
+                      <Text style={{color: this.props.colorScheme == 'dark' ? 'white' : undefined}}>und der </Text>
                       <TouchableOpacity onPress={() => this.openPrivacyPolicy()}>
                         <Text style={{color: '#2089DC'}}>Datenschutzerklärung </Text>
                       </TouchableOpacity>
-                      <Text>zu.</Text>
+                      <Text style={{color: this.props.colorScheme == 'dark' ? 'white' : undefined}}>zu.</Text>
                     </View>
                   </View>
                 )}
@@ -136,16 +141,18 @@ class Login extends React.Component<PropsType, StateType> {
                       width: 350,
                       paddingTop: 10,
                     }}>
-                    <Text>Wenn du dich anmeldest, stimmst du unseren</Text>
+                    <Text style={{color: this.props.colorScheme == 'dark' ? 'white' : undefined}}>
+                      Wenn du dich anmeldest, stimmst du unseren
+                    </Text>
                     <View style={{flexDirection: 'row'}}>
                       <TouchableOpacity onPress={() => this.openTerms()}>
                         <Text style={{color: '#2089DC'}}> AGB's </Text>
                       </TouchableOpacity>
-                      <Text>und der </Text>
+                      <Text style={{color: this.props.colorScheme == 'dark' ? 'white' : undefined}}>und der </Text>
                       <TouchableOpacity onPress={() => this.openPrivacyPolicy()}>
                         <Text style={{color: '#2089DC'}}>Datenschutzerklärung </Text>
                       </TouchableOpacity>
-                      <Text>zu.</Text>
+                      <Text style={{color: this.props.colorScheme == 'dark' ? 'white' : undefined}}>zu.</Text>
                     </View>
                   </View>
                 )}
@@ -161,6 +168,10 @@ class Login extends React.Component<PropsType, StateType> {
                   buttonStyle={{
                     height: 50,
                     borderRadius: 10,
+                  }}
+                  containerStyle={{
+                    marginTop: Platform.OS == 'android' ? -10 : undefined,
+                    paddingHorizontal: Platform.OS == 'android' ? 20 : undefined,
                   }}
                   title={this.state.loginSegment == 0 ? 'Konto erstellen' : 'Anmelden'}
                 />
