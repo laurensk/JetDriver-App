@@ -1,5 +1,5 @@
 import React, {Component, ComponentClass, createRef} from 'react';
-import {View, TextInput, Text, Button, ColorSchemeName, Alert} from 'react-native';
+import {View, TextInput, Text, Button, ColorSchemeName, Alert, Platform} from 'react-native';
 import {NavigationScreenProp, NavigationRoute} from 'react-navigation';
 import AppContext from '../utils/AppContext';
 import {ModalSheet} from '../toolbox/ModalSheet';
@@ -194,7 +194,11 @@ class CreateEntry extends React.Component<PropsType, StateType> {
                   </Text>
                   <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
                     <TextInput
-                      style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
+                      style={{
+                        color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                        paddingVertical: Platform.OS == 'android' ? 0 : undefined,
+                        marginTop: Platform.OS == 'android' ? -4 : undefined,
+                      }}
                       placeholder="Eingeben..."
                       keyboardType="number-pad"
                       value={this.state.startMileage}
@@ -226,7 +230,11 @@ class CreateEntry extends React.Component<PropsType, StateType> {
                     </Text>
                     <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
                       <TextInput
-                        style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
+                        style={{
+                          color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                          paddingVertical: Platform.OS == 'android' ? 0 : undefined,
+                          marginTop: Platform.OS == 'android' ? -4 : undefined,
+                        }}
                         placeholder="6969"
                         value={
                           this.state.startDate.getDate() +
@@ -266,7 +274,11 @@ class CreateEntry extends React.Component<PropsType, StateType> {
                   </Text>
                   <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
                     <TextInput
-                      style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
+                      style={{
+                        color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                        paddingVertical: Platform.OS == 'android' ? 0 : undefined,
+                        marginTop: Platform.OS == 'android' ? -4 : undefined,
+                      }}
                       placeholder="Eingeben..."
                       keyboardType="number-pad"
                       value={this.state.endMileage}
@@ -298,7 +310,11 @@ class CreateEntry extends React.Component<PropsType, StateType> {
                     </Text>
                     <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
                       <TextInput
-                        style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
+                        style={{
+                          color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                          paddingVertical: Platform.OS == 'android' ? 0 : undefined,
+                          marginTop: Platform.OS == 'android' ? -4 : undefined,
+                        }}
                         placeholder="6969"
                         value={
                           this.state.endDate.getDate() +
@@ -338,7 +354,11 @@ class CreateEntry extends React.Component<PropsType, StateType> {
                   </Text>
                   <View style={{flexDirection: 'row', justifyContent: 'flex-end', maxWidth: 200}}>
                     <TextInput
-                      style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
+                      style={{
+                        color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                        paddingVertical: Platform.OS == 'android' ? 0 : undefined,
+                        marginTop: Platform.OS == 'android' ? -4 : undefined,
+                      }}
                       placeholder="Eingeben..."
                       value={this.state.routeDest}
                       onChangeText={(t) => {
@@ -369,7 +389,11 @@ class CreateEntry extends React.Component<PropsType, StateType> {
                     </Text>
                     <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
                       <TextInput
-                        style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
+                        style={{
+                          color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                          paddingVertical: Platform.OS == 'android' ? 0 : undefined,
+                          marginTop: Platform.OS == 'android' ? -4 : undefined,
+                        }}
                         editable={false}
                         placeholder="Auswählen"
                         value={RoadConditionTranslation.get(
@@ -400,7 +424,11 @@ class CreateEntry extends React.Component<PropsType, StateType> {
                     </Text>
                     <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
                       <TextInput
-                        style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
+                        style={{
+                          color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                          paddingVertical: Platform.OS == 'android' ? 0 : undefined,
+                          marginTop: Platform.OS == 'android' ? -4 : undefined,
+                        }}
                         editable={false}
                         placeholder="Auswählen"
                         value={this.state.carSelected?.name}></TextInput>
@@ -429,7 +457,11 @@ class CreateEntry extends React.Component<PropsType, StateType> {
                     </Text>
                     <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
                       <TextInput
-                        style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
+                        style={{
+                          color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                          paddingVertical: Platform.OS == 'android' ? 0 : undefined,
+                          marginTop: Platform.OS == 'android' ? -4 : undefined,
+                        }}
                         editable={false}
                         placeholder="Auswählen"
                         value={this.state.companionSelected?.name}></TextInput>
@@ -458,7 +490,11 @@ class CreateEntry extends React.Component<PropsType, StateType> {
                     </Text>
                     <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
                       <TextInput
-                        style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
+                        style={{
+                          color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                          paddingVertical: Platform.OS == 'android' ? 0 : undefined,
+                          marginTop: Platform.OS == 'android' ? -4 : undefined,
+                        }}
                         editable={false}
                         placeholder="Auswählen"
                         value={DaytimeTranslation.get(this.state.daytimeSelected?.daytime || '')}></TextInput>

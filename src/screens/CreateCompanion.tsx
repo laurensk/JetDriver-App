@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, TextInput, Text, ColorSchemeName, Alert} from 'react-native';
+import {View, TextInput, Text, ColorSchemeName, Alert, Platform} from 'react-native';
 import {NavigationScreenProp, NavigationRoute} from 'react-navigation';
 import AppContext from '../utils/AppContext';
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -61,7 +61,11 @@ class CreateCompanion extends React.Component<PropsType, StateType> {
                   </Text>
                   <View style={{flexDirection: 'row', justifyContent: 'flex-end', maxWidth: 200}}>
                     <TextInput
-                      style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
+                      style={{
+                        color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                        paddingVertical: Platform.OS == 'android' ? 0 : undefined,
+                        marginTop: Platform.OS == 'android' ? -4 : undefined,
+                      }}
                       placeholder="Eingeben..."
                       value={this.state.name}
                       onChangeText={(t) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, TextInput, Text, Button, ColorSchemeName, Alert, TouchableHighlightBase} from 'react-native';
+import {View, TextInput, Text, Button, ColorSchemeName, Alert, TouchableHighlightBase, Platform} from 'react-native';
 import {NavigationScreenProp, NavigationRoute} from 'react-navigation';
 import AppContext from '../utils/AppContext';
 import {ModalSheet} from '../toolbox/ModalSheet';
@@ -90,7 +90,11 @@ class CreateCar extends React.Component<PropsType, StateType> {
                   </Text>
                   <View style={{flexDirection: 'row', justifyContent: 'flex-end', maxWidth: 200}}>
                     <TextInput
-                      style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
+                      style={{
+                        color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                        paddingVertical: Platform.OS == 'android' ? 0 : undefined,
+                        marginTop: Platform.OS == 'android' ? -4 : undefined,
+                      }}
                       placeholder="Eingeben..."
                       value={this.state.name}
                       onChangeText={(t) => {
@@ -119,7 +123,11 @@ class CreateCar extends React.Component<PropsType, StateType> {
                   </Text>
                   <View style={{flexDirection: 'row', justifyContent: 'flex-end', maxWidth: 200}}>
                     <TextInput
-                      style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
+                      style={{
+                        color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                        paddingVertical: Platform.OS == 'android' ? 0 : undefined,
+                        marginTop: Platform.OS == 'android' ? -4 : undefined,
+                      }}
                       placeholder="Eingeben..."
                       value={this.state.numberPlate}
                       onChangeText={(t) => {
@@ -149,7 +157,11 @@ class CreateCar extends React.Component<PropsType, StateType> {
                     </Text>
                     <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
                       <TextInput
-                        style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
+                        style={{
+                          color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                          paddingVertical: Platform.OS == 'android' ? 0 : undefined,
+                          marginTop: Platform.OS == 'android' ? -4 : undefined,
+                        }}
                         placeholder="Auswählen"
                         value={CarTypeTranslation.get(this.state.carType?.type || '')}
                         editable={false}></TextInput>
@@ -177,7 +189,11 @@ class CreateCar extends React.Component<PropsType, StateType> {
                   </Text>
                   <View style={{flexDirection: 'row', justifyContent: 'flex-end', maxWidth: 200}}>
                     <TextInput
-                      style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
+                      style={{
+                        color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                        paddingVertical: Platform.OS == 'android' ? 0 : undefined,
+                        marginTop: Platform.OS == 'android' ? -4 : undefined,
+                      }}
                       placeholder="Eingeben..."
                       value={this.state.brand}
                       onChangeText={(t) => {
@@ -206,7 +222,11 @@ class CreateCar extends React.Component<PropsType, StateType> {
                   </Text>
                   <View style={{flexDirection: 'row', justifyContent: 'flex-end', maxWidth: 200}}>
                     <TextInput
-                      style={{color: this.props.colorScheme == 'dark' ? 'white' : 'black'}}
+                      style={{
+                        color: this.props.colorScheme == 'dark' ? 'white' : 'black',
+                        paddingVertical: Platform.OS == 'android' ? 0 : undefined,
+                        marginTop: Platform.OS == 'android' ? -4 : undefined,
+                      }}
                       placeholder="Eingeben..."
                       value={this.state.model}
                       onChangeText={(t) => {
