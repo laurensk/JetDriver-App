@@ -1,5 +1,6 @@
-import {Alert} from 'react-native';
+import {Alert, Platform} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import prompt from 'react-native-prompt-android';
 
 export class QuickDriveUtils {
   static async checkForQuickDrive() {
@@ -8,14 +9,20 @@ export class QuickDriveUtils {
   }
 
   static async startQuickDrive(callback: Function) {
-    this.startQuickDriveAlert((startMileage: number) => {
-      this.startQuickDriveData(startMileage, () => {
-        callback();
-      });
-    });
+    Platform.OS == 'ios'
+      ? this.startQuickDriveAlertIos((startMileage: number) => {
+          this.startQuickDriveData(startMileage, () => {
+            callback();
+          });
+        })
+      : this.startQuickDriveAlertAndroid((startMileage: number) => {
+          this.startQuickDriveData(startMileage, () => {
+            callback();
+          });
+        });
   }
 
-  static async startQuickDriveAlert(callback: Function) {
+  static async startQuickDriveAlertIos(callback: Function) {
     Alert.prompt(
       'Fahrt starten',
       'Bitte gib den aktuellen Kilometerstand deines Fahrzeugs ein.',
@@ -34,6 +41,19 @@ export class QuickDriveUtils {
       'phone-pad'
     );
   }
+
+  static async startQuickDriveAlertAndroid(callback: Function) {
+    prompt(
+      'Fahrt starten',
+      'Bitte gib den aktuellen Kilometerstand deines Fahrzeugs ein.',
+      [{text: 'Abbrechen'}, {text: 'Fahrt starten', onPress: (startMileage) => callback(startMileage)}],
+      {
+        type: 'plain-text',
+        cancelable: true,
+      }
+    );
+  }
+
   static async startQuickDriveData(startMileage: number, callback: Function) {
     if (isNaN(startMileage)) {
       this.showQuickDriveError(this.quickDriveErrors.notANumber);
@@ -48,15 +68,25 @@ export class QuickDriveUtils {
   }
 
   static async stopQuickDrive(callback: Function) {
-    this.stopQuickDriveAlert((endMileage: number) => {
-      if (isNaN(endMileage)) {
-        this.showQuickDriveError(this.quickDriveErrors.notANumber);
-        return;
-      }
-      this.stopQuickDriveData(endMileage, (startDate: Date, startMileage: number) => {
-        callback(startDate, Date(), startMileage, endMileage);
-      });
-    });
+    Platform.OS == 'ios'
+      ? this.stopQuickDriveAlertIos((endMileage: number) => {
+          if (isNaN(endMileage)) {
+            this.showQuickDriveError(this.quickDriveErrors.notANumber);
+            return;
+          }
+          this.stopQuickDriveData(endMileage, (startDate: Date, startMileage: number) => {
+            callback(startDate, Date(), startMileage, endMileage);
+          });
+        })
+      : this.stopQuickDriveAlertAndroid((endMileage: number) => {
+          if (isNaN(endMileage)) {
+            this.showQuickDriveError(this.quickDriveErrors.notANumber);
+            return;
+          }
+          this.stopQuickDriveData(endMileage, (startDate: Date, startMileage: number) => {
+            callback(startDate, Date(), startMileage, endMileage);
+          });
+        });
   }
 
   static async stopQuickDriveData(endMileage: number, callback: Function) {
@@ -74,7 +104,7 @@ export class QuickDriveUtils {
     callback(startDate, startMileage);
   }
 
-  static async stopQuickDriveAlert(callback: Function) {
+  static async stopQuickDriveAlertIos(callback: Function) {
     Alert.prompt(
       'Fahrt beenden',
       'Bitte gib den aktuellen Kilometerstand deines Fahrzeugs ein.',
@@ -91,6 +121,18 @@ export class QuickDriveUtils {
       'plain-text',
       '',
       'phone-pad'
+    );
+  }
+
+  static async stopQuickDriveAlertAndroid(callback: Function) {
+    prompt(
+      'Fahrt beenden',
+      'Bitte gib den aktuellen Kilometerstand deines Fahrzeugs ein.',
+      [{text: 'Abbrechen'}, {text: 'Fahrt beenden', onPress: (endMileage) => callback(endMileage)}],
+      {
+        type: 'plain-text',
+        cancelable: true,
+      }
     );
   }
 
