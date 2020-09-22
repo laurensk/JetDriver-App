@@ -274,7 +274,6 @@ class CreateCar extends React.Component<PropsType, StateType> {
   }
 
   createCar() {
-    console.log(this.state.carType);
     if (this.validateCar()) {
       this.postCar(
         this.state.carType?.id || -1,
@@ -300,7 +299,6 @@ class CreateCar extends React.Component<PropsType, StateType> {
 
   postCar(carTypeId: number, name: string, numberPlate: string, brand: string, model: string) {
     ApiService.createCar(carTypeId, name, numberPlate, brand, model, (car: Car, error: ApiError) => {
-      console.log(error);
       this.setState({loading: false});
       if (error) {
         setTimeout(() => ErrorAlert.present(ApiErrorTranslation.get(error.message)), 10);

@@ -101,7 +101,6 @@ class CreateCompanion extends React.Component<PropsType, StateType> {
   }
 
   createCompanion() {
-    console.log(this.validateCompanion());
     if (this.validateCompanion()) {
       this.postCompanion(this.state.name);
     } else {

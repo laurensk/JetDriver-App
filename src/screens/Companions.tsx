@@ -116,7 +116,6 @@ export class Companions extends React.Component<PropsType, StateType> {
       this.setState({loading: false});
       if (error && error.message != 'COMPANION_NOT_FOUND')
         return setTimeout(() => ErrorAlert.present(ApiErrorTranslation.get(error.message)), 10);
-      console.log('companions: ', companions);
       if (companions) {
         this.setState({companions: companions});
       } else {
