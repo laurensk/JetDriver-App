@@ -13,7 +13,9 @@ export class NavigationTheme {
 
   static darkNavigationHeaderTheme() {
     return Platform.OS != 'ios'
-      ? undefined
+      ? {
+          backgroundColor: '#121212',
+        }
       : {
           backgroundColor: '#121212',
           borderBottomColor: '#1A1B1B', // #202020 #1A1B1B
@@ -32,7 +34,9 @@ export class NavigationTheme {
 
   static darkNavigationTitleTheme() {
     return Platform.OS != 'ios'
-      ? undefined
+      ? {
+          color: 'white',
+        }
       : {
           color: '#FFFFFF',
         };
