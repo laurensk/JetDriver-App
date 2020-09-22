@@ -2,7 +2,7 @@ export class ApiErrorTranslation {
   static translation: any = {
     ERROR:
       'Es ist ein unbekannter Fehler aufgetreten. Bitte überprüfe deine Netzwerkverbindung und versuche es später erneut.',
-    UNAUTHENTICATED: 'Du bist derzeit nicht angemeldet. Bitte start die App neu, um dich erneut anzumelden.',
+    UNAUTHENTICATED: 'Du bist derzeit nicht angemeldet. Bitte starte die App neu, um dich erneut anzumelden.',
     INVALID_TOKEN: 'Du bist derzeit nicht angemeldet. Bitte start die App neu, um dich erneut anzumelden.',
     VALIDATION_ERROR: 'Die eingegebenen Daten sind falsch bzw. nicht gültig. Bitte überprüfe deine Eingabe erneut.',
     EMAIL_EXISTS: 'Diese E-Mail-Adresse ist bereits bei JetDriver registriert.',
