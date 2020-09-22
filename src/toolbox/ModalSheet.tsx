@@ -1,12 +1,14 @@
 import React from 'react';
 import {createNativeStackNavigator} from 'react-native-screens/native-stack';
-import {useColorScheme, Modal, StatusBar, Button, Platform} from 'react-native';
+import {useColorScheme, Modal, StatusBar, Button, Platform, ColorSchemeName} from 'react-native';
 import {NavigationTheme} from './NavigationTheme';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Icon} from 'react-native-elements';
+import AppContext from '../utils/AppContext';
 
 interface PropsType {
+  colorScheme: ColorSchemeName;
   component: any;
   componentProps: any;
   headerTitle: string;
@@ -15,7 +17,7 @@ interface PropsType {
   visible: boolean;
 }
 
-export const ModalSheet = (props: PropsType) => {
+const ModalSheetComponent = (props: PropsType) => {
   const NativeStack = createNativeStackNavigator();
   const Stack = createStackNavigator();
 
@@ -64,7 +66,13 @@ export const ModalSheet = (props: PropsType) => {
                   onPress={() => {
                     props.headerOnClose();
                   }}>
-                  <Icon style={{paddingLeft: 20}} name="close" type="material-community" size={25} />
+                  <Icon
+                    color={props.colorScheme == 'dark' ? 'white' : undefined}
+                    style={{paddingLeft: 20}}
+                    name="close"
+                    type="material-community"
+                    size={25}
+                  />
                 </TouchableOpacity>
               ),
             }}>
@@ -75,3 +83,5 @@ export const ModalSheet = (props: PropsType) => {
     </Modal>
   );
 };
+
+export const ModalSheet = AppContext(ModalSheetComponent);
