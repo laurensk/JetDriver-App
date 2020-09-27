@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, ColorSchemeName, Image, Text, Alert, Linking, Platform} from 'react-native';
+import {View, ColorSchemeName, Image, Text, Alert, Linking, Platform, Dimensions} from 'react-native';
 import {NavigationScreenProp} from 'react-navigation';
 import AppContext from '../utils/AppContext';
 import {Button, Icon} from 'react-native-elements';
@@ -66,7 +66,7 @@ class Home extends React.Component<PropsType, StateType> {
           source={require('../assets/jetdriver_logo.png')}
           resizeMode={'contain'}
           style={{width: 250, height: 150}}></Image>
-        <View style={{paddingTop: 100}}></View>
+        <View style={{paddingTop: Dimensions.get('window').height < 670 ? 30 : 100}}></View>
         <View>
           <Text
             style={{
@@ -146,7 +146,7 @@ class Home extends React.Component<PropsType, StateType> {
             onPress={() => this.props.navigation.navigate('Companions')}
           />
         </View>
-        <View style={{paddingTop: 100}}></View>
+        <View style={{paddingTop: Dimensions.get('window').height < 670 ? 50 : 100}}></View>
         <View style={{flexDirection: 'row'}}>
           <Button title="Über JetDriver" type="clear" onPress={() => this.props.navigation.navigate('About')} />
           <Button title="Kontakt" type="clear" onPress={() => this.openContact()} />
