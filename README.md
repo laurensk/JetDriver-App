@@ -5,7 +5,7 @@ Additionally, you can manage cars and companions and link them to your entries. 
 
 ## Screenshots
 ![](https://i.imgur.com/bz9Ggvr.png)
-// may add more with jsut the
+// may add more with just the iphone
 
 
 ## How to Build
