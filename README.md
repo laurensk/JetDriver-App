@@ -12,7 +12,7 @@ Additionally, you can manage cars and companions and link them to your entries. 
 ![](https://imgur.com/0TjwKFx) -->
 Home screen | Create entry | All entries | QuickDrive | Dark mode | Dark mode entries
 :-:|:-:|:-:|:-:|:-:|:-:
-![](https://imgur.com/UseYIHp) | ![](https://imgur.com/j6DQEzZ) | ![](https://imgur.com/RDwdxGE) | ![](https://imgur.com/PU4wpPZ) | ![](https://imgur.com/3M9Hy1t) | ![](https://imgur.com/0TjwKFx)
+![](https://imgur.com/UseYIHp.png) | ![](https://imgur.com/j6DQEzZ.png) | ![](https://imgur.com/RDwdxGE.png) | ![](https://imgur.com/PU4wpPZ.png) | ![](https://imgur.com/3M9Hy1t.png) | ![](https://imgur.com/0TjwKFx.png)
 
 
 ## How to Build
